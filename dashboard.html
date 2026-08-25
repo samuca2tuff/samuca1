@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SAMUCA • Dashboard</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #070707;
+    color: white;
+}
+
+header {
+    height: 75px;
+    background: #111;
+    border-bottom: 1px solid #292929;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 35px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.logo span {
+    color: #348cff;
+}
+
+.online {
+    color: #39ff88;
+    font-size: 13px;
+}
+
+.container {
+    padding: 35px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+.title h1 {
+    margin: 0;
+}
+
+.refresh {
+    padding: 12px 20px;
+    border: 0;
+    border-radius: 8px;
+    background: #287cff;
+    color: white;
+    cursor: pointer;
+}
+
+.stats {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat {
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 12px;
+    padding: 20px;
+    width: 220px;
+}
+
+.stat p {
+    color: #777;
+    margin: 0;
+    font-size: 12px;
+}
+
+.stat h2 {
+    margin-top: 10px;
+    color: #348cff;
+}
+
+/* AGENDAMENTOS */
+
+#appointments {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.appointment {
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 15px;
+    padding: 22px;
+}
+
+.appointment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.appointment-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.status {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    background: #332b00;
+    color: #ffd83d;
+}
+
+.info {
+    margin: 10px 0;
+    color: #bbb;
+}
+
+.info strong {
+    color: white;
+}
+
+.reference {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.actions button {
+    flex: 1;
+    padding: 10px;
+    border: 0;
+    border-radius: 7px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+.confirm {
+    background: #168b4d;
+}
+
+.pending {
+    background: #806d00;
+}
+
+.cancel {
+    background: #8b2424;
+}
+
+.empty {
+    color: #666;
+    text-align: center;
+    padding: 60px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        SAM<span>UCA</span> BARBERSHOP
+    </div>
+
+    <div class="online">
+        ● ONLINE
+    </div>
+
+</header>
+
+<div class="container">
+
+    <div class="title">
+
+        <h1>Agendamentos</h1>
+
+        <button
+            class="refresh"
+            onclick="carregar()"
+        >
+            ↻ Atualizar
+        </button>
+
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <p>TOTAL</p>
+
+            <h2 id="total">
+                0
+            </h2>
+
+        </div>
+
+        <div class="stat">
+
+            <p>PENDENTES</p>
+
+            <h2 id="pendentes">
+                0
+            </h2>
+
+        </div>
+
+        <div class="stat">
+
+            <p>CONFIRMADOS</p>
+
+            <h2 id="confirmados">
+                0
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div id="appointments"></div>
+
+</div>
+
+<script>
+
+async function carregar() {
+
+    try {
+
+        const response =
+            await fetch("/api/submissions");
+
+        const dados =
+            await response.json();
+
+        document.getElementById("total").textContent =
+            dados.length;
+
+        document.getElementById("pendentes").textContent =
+            dados.filter(x => x.status === "Pendente").length;
+
+        document.getElementById("confirmados").textContent =
+            dados.filter(x => x.status === "Confirmado").length;
+
+        const container =
+            document.getElementById("appointments");
+
+        container.innerHTML = "";
+
+        if (dados.length === 0) {
+
+            container.innerHTML =
+                '<div class="empty">Nenhum agendamento recebido.</div>';
+
+            return;
+        }
+
+        dados.slice().reverse().forEach(item => {
+
+            const card =
+                document.createElement("div");
+
+            card.className = "appointment";
+
+            card.innerHTML = `
+
+                <div class="appointment-header">
+
+                    <h2>
+                        ${escapeHTML(item.nome)}
+                    </h2>
+
+                    <span class="status">
+                        ${escapeHTML(item.status)}
+                    </span>
+
+                </div>
+
+                <div class="info">
+                    📞 <strong>Telefone:</strong>
+                    ${escapeHTML(item.telefone)}
+                </div>
+
+                <div class="info">
+                    📧 <strong>E-mail:</strong>
+                    ${escapeHTML(item.email || "Não informado")}
+                </div>
+
+                <div class="info">
+                    📅 <strong>Data:</strong>
+                    ${escapeHTML(item.data)}
+                </div>
+
+                <div class="info">
+                    🕐 <strong>Horário:</strong>
+                    ${escapeHTML(item.horario)}
+                </div>
+
+                <div class="info">
+                    ✂️ <strong>Serviço:</strong>
+                    ${escapeHTML(item.servico)}
+                </div>
+
+                <div class="info">
+                    💈 <strong>Corte:</strong>
+                    ${escapeHTML(item.tipo)}
+                </div>
+
+                <div class="info">
+                    📝 <strong>Observações:</strong>
+                    ${escapeHTML(item.observacoes || "Nenhuma")}
+                </div>
+
+                ${
+                    item.foto
+                    ?
+                    `<img
+                        class="reference"
+                        src="${item.foto}"
+                        alt="Foto de referência"
+                    >`
+                    :
+                    ""
+                }
+
+                <div class="info">
+                    <small>
+                        Recebido: ${escapeHTML(item.enviadoEm)}
+                    </small>
+                </div>
+
+                <div class="actions">
+
+                    <button
+                        class="confirm"
+                        onclick="mudarStatus(${item.id}, 'Confirmado')"
+                    >
+                        ✓ Confirmar
+                    </button>
+
+                    <button
+                        class="pending"
+                        onclick="mudarStatus(${item.id}, 'Pendente')"
+                    >
+                        Pendente
+                    </button>
+
+                    <button
+                        class="cancel"
+                        onclick="mudarStatus(${item.id}, 'Cancelado')"
+                    >
+                        ✕ Cancelar
+                    </button>
+
+                </div>
+            `;
+
+            container.appendChild(card);
+
+        });
+
+    } catch (error) {
+
+        document.getElementById("appointments").innerHTML =
+            '<div class="empty">Servidor offline.</div>';
+
+    }
+}
+
+
+async function mudarStatus(id, status) {
+
+    await fetch("/api/status", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            id,
+            status
+        })
+
+    });
+
+    carregar();
+}
+
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text ?? "";
+
+    return div.innerHTML;
+}
+
+
+carregar();
+
+setInterval(carregar, 5000);
+
+</script>
+
+</body>
+
+</html>

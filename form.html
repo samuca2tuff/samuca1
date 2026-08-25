@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SAMUCA • Agendamento</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #080808;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+}
+
+.form {
+    width: 500px;
+
+    background: #111;
+
+    border: 1px solid #292929;
+    border-radius: 18px;
+
+    padding: 35px;
+
+    box-shadow: 0 0 40px rgba(0, 100, 255, .12);
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo h1 {
+    font-size: 36px;
+    letter-spacing: 5px;
+    margin: 0;
+}
+
+.logo span {
+    color: #348cff;
+}
+
+.logo p {
+    color: #777;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+label {
+    display: block;
+
+    margin-top: 18px;
+    margin-bottom: 7px;
+
+    color: #aaa;
+    font-size: 13px;
+}
+
+input,
+select,
+textarea {
+
+    width: 100%;
+
+    padding: 14px;
+
+    background: #090909;
+
+    border: 1px solid #292929;
+
+    border-radius: 8px;
+
+    color: white;
+
+    outline: none;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #348cff;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+input[type="file"] {
+    padding: 11px;
+}
+
+button {
+
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 15px;
+
+    background: #287cff;
+
+    border: none;
+
+    border-radius: 8px;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+button:hover {
+    background: #1268ed;
+}
+
+button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+#status {
+
+    text-align: center;
+
+    margin-top: 15px;
+
+    color: #888;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="form">
+
+    <div class="logo">
+
+        <h1>
+            SAM<span>UCA</span>
+        </h1>
+
+        <p>
+            BARBERSHOP • AGENDAMENTO
+        </p>
+
+    </div>
+
+
+    <label>
+        Nome completo *
+    </label>
+
+    <input
+        id="nome"
+        type="text"
+        placeholder="Digite seu nome"
+    >
+
+
+    <label>
+        Telefone *
+    </label>
+
+    <input
+        id="telefone"
+        type="tel"
+        placeholder="(00) 00000-0000"
+    >
+
+
+    <label>
+        E-mail
+    </label>
+
+    <input
+        id="email"
+        type="email"
+        placeholder="seuemail@email.com"
+    >
+
+
+    <label>
+        Data do corte *
+    </label>
+
+    <input
+        id="data"
+        type="date"
+    >
+
+
+    <label>
+        Horário *
+    </label>
+
+    <select id="horario">
+
+        <option value="">
+            Selecione um horário
+        </option>
+
+        <option>09:00</option>
+        <option>09:30</option>
+
+        <option>10:00</option>
+        <option>10:30</option>
+
+        <option>11:00</option>
+        <option>11:30</option>
+
+        <option>13:00</option>
+        <option>13:30</option>
+
+        <option>14:00</option>
+        <option>14:30</option>
+
+        <option>15:00</option>
+        <option>15:30</option>
+
+        <option>16:00</option>
+        <option>16:30</option>
+
+        <option>17:00</option>
+        <option>17:30</option>
+
+        <option>18:00</option>
+        <option>18:30</option>
+
+    </select>
+
+
+    <label>
+        Serviço *
+    </label>
+
+    <select id="servico">
+
+        <option value="">
+            Selecione o serviço
+        </option>
+
+        <option>
+            Corte masculino
+        </option>
+
+        <option>
+            Corte + barba
+        </option>
+
+        <option>
+            Barba
+        </option>
+
+        <option>
+            Corte infantil
+        </option>
+
+        <option>
+            Outro
+        </option>
+
+    </select>
+
+
+    <label>
+        Tipo de corte *
+    </label>
+
+    <select id="tipo">
+
+        <option value="">
+            Selecione o corte
+        </option>
+
+        <option>
+            Degradê / Fade
+        </option>
+
+        <option>
+            Taper Fade
+        </option>
+
+        <option>
+            Social
+        </option>
+
+        <option>
+            Buzz Cut
+        </option>
+
+        <option>
+            Undercut
+        </option>
+
+        <option>
+            Outro
+        </option>
+
+    </select>
+
+
+    <label>
+        📷 Foto de referência
+    </label>
+
+    <input
+        id="foto"
+        type="file"
+        accept="image/*"
+    >
+
+
+    <label>
+        📝 Observações
+    </label>
+
+    <textarea
+        id="observacoes"
+        placeholder="Ex: Não subir muito o degradê..."
+    ></textarea>
+
+
+    <button
+        id="botao"
+        onclick="agendar()"
+    >
+        ✂️ AGENDAR CORTE
+    </button>
+
+
+    <div id="status"></div>
+
+</div>
+
+
+<script>
+
+async function agendar() {
+
+    const botao =
+        document.getElementById("botao");
+
+    const status =
+        document.getElementById("status");
+
+
+    const nome =
+        document.getElementById("nome").value.trim();
+
+    const telefone =
+        document.getElementById("telefone").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const data =
+        document.getElementById("data").value;
+
+    const horario =
+        document.getElementById("horario").value;
+
+    const servico =
+        document.getElementById("servico").value;
+
+    const tipo =
+        document.getElementById("tipo").value;
+
+    const observacoes =
+        document.getElementById("observacoes").value.trim();
+
+    const foto =
+        document.getElementById("foto").files[0];
+
+
+    if (
+        !nome ||
+        !telefone ||
+        !data ||
+        !horario ||
+        !servico ||
+        !tipo
+    ) {
+
+        status.textContent =
+            "❌ Preencha todos os campos obrigatórios.";
+
+        return;
+
+    }
+
+
+    botao.disabled = true;
+
+    status.textContent =
+        "Enviando agendamento...";
+
+
+    const formData =
+        new FormData();
+
+
+    formData.append(
+        "nome",
+        nome
+    );
+
+    formData.append(
+        "telefone",
+        telefone
+    );
+
+    formData.append(
+        "email",
+        email
+    );
+
+    formData.append(
+        "data",
+        data
+    );
+
+    formData.append(
+        "horario",
+        horario
+    );
+
+    formData.append(
+        "servico",
+        servico
+    );
+
+    formData.append(
+        "tipo",
+        tipo
+    );
+
+    formData.append(
+        "observacoes",
+        observacoes
+    );
+
+
+    if (foto) {
+
+        formData.append(
+            "foto",
+            foto
+        );
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/submit",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (result.success) {
+
+            status.textContent =
+                "✅ Agendamento enviado com sucesso!";
+
+
+            document.getElementById("nome").value = "";
+
+            document.getElementById("telefone").value = "";
+
+            document.getElementById("email").value = "";
+
+            document.getElementById("data").value = "";
+
+            document.getElementById("horario").value = "";
+
+            document.getElementById("servico").value = "";
+
+            document.getElementById("tipo").value = "";
+
+            document.getElementById("observacoes").value = "";
+
+            document.getElementById("foto").value = "";
+
+
+        } else {
+
+            status.textContent =
+                "❌ " + result.message;
+
+        }
+
+
+    } catch (error) {
+
+        status.textContent =
+            "❌ Servidor offline.";
+
+    }
+
+
+    botao.disabled = false;
+
+}
+
+</script>
+
+</body>
+
+</html>
