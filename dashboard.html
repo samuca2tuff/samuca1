@@ -32,7 +32,8 @@ body {
 ========================================= */
 
 header {
-    height: 75px;
+    min-height: 75px;
+
     background: #111;
     border-bottom: 1px solid #292929;
 
@@ -40,7 +41,9 @@ header {
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 35px;
+    padding: 15px 35px;
+
+    gap: 15px;
 }
 
 .logo {
@@ -104,6 +107,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    gap: 15px;
+
     margin-bottom: 25px;
 }
 
@@ -158,6 +164,98 @@ header {
 .stat h2 {
     margin: 10px 0 0;
     color: #348cff;
+}
+
+
+/* =========================================
+   RELATÓRIO
+========================================= */
+
+.report {
+    margin-bottom: 30px;
+}
+
+.report h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.report-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 15px;
+}
+
+.report-card {
+    background: #111;
+
+    border: 1px solid #292929;
+    border-radius: 12px;
+
+    padding: 20px;
+}
+
+.report-card p {
+    color: #777;
+    margin: 0;
+    font-size: 12px;
+}
+
+.report-card h2 {
+    color: #39ff88;
+    margin: 10px 0 0;
+}
+
+
+/* =========================================
+   BUSCA E FILTRO
+========================================= */
+
+.filters {
+    display: grid;
+
+    grid-template-columns:
+        1fr 220px auto;
+
+    gap: 12px;
+
+    margin-bottom: 25px;
+}
+
+.filters input {
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border-radius: 8px;
+
+    border: 1px solid #292929;
+
+    background: #111;
+
+    color: white;
+
+    outline: none;
+}
+
+.filters input:focus {
+    border-color: #348cff;
+}
+
+.clear-filter {
+    padding: 12px 18px;
+
+    border: 1px solid #292929;
+    border-radius: 8px;
+
+    background: #191919;
+
+    color: white;
+
+    cursor: pointer;
 }
 
 
@@ -274,6 +372,11 @@ header {
     color: #39ff88;
 }
 
+.status-andamento {
+    background: #30204a;
+    color: #bd8cff;
+}
+
 .status-cancelado {
     background: #451818;
     color: #ff6b6b;
@@ -364,6 +467,10 @@ header {
     background: #806d00;
 }
 
+.progress {
+    background: #6542a3;
+}
+
 .cancel {
     background: #8b2424;
 }
@@ -408,14 +515,14 @@ header {
    MOBILE
 ========================================= */
 
-@media(max-width: 600px) {
+@media(max-width: 700px) {
 
     header {
-        padding: 0 18px;
+        padding: 15px 18px;
     }
 
     .logo {
-        font-size: 17px;
+        font-size: 16px;
     }
 
     .online {
@@ -428,11 +535,19 @@ header {
 
     .title {
         align-items: flex-start;
-        gap: 15px;
+        flex-direction: column;
     }
 
     .title h1 {
         font-size: 24px;
+    }
+
+    .refresh {
+        width: 100%;
+    }
+
+    .filters {
+        grid-template-columns: 1fr;
     }
 
     #appointments {
@@ -517,6 +632,11 @@ header {
         </div>
 
         <div class="stat">
+            <p>EM ANDAMENTO</p>
+            <h2 id="andamento">0</h2>
+        </div>
+
+        <div class="stat">
             <p>PAGOS</p>
             <h2 id="pagos">0</h2>
         </div>
@@ -530,6 +650,95 @@ header {
             <p>TOTAL RECEBIDO</p>
             <h2 id="recebido">$0.00</h2>
         </div>
+
+    </div>
+
+
+    <!-- RELATÓRIO -->
+
+    <div class="report">
+
+        <h2>
+            📊 Relatório de ganhos
+        </h2>
+
+
+        <div class="report-grid">
+
+            <div class="report-card">
+
+                <p>
+                    HOJE
+                </p>
+
+                <h2
+                    id="ganhoHoje"
+                >
+                    $0.00
+                </h2>
+
+            </div>
+
+
+            <div class="report-card">
+
+                <p>
+                    ESTA SEMANA
+                </p>
+
+                <h2
+                    id="ganhoSemana"
+                >
+                    $0.00
+                </h2>
+
+            </div>
+
+
+            <div class="report-card">
+
+                <p>
+                    ESTE MÊS
+                </p>
+
+                <h2
+                    id="ganhoMes"
+                >
+                    $0.00
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BUSCA E FILTRO -->
+
+    <div class="filters">
+
+        <input
+            type="text"
+            id="busca"
+            placeholder="🔎 Buscar por nome ou telefone..."
+            oninput="renderizar()"
+        >
+
+
+        <input
+            type="date"
+            id="filtroData"
+            onchange="renderizar()"
+        >
+
+
+        <button
+            class="clear-filter"
+            onclick="limparFiltros()"
+        >
+            Limpar filtros
+        </button>
 
     </div>
 
@@ -557,6 +766,13 @@ header {
             onclick="mudarAba('Confirmado', this)"
         >
             ✅ Confirmados
+        </button>
+
+        <button
+            class="tab"
+            onclick="mudarAba('Em andamento', this)"
+        >
+            💈 Em andamento
         </button>
 
         <button
@@ -608,6 +824,7 @@ async function verificarLogin() {
         const response =
             await fetch("/api/auth");
 
+
         if (!response.ok) {
 
             window.location.href =
@@ -616,6 +833,7 @@ async function verificarLogin() {
             return false;
 
         }
+
 
         return true;
 
@@ -669,6 +887,8 @@ async function carregar() {
 
 
         atualizarEstatisticas();
+
+        atualizarRelatorio();
 
         renderizar();
 
@@ -729,6 +949,16 @@ function atualizarEstatisticas() {
 
 
     document.getElementById(
+        "andamento"
+    ).textContent =
+        dados.filter(
+            x =>
+                x.status ===
+                "Em andamento"
+        ).length;
+
+
+    document.getElementById(
         "pagos"
     ).textContent =
         dados.filter(
@@ -740,7 +970,9 @@ function atualizarEstatisticas() {
         "finalizados"
     ).textContent =
         dados.filter(
-            x => x.status === "Finalizado"
+            x =>
+                x.status ===
+                "Finalizado"
         ).length;
 
 
@@ -771,6 +1003,154 @@ function atualizarEstatisticas() {
     ).textContent =
         formatarPreco(
             totalRecebido
+        );
+
+}
+
+
+// ================================================
+// RELATÓRIO
+// ================================================
+
+function atualizarRelatorio() {
+
+    const hoje =
+        new Date();
+
+
+    const hojeTexto =
+        formatarDataISO(
+            hoje
+        );
+
+
+    const inicioSemana =
+        new Date(
+            hoje
+        );
+
+
+    const diaSemana =
+        hoje.getDay();
+
+
+    const diferenca =
+        diaSemana === 0
+            ? 6
+            : diaSemana - 1;
+
+
+    inicioSemana.setDate(
+        hoje.getDate() -
+        diferenca
+    );
+
+
+    inicioSemana.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+
+    const inicioMes =
+        new Date(
+            hoje.getFullYear(),
+            hoje.getMonth(),
+            1
+        );
+
+
+    let ganhoHoje = 0;
+
+    let ganhoSemana = 0;
+
+    let ganhoMes = 0;
+
+
+    dados.forEach(
+        item => {
+
+            if (
+                !item.pago
+            ) {
+
+                return;
+
+            }
+
+
+            const valor =
+                Number(
+                    item.preco || 0
+                );
+
+
+            const dataItem =
+                criarDataLocal(
+                    item.data
+                );
+
+
+            if (
+                item.data ===
+                hojeTexto
+            ) {
+
+                ganhoHoje +=
+                    valor;
+
+            }
+
+
+            if (
+                dataItem >=
+                inicioSemana
+            ) {
+
+                ganhoSemana +=
+                    valor;
+
+            }
+
+
+            if (
+                dataItem >=
+                inicioMes
+            ) {
+
+                ganhoMes +=
+                    valor;
+
+            }
+
+        }
+
+    );
+
+
+    document.getElementById(
+        "ganhoHoje"
+    ).textContent =
+        formatarPreco(
+            ganhoHoje
+        );
+
+
+    document.getElementById(
+        "ganhoSemana"
+    ).textContent =
+        formatarPreco(
+            ganhoSemana
+        );
+
+
+    document.getElementById(
+        "ganhoMes"
+    ).textContent =
+        formatarPreco(
+            ganhoMes
         );
 
 }
@@ -815,6 +1195,27 @@ function mudarAba(
 
 
 // ================================================
+// LIMPAR FILTROS
+// ================================================
+
+function limparFiltros() {
+
+    document.getElementById(
+        "busca"
+    ).value = "";
+
+
+    document.getElementById(
+        "filtroData"
+    ).value = "";
+
+
+    renderizar();
+
+}
+
+
+// ================================================
 // RENDERIZAR
 // ================================================
 
@@ -826,9 +1227,29 @@ function renderizar() {
         );
 
 
+    const busca =
+        document
+            .getElementById(
+                "busca"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const dataFiltro =
+        document.getElementById(
+            "filtroData"
+        ).value;
+
+
     let lista =
         dados.slice();
 
+
+    // --------------------------------------------
+    // FILTRO POR ABA
+    // --------------------------------------------
 
     if (
         filtroAtual !== "todos"
@@ -860,6 +1281,75 @@ function renderizar() {
     }
 
 
+    // --------------------------------------------
+    // BUSCA
+    // --------------------------------------------
+
+    if (
+        busca
+    ) {
+
+        lista =
+            lista.filter(
+                item => {
+
+                    const nome =
+                        String(
+                            item.nome || ""
+                        )
+                        .toLowerCase();
+
+
+                    const telefone =
+                        String(
+                            item.telefone || ""
+                        )
+                        .toLowerCase();
+
+
+                    return (
+
+                        nome.includes(
+                            busca
+                        )
+
+                        ||
+
+                        telefone.includes(
+                            busca
+                        )
+
+                    );
+
+                }
+
+            );
+
+    }
+
+
+    // --------------------------------------------
+    // FILTRO POR DATA
+    // --------------------------------------------
+
+    if (
+        dataFiltro
+    ) {
+
+        lista =
+            lista.filter(
+                item =>
+                    item.data ===
+                    dataFiltro
+            );
+
+    }
+
+
+    // --------------------------------------------
+    // VAZIO
+    // --------------------------------------------
+
     if (
         lista.length === 0
     ) {
@@ -868,8 +1358,7 @@ function renderizar() {
 
             <div class="empty">
 
-                Nenhum agendamento
-                nesta categoria.
+                Nenhum agendamento encontrado.
 
             </div>
 
@@ -880,8 +1369,13 @@ function renderizar() {
     }
 
 
-    container.innerHTML = "";
+    container.innerHTML =
+        "";
 
+
+    // --------------------------------------------
+    // CARDS
+    // --------------------------------------------
 
     lista.forEach(
         item => {
@@ -928,7 +1422,12 @@ function renderizar() {
                         ${escapeHTML(item.nome)}
                     </h2>
 
-                    <span class="status ${statusClass}">
+                    <span
+                        class="
+                            status
+                            ${statusClass}
+                        "
+                    >
                         ${escapeHTML(item.status)}
                     </span>
 
@@ -936,50 +1435,100 @@ function renderizar() {
 
 
                 <div class="info">
-                    📞 <strong>Telefone:</strong>
+
+                    📞
+                    <strong>
+                        Telefone:
+                    </strong>
+
                     ${escapeHTML(item.telefone)}
+
                 </div>
 
 
                 <div class="info">
-                    📧 <strong>E-mail:</strong>
+
+                    📧
+                    <strong>
+                        E-mail:
+                    </strong>
+
                     ${escapeHTML(
                         item.email ||
                         "Não informado"
                     )}
+
                 </div>
 
 
                 <div class="info">
-                    📅 <strong>Data:</strong>
-                    ${escapeHTML(item.data)}
+
+                    📅
+                    <strong>
+                        Data:
+                    </strong>
+
+                    ${formatarData(
+                        item.data
+                    )}
+
                 </div>
 
 
                 <div class="info">
-                    🕐 <strong>Horário:</strong>
-                    ${escapeHTML(item.horario)}
+
+                    🕐
+                    <strong>
+                        Horário:
+                    </strong>
+
+                    ${escapeHTML(
+                        item.horario
+                    )}
+
                 </div>
 
 
                 <div class="info">
-                    ✂️ <strong>Serviço:</strong>
-                    ${escapeHTML(item.servico)}
+
+                    ✂️
+                    <strong>
+                        Serviço:
+                    </strong>
+
+                    ${escapeHTML(
+                        item.servico
+                    )}
+
                 </div>
 
 
                 <div class="info">
-                    💈 <strong>Corte:</strong>
-                    ${escapeHTML(item.tipo)}
+
+                    💈
+                    <strong>
+                        Corte:
+                    </strong>
+
+                    ${escapeHTML(
+                        item.tipo
+                    )}
+
                 </div>
 
 
                 <div class="info">
-                    📝 <strong>Observações:</strong>
+
+                    📝
+                    <strong>
+                        Observações:
+                    </strong>
+
                     ${escapeHTML(
                         item.observacoes ||
                         "Nenhuma"
                     )}
+
                 </div>
 
 
@@ -990,7 +1539,9 @@ function renderizar() {
                     </span>
 
                     <span>
-                        ${formatarPreco(preco)}
+                        ${formatarPreco(
+                            preco
+                        )}
                     </span>
 
                 </div>
@@ -999,11 +1550,14 @@ function renderizar() {
                 <div class="info">
 
                     💰
+
                     <strong>
                         Pagamento:
                     </strong>
 
-                    <span class="${pagoClass}">
+                    <span
+                        class="${pagoClass}"
+                    >
                         ${pagoTexto}
                     </span>
 
@@ -1014,8 +1568,18 @@ function renderizar() {
 
 
                     ${
-                        item.status !== "Confirmado" &&
-                        item.status !== "Finalizado"
+                        item.status !==
+                        "Confirmado"
+
+                        &&
+
+                        item.status !==
+                        "Em andamento"
+
+                        &&
+
+                        item.status !==
+                        "Finalizado"
 
                         ?
 
@@ -1023,10 +1587,12 @@ function renderizar() {
 
                         <button
                             class="confirm"
-                            onclick="mudarStatus(
-                                ${item.id},
-                                'Confirmado'
-                            )"
+                            onclick="
+                                mudarStatus(
+                                    ${item.id},
+                                    'Confirmado'
+                                )
+                            "
                         >
                             ✓ Confirmar
                         </button>
@@ -1041,8 +1607,47 @@ function renderizar() {
 
 
                     ${
-                        item.status !== "Pendente" &&
-                        item.status !== "Finalizado"
+                        item.status ===
+                        "Confirmado"
+
+                        ?
+
+                        `
+
+                        <button
+                            class="progress"
+                            onclick="
+                                mudarStatus(
+                                    ${item.id},
+                                    'Em andamento'
+                                )
+                            "
+                        >
+                            💈 Iniciar Corte
+                        </button>
+
+                        `
+
+                        :
+
+                        ""
+
+                    }
+
+
+                    ${
+                        item.status !==
+                        "Pendente"
+
+                        &&
+
+                        item.status !==
+                        "Finalizado"
+
+                        &&
+
+                        item.status !==
+                        "Cancelado"
 
                         ?
 
@@ -1050,10 +1655,12 @@ function renderizar() {
 
                         <button
                             class="pending"
-                            onclick="mudarStatus(
-                                ${item.id},
-                                'Pendente'
-                            )"
+                            onclick="
+                                mudarStatus(
+                                    ${item.id},
+                                    'Pendente'
+                                )
+                            "
                         >
                             ⏳ Pendente
                         </button>
@@ -1068,8 +1675,13 @@ function renderizar() {
 
 
                     ${
-                        item.status !== "Cancelado" &&
-                        item.status !== "Finalizado"
+                        item.status !==
+                        "Cancelado"
+
+                        &&
+
+                        item.status !==
+                        "Finalizado"
 
                         ?
 
@@ -1077,10 +1689,12 @@ function renderizar() {
 
                         <button
                             class="cancel"
-                            onclick="mudarStatus(
-                                ${item.id},
-                                'Cancelado'
-                            )"
+                            onclick="
+                                mudarStatus(
+                                    ${item.id},
+                                    'Cancelado'
+                                )
+                            "
                         >
                             ❌ Cancelar
                         </button>
@@ -1103,10 +1717,12 @@ function renderizar() {
 
                         <button
                             class="payment"
-                            onclick="mudarPagamento(
-                                ${item.id},
-                                true
-                            )"
+                            onclick="
+                                mudarPagamento(
+                                    ${item.id},
+                                    true
+                                )
+                            "
                         >
                             💰 Marcar Pago
                         </button>
@@ -1119,10 +1735,12 @@ function renderizar() {
 
                         <button
                             class="pending"
-                            onclick="mudarPagamento(
-                                ${item.id},
-                                false
-                            )"
+                            onclick="
+                                mudarPagamento(
+                                    ${item.id},
+                                    false
+                                )
+                            "
                         >
                             ↩️ Desmarcar Pago
                         </button>
@@ -1133,7 +1751,13 @@ function renderizar() {
 
 
                     ${
-                        item.status !== "Finalizado"
+                        item.status !==
+                        "Finalizado"
+
+                        &&
+
+                        item.status !==
+                        "Cancelado"
 
                         ?
 
@@ -1141,9 +1765,11 @@ function renderizar() {
 
                         <button
                             class="finish"
-                            onclick="finalizar(
-                                ${item.id}
-                            )"
+                            onclick="
+                                finalizar(
+                                    ${item.id}
+                                )
+                            "
                         >
                             ✂️ Finalizar Corte
                         </button>
@@ -1159,9 +1785,11 @@ function renderizar() {
 
                     <button
                         class="delete"
-                        onclick="apagar(
-                            ${item.id}
-                        )"
+                        onclick="
+                            apagar(
+                                ${item.id}
+                            )
+                        "
                     >
                         🗑️ Apagar
                     </button>
@@ -1177,6 +1805,7 @@ function renderizar() {
             );
 
         }
+
     );
 
 }
@@ -1192,7 +1821,8 @@ async function mudarStatus(
 ) {
 
     if (
-        status === "Cancelado"
+        status ===
+        "Cancelado"
     ) {
 
         const confirmar =
@@ -1201,7 +1831,9 @@ async function mudarStatus(
             );
 
 
-        if (!confirmar) {
+        if (
+            !confirmar
+        ) {
 
             return;
 
@@ -1217,11 +1849,14 @@ async function mudarStatus(
                 "/api/status",
                 {
 
-                    method: "POST",
+                    method:
+                        "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
+
                     },
 
                     body:
@@ -1232,6 +1867,19 @@ async function mudarStatus(
 
                 }
             );
+
+
+        if (
+            response.status ===
+            401
+        ) {
+
+            window.location.href =
+                "/login.html";
+
+            return;
+
+        }
 
 
         const resultado =
@@ -1258,7 +1906,9 @@ async function mudarStatus(
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
 
         alert(
             "Erro de conexão."
@@ -1287,7 +1937,9 @@ async function finalizar(id) {
         );
 
 
-    if (!confirmar) {
+    if (
+        !confirmar
+    ) {
 
         return;
 
@@ -1318,11 +1970,14 @@ async function mudarPagamento(
                 "/api/payment",
                 {
 
-                    method: "POST",
+                    method:
+                        "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
+
                     },
 
                     body:
@@ -1333,6 +1988,19 @@ async function mudarPagamento(
 
                 }
             );
+
+
+        if (
+            response.status ===
+            401
+        ) {
+
+            window.location.href =
+                "/login.html";
+
+            return;
+
+        }
 
 
         const resultado =
@@ -1358,7 +2026,9 @@ async function mudarPagamento(
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
 
         alert(
             "Erro de conexão."
@@ -1385,7 +2055,9 @@ async function apagar(id) {
         );
 
 
-    if (!confirmar) {
+    if (
+        !confirmar
+    ) {
 
         return;
 
@@ -1399,11 +2071,14 @@ async function apagar(id) {
                 "/api/delete",
                 {
 
-                    method: "POST",
+                    method:
+                        "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
+
                     },
 
                     body:
@@ -1413,6 +2088,19 @@ async function apagar(id) {
 
                 }
             );
+
+
+        if (
+            response.status ===
+            401
+        ) {
+
+            window.location.href =
+                "/login.html";
+
+            return;
+
+        }
 
 
         const resultado =
@@ -1439,7 +2127,9 @@ async function apagar(id) {
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
 
         alert(
             "Erro de conexão."
@@ -1451,7 +2141,7 @@ async function apagar(id) {
 
 
 // ================================================
-// SAIR / LOGOUT
+// SAIR
 // ================================================
 
 async function sair() {
@@ -1462,7 +2152,9 @@ async function sair() {
         );
 
 
-    if (!confirmar) {
+    if (
+        !confirmar
+    ) {
 
         return;
 
@@ -1475,7 +2167,8 @@ async function sair() {
             await fetch(
                 "/api/logout",
                 {
-                    method: "POST"
+                    method:
+                        "POST"
                 }
             );
 
@@ -1505,7 +2198,9 @@ async function sair() {
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
 
         alert(
             "Erro de conexão."
@@ -1523,7 +2218,8 @@ async function sair() {
 function getStatusClass(status) {
 
     if (
-        status === "Pendente"
+        status ===
+        "Pendente"
     ) {
 
         return "status-pendente";
@@ -1532,7 +2228,8 @@ function getStatusClass(status) {
 
 
     if (
-        status === "Confirmado"
+        status ===
+        "Confirmado"
     ) {
 
         return "status-confirmado";
@@ -1541,7 +2238,18 @@ function getStatusClass(status) {
 
 
     if (
-        status === "Cancelado"
+        status ===
+        "Em andamento"
+    ) {
+
+        return "status-andamento";
+
+    }
+
+
+    if (
+        status ===
+        "Cancelado"
     ) {
 
         return "status-cancelado";
@@ -1550,7 +2258,8 @@ function getStatusClass(status) {
 
 
     if (
-        status === "Finalizado"
+        status ===
+        "Finalizado"
     ) {
 
         return "status-finalizado";
@@ -1585,7 +2294,7 @@ function escapeHTML(texto) {
 
 
 // ================================================
-// PREÇO
+// FORMATAR PREÇO
 // ================================================
 
 function formatarPreco(valor) {
@@ -1600,6 +2309,126 @@ function formatarPreco(valor) {
 
 
 // ================================================
+// CRIAR DATA LOCAL
+// ================================================
+
+function criarDataLocal(data) {
+
+    if (!data) {
+
+        return new Date(
+            "invalid"
+        );
+
+    }
+
+
+    const partes =
+        data.split("-");
+
+
+    return new Date(
+
+        Number(
+            partes[0]
+        ),
+
+        Number(
+            partes[1]
+        ) - 1,
+
+        Number(
+            partes[2]
+        )
+
+    );
+
+}
+
+
+// ================================================
+// DATA ISO
+// ================================================
+
+function formatarDataISO(data) {
+
+    const ano =
+        data.getFullYear();
+
+
+    const mes =
+        String(
+            data.getMonth() + 1
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
+
+    const dia =
+        String(
+            data.getDate()
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
+
+    return (
+        ano +
+        "-" +
+        mes +
+        "-" +
+        dia
+    );
+
+}
+
+
+// ================================================
+// DATA VISÍVEL
+// ================================================
+
+function formatarData(data) {
+
+    if (
+        !data
+    ) {
+
+        return "";
+
+    }
+
+
+    const partes =
+        data.split(
+            "-"
+        );
+
+
+    if (
+        partes.length !== 3
+    ) {
+
+        return data;
+
+    }
+
+
+    return (
+        partes[2] +
+        "/" +
+        partes[1] +
+        "/" +
+        partes[0]
+    );
+
+}
+
+
+// ================================================
 // INICIAR
 // ================================================
 
@@ -1609,9 +2438,12 @@ function formatarPreco(valor) {
         await verificarLogin();
 
 
-    if (logado) {
+    if (
+        logado
+    ) {
 
         carregar();
+
 
         setInterval(
             carregar,
@@ -1625,5 +2457,6 @@ function formatarPreco(valor) {
 </script>
 
 </body>
+
 </html>
 ```
