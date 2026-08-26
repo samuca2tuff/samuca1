@@ -1,272 +1,646 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>SAMUCA • Dashboard</title>
+
 
 <style>
 
 * {
+
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+
+    font-family:
+        Arial,
+        sans-serif;
+
 }
+
 
 body {
+
     margin: 0;
+
     background: #070707;
+
     color: white;
+
 }
+
+
+/* =========================================
+   HEADER
+========================================= */
 
 header {
+
     height: 75px;
+
     background: #111;
-    border-bottom: 1px solid #292929;
+
+    border-bottom:
+        1px solid #292929;
 
     display: flex;
-    align-items: center;
-    justify-content: space-between;
 
-    padding: 0 35px;
+    align-items: center;
+
+    justify-content:
+        space-between;
+
+    padding:
+        0 35px;
+
 }
+
 
 .logo {
+
     font-size: 24px;
+
     font-weight: bold;
+
     letter-spacing: 3px;
+
 }
+
 
 .logo span {
+
     color: #348cff;
+
 }
+
 
 .online {
+
     color: #39ff88;
+
     font-size: 13px;
+
 }
+
+
+/* =========================================
+   CONTAINER
+========================================= */
 
 .container {
+
     padding: 35px;
-    max-width: 1400px;
+
+    max-width: 1500px;
+
     margin: auto;
+
 }
+
+
+/* =========================================
+   TÍTULO
+========================================= */
 
 .title {
+
     display: flex;
-    justify-content: space-between;
+
+    justify-content:
+        space-between;
+
     align-items: center;
+
     margin-bottom: 25px;
+
 }
+
 
 .title h1 {
+
     margin: 0;
+
 }
+
 
 .refresh {
-    padding: 12px 20px;
+
+    padding:
+        12px 20px;
+
     border: 0;
+
     border-radius: 8px;
+
     background: #287cff;
+
     color: white;
+
     cursor: pointer;
+
     font-weight: bold;
+
 }
 
-/* ABAS */
 
-.tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
-
-.tab {
-    border: 1px solid #292929;
-    background: #111;
-    color: #aaa;
-    padding: 12px 18px;
-    border-radius: 9px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.tab:hover {
-    background: #1b1b1b;
-}
-
-.tab.active {
-    background: #287cff;
-    color: white;
-    border-color: #287cff;
-}
-
-/* ESTATÍSTICAS */
+/* =========================================
+   ESTATÍSTICAS
+========================================= */
 
 .stats {
-    display: flex;
-    gap: 20px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(190px, 1fr)
+        );
+
+    gap: 15px;
+
     margin-bottom: 30px;
-    flex-wrap: wrap;
+
 }
+
 
 .stat {
+
     background: #111;
-    border: 1px solid #292929;
+
+    border:
+        1px solid #292929;
+
     border-radius: 12px;
+
     padding: 20px;
-    width: 220px;
+
 }
+
 
 .stat p {
+
     color: #777;
+
     margin: 0;
+
     font-size: 12px;
+
 }
+
 
 .stat h2 {
-    margin-top: 10px;
+
+    margin:
+        10px 0 0;
+
     color: #348cff;
+
 }
 
-/* AGENDAMENTOS */
+
+/* =========================================
+   ABAS
+========================================= */
+
+.tabs {
+
+    display: flex;
+
+    gap: 8px;
+
+    overflow-x: auto;
+
+    margin-bottom: 25px;
+
+    padding-bottom: 5px;
+
+}
+
+
+.tab {
+
+    white-space: nowrap;
+
+    padding:
+        11px 18px;
+
+    background: #111;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 8px;
+
+    color: #aaa;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+}
+
+
+.tab:hover {
+
+    color: white;
+
+}
+
+
+.tab.active {
+
+    background: #287cff;
+
+    border-color: #287cff;
+
+    color: white;
+
+}
+
+
+/* =========================================
+   AGENDAMENTOS
+========================================= */
 
 #appointments {
+
     display: grid;
-    grid-template-columns: repeat(
-        auto-fill,
-        minmax(350px, 1fr)
-    );
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(350px, 1fr)
+        );
+
     gap: 20px;
+
 }
+
+
+/* =========================================
+   CARD
+========================================= */
 
 .appointment {
+
     background: #111;
-    border: 1px solid #292929;
+
+    border:
+        1px solid #292929;
+
     border-radius: 15px;
+
     padding: 22px;
+
+    transition:
+        transform .15s,
+        border .15s;
+
 }
+
+
+.appointment:hover {
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        #3a3a3a;
+
+}
+
 
 .appointment-header {
+
     display: flex;
-    justify-content: space-between;
+
+    justify-content:
+        space-between;
+
     align-items: center;
-    margin-bottom: 20px;
+
     gap: 10px;
+
+    margin-bottom: 20px;
+
 }
+
 
 .appointment-header h2 {
+
     margin: 0;
+
     font-size: 20px;
+
 }
+
 
 .status {
-    padding: 6px 10px;
+
+    padding:
+        6px 10px;
+
     border-radius: 20px;
+
     font-size: 11px;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+
+}
+
+
+/* STATUS */
+
+.status-pendente {
+
     background: #332b00;
+
     color: #ffd83d;
+
 }
 
-.status.confirmado {
-    background: #073b24;
+
+.status-confirmado {
+
+    background: #073d25;
+
     color: #39ff88;
+
 }
 
-.status.cancelado {
-    background: #451414;
+
+.status-cancelado {
+
+    background: #451818;
+
     color: #ff6b6b;
+
 }
 
-.status.pago {
-    background: #073b24;
-    color: #39ff88;
+
+.status-finalizado {
+
+    background: #172d45;
+
+    color: #6fb4ff;
+
 }
+
+
+/* =========================================
+   INFO
+========================================= */
 
 .info {
-    margin: 10px 0;
-    color: #bbb;
+
+    margin:
+        10px 0;
+
+    color: #aaa;
+
+    line-height: 1.4;
+
 }
+
 
 .info strong {
+
     color: white;
+
 }
 
-/* BOTÕES */
+
+.price {
+
+    margin-top: 18px;
+
+    padding:
+        15px;
+
+    background: #090909;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+}
+
+
+.price span:last-child {
+
+    color: #39ff88;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+}
+
+
+.paid {
+
+    color: #39ff88;
+
+    font-weight: bold;
+
+}
+
+
+.unpaid {
+
+    color: #ffd83d;
+
+    font-weight: bold;
+
+}
+
+
+/* =========================================
+   AÇÕES
+========================================= */
 
 .actions {
-    display: flex;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
     gap: 8px;
+
     margin-top: 20px;
-    flex-wrap: wrap;
+
 }
+
 
 .actions button {
-    flex: 1;
-    min-width: 110px;
-    padding: 10px;
+
+    padding: 11px;
+
     border: 0;
+
     border-radius: 7px;
+
     cursor: pointer;
+
     color: white;
+
     font-weight: bold;
+
 }
+
 
 .confirm {
+
     background: #168b4d;
+
 }
+
 
 .pending {
+
     background: #806d00;
+
 }
+
 
 .cancel {
+
     background: #8b2424;
+
 }
+
 
 .payment {
-    background: #168b4d;
+
+    background: #176b52;
+
 }
 
-.payment.off {
-    background: #555;
+
+.finish {
+
+    background: #287cff;
+
 }
+
 
 .delete {
-    background: #b32626;
+
+    background: #4a2020;
+
 }
+
+
+.actions button:hover {
+
+    opacity: .85;
+
+}
+
+
+/* =========================================
+   VAZIO
+========================================= */
 
 .empty {
+
+    grid-column: 1 / -1;
+
     color: #666;
+
     text-align: center;
-    padding: 60px;
+
+    padding: 70px 20px;
+
+    background: #111;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 15px;
+
 }
 
-/* CELULAR */
 
-@media (max-width: 600px) {
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width: 600px) {
 
     header {
-        padding: 0 15px;
+
+        padding:
+            0 18px;
+
     }
+
 
     .logo {
-        font-size: 18px;
+
+        font-size: 17px;
+
     }
+
 
     .container {
-        padding: 20px 15px;
+
+        padding:
+            20px 15px;
+
     }
+
+
+    .title {
+
+        align-items:
+            flex-start;
+
+        gap: 15px;
+
+    }
+
+
+    .title h1 {
+
+        font-size: 24px;
+
+    }
+
 
     #appointments {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+            1fr;
+
     }
 
-    .appointment {
-        padding: 18px;
+
+    .actions {
+
+        grid-template-columns:
+            1fr;
+
     }
 
 }
@@ -282,11 +656,16 @@ header {
 <header>
 
     <div class="logo">
+
         SAM<span>UCA</span> BARBERSHOP
+
     </div>
 
+
     <div class="online">
+
         ● ONLINE
+
     </div>
 
 </header>
@@ -297,94 +676,178 @@ header {
 
     <div class="title">
 
-        <h1>Agendamentos</h1>
+        <h1>
+            Agendamentos
+        </h1>
+
 
         <button
             class="refresh"
             onclick="carregar()"
         >
+
             ↻ Atualizar
+
         </button>
 
     </div>
 
 
-    <!-- ABAS -->
+    <!-- =====================================
+         ESTATÍSTICAS
+    ====================================== -->
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <p>
+                TOTAL
+            </p>
+
+            <h2 id="total">
+                0
+            </h2>
+
+        </div>
+
+
+        <div class="stat">
+
+            <p>
+                PENDENTES
+            </p>
+
+            <h2 id="pendentes">
+                0
+            </h2>
+
+        </div>
+
+
+        <div class="stat">
+
+            <p>
+                CONFIRMADOS
+            </p>
+
+            <h2 id="confirmados">
+                0
+            </h2>
+
+        </div>
+
+
+        <div class="stat">
+
+            <p>
+                PAGOS
+            </p>
+
+            <h2 id="pagos">
+                0
+            </h2>
+
+        </div>
+
+
+        <div class="stat">
+
+            <p>
+                FINALIZADOS
+            </p>
+
+            <h2 id="finalizados">
+                0
+            </h2>
+
+        </div>
+
+
+        <div class="stat">
+
+            <p>
+                TOTAL RECEBIDO
+            </p>
+
+            <h2 id="recebido">
+                $0.00
+            </h2>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================
+         ABAS
+    ====================================== -->
 
     <div class="tabs">
 
+
         <button
             class="tab active"
+            data-filter="todos"
             onclick="mudarAba('todos', this)"
         >
             📋 Todos
         </button>
 
+
         <button
             class="tab"
-            onclick="mudarAba('pendentes', this)"
+            data-filter="Pendente"
+            onclick="mudarAba('Pendente', this)"
         >
             ⏳ Pendentes
         </button>
 
+
         <button
             class="tab"
-            onclick="mudarAba('confirmados', this)"
+            data-filter="Confirmado"
+            onclick="mudarAba('Confirmado', this)"
         >
             ✅ Confirmados
         </button>
 
+
         <button
             class="tab"
-            onclick="mudarAba('pagos', this)"
+            data-filter="pago"
+            onclick="mudarAba('pago', this)"
         >
             💰 Pagos
         </button>
 
+
+        <button
+            class="tab"
+            data-filter="Finalizado"
+            onclick="mudarAba('Finalizado', this)"
+        >
+            ✂️ Finalizados
+        </button>
+
+
+        <button
+            class="tab"
+            data-filter="Cancelado"
+            onclick="mudarAba('Cancelado', this)"
+        >
+            ❌ Cancelados
+        </button>
+
+
     </div>
 
 
-    <!-- ESTATÍSTICAS -->
-
-    <div class="stats">
-
-        <div class="stat">
-
-            <p>TOTAL</p>
-
-            <h2 id="total">0</h2>
-
-        </div>
-
-
-        <div class="stat">
-
-            <p>PENDENTES</p>
-
-            <h2 id="pendentes">0</h2>
-
-        </div>
-
-
-        <div class="stat">
-
-            <p>CONFIRMADOS</p>
-
-            <h2 id="confirmados">0</h2>
-
-        </div>
-
-
-        <div class="stat">
-
-            <p>PAGOS</p>
-
-            <h2 id="pagos">0</h2>
-
-        </div>
-
-    </div>
-
+    <!-- =====================================
+         CARDS
+    ====================================== -->
 
     <div id="appointments"></div>
 
@@ -395,124 +858,205 @@ header {
 <script>
 
 
-let todosAgendamentos = [];
+let dados = [];
 
-let abaAtual = "todos";
+let filtroAtual =
+    "todos";
 
 
-// ==============================
+// =================================================
 // CARREGAR
-// ==============================
+// =================================================
 
 async function carregar() {
 
     try {
 
         const response =
-            await fetch("/api/submissions");
+            await fetch(
+                "/api/submissions"
+            );
 
-        const dados =
-            await response.json();
 
-
-        if (!Array.isArray(dados)) {
+        if (!response.ok) {
 
             throw new Error(
-                "Resposta inválida"
+                "Erro no servidor"
             );
 
         }
 
 
-        todosAgendamentos = dados;
+        dados =
+            await response.json();
 
 
-        atualizarNumeros();
+        atualizarEstatisticas();
 
-        mostrarAgendamentos();
+        renderizar();
 
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.error(error);
 
+
         document.getElementById(
             "appointments"
-        ).innerHTML =
-            '<div class="empty">Servidor offline.</div>';
+        ).innerHTML = `
+
+            <div class="empty">
+
+                ❌ Servidor offline.
+
+                <br><br>
+
+                Verifique se o Render está online.
+
+            </div>
+
+        `;
 
     }
 
 }
 
 
-// ==============================
-// NÚMEROS
-// ==============================
+// =================================================
+// ESTATÍSTICAS
+// =================================================
 
-function atualizarNumeros() {
+function atualizarEstatisticas() {
+
 
     document.getElementById(
         "total"
     ).textContent =
-        todosAgendamentos.length;
+        dados.length;
 
 
     document.getElementById(
         "pendentes"
     ).textContent =
-        todosAgendamentos.filter(
-            x => x.status === "Pendente"
+
+        dados.filter(
+            x =>
+                x.status ===
+                "Pendente"
         ).length;
 
 
     document.getElementById(
         "confirmados"
     ).textContent =
-        todosAgendamentos.filter(
-            x => x.status === "Confirmado"
+
+        dados.filter(
+            x =>
+                x.status ===
+                "Confirmado"
         ).length;
 
 
     document.getElementById(
         "pagos"
     ).textContent =
-        todosAgendamentos.filter(
-            x => x.pago === true
+
+        dados.filter(
+            x =>
+                x.pago === true
         ).length;
+
+
+    document.getElementById(
+        "finalizados"
+    ).textContent =
+
+        dados.filter(
+            x =>
+                x.status ===
+                "Finalizado"
+        ).length;
+
+
+    const totalRecebido =
+
+        dados
+
+            .filter(
+                x =>
+                    x.pago === true
+            )
+
+            .reduce(
+                (
+                    total,
+                    item
+                ) =>
+
+                    total +
+                    Number(
+                        item.preco || 0
+                    ),
+
+                0
+            );
+
+
+    document.getElementById(
+        "recebido"
+    ).textContent =
+
+        formatarPreco(
+            totalRecebido
+        );
 
 }
 
 
-// ==============================
-// MUDAR ABA
-// ==============================
+// =================================================
+// ABAS
+// =================================================
 
-function mudarAba(aba, botao) {
+function mudarAba(
+    filtro,
+    botao
+) {
 
-    abaAtual = aba;
+    filtroAtual =
+        filtro;
 
 
     document
         .querySelectorAll(".tab")
         .forEach(
-            x => x.classList.remove("active")
+            item => {
+
+                item.classList.remove(
+                    "active"
+                );
+
+            }
         );
 
 
-    botao.classList.add("active");
+    botao.classList.add(
+        "active"
+    );
 
 
-    mostrarAgendamentos();
+    renderizar();
 
 }
 
 
-// ==============================
-// FILTRAR
-// ==============================
+// =================================================
+// RENDERIZAR
+// =================================================
 
-function mostrarAgendamentos() {
+function renderizar() {
+
 
     const container =
         document.getElementById(
@@ -520,43 +1064,66 @@ function mostrarAgendamentos() {
         );
 
 
-    let dados = [];
+    let lista =
+        dados.slice();
 
 
-    if (abaAtual === "todos") {
+    // ---------------------------------------------
+    // FILTRO
+    // ---------------------------------------------
 
-        dados =
-            todosAgendamentos;
+    if (
+        filtroAtual !==
+        "todos"
+    ) {
+
+        if (
+            filtroAtual ===
+            "pago"
+        ) {
+
+            lista =
+                lista.filter(
+                    item =>
+                        item.pago === true
+                );
+
+        }
+
+        else {
+
+            lista =
+                lista.filter(
+                    item =>
+                        item.status ===
+                        filtroAtual
+                );
+
+        }
 
     }
 
 
-    if (abaAtual === "pendentes") {
+    // ---------------------------------------------
+    // VAZIO
+    // ---------------------------------------------
 
-        dados =
-            todosAgendamentos.filter(
-                x => x.status === "Pendente"
-            );
+    if (
+        lista.length === 0
+    ) {
 
-    }
+        container.innerHTML = `
 
+            <div class="empty">
 
-    if (abaAtual === "confirmados") {
+                Nenhum agendamento
+                nesta categoria.
 
-        dados =
-            todosAgendamentos.filter(
-                x => x.status === "Confirmado"
-            );
+            </div>
 
-    }
+        `;
 
-
-    if (abaAtual === "pagos") {
-
-        dados =
-            todosAgendamentos.filter(
-                x => x.pago === true
-            );
+        return;
 
     }
 
@@ -564,222 +1131,455 @@ function mostrarAgendamentos() {
     container.innerHTML = "";
 
 
-    if (dados.length === 0) {
+    // ---------------------------------------------
+    // CARDS
+    // ---------------------------------------------
 
-        container.innerHTML =
-            '<div class="empty">Nenhum agendamento nesta categoria.</div>';
+    lista.forEach(
+        item => {
 
-        return;
+            const card =
+                document.createElement(
+                    "div"
+                );
 
-    }
+
+            card.className =
+                "appointment";
 
 
-    dados.forEach(item => {
+            const statusClass =
+                getStatusClass(
+                    item.status
+                );
 
-        const card =
-            document.createElement(
-                "div"
+
+            const preco =
+                Number(
+                    item.preco || 0
+                );
+
+
+            const pagoTexto =
+                item.pago
+
+                    ?
+                    "✓ PAGO"
+
+                    :
+                    "Não pago";
+
+
+            const pagoClass =
+                item.pago
+
+                    ?
+                    "paid"
+
+                    :
+                    "unpaid";
+
+
+            card.innerHTML = `
+
+                <div class="appointment-header">
+
+                    <h2>
+                        ${escapeHTML(
+                            item.nome
+                        )}
+                    </h2>
+
+
+                    <span
+                        class="status ${statusClass}"
+                    >
+
+                        ${escapeHTML(
+                            item.status
+                        )}
+
+                    </span>
+
+                </div>
+
+
+                <div class="info">
+
+                    📞
+                    <strong>
+                        Telefone:
+                    </strong>
+
+                    ${escapeHTML(
+                        item.telefone
+                    )}
+
+                </div>
+
+
+                <div class="info">
+
+                    📧
+                    <strong>
+                        E-mail:
+                    </strong>
+
+                    ${escapeHTML(
+                        item.email ||
+                        "Não informado"
+                    )}
+
+                </div>
+
+
+                <div class="info">
+
+                    📅
+                    <strong>
+                        Data:
+                    </strong>
+
+                    ${escapeHTML(
+                        item.data
+                    )}
+
+                </div>
+
+
+                <div class="info">
+
+                    🕐
+                    <strong>
+                        Horário:
+                    </strong>
+
+                    ${escapeHTML(
+                        item.horario
+                    )}
+
+                </div>
+
+
+                <div class="info">
+
+                    ✂️
+                    <strong>
+                        Serviço:
+                    </strong>
+
+                    ${escapeHTML(
+                        item.servico
+                    )}
+
+                </div>
+
+
+                <div class="info">
+
+                    💈
+                    <strong>
+                        Corte:
+                    </strong>
+
+                    ${escapeHTML(
+                        item.tipo
+                    )}
+
+                </div>
+
+
+                <div class="info">
+
+                    📝
+                    <strong>
+                        Observações:
+                    </strong>
+
+                    ${escapeHTML(
+                        item.observacoes ||
+                        "Nenhuma"
+                    )}
+
+                </div>
+
+
+                <div class="price">
+
+                    <span>
+                        💵 Valor
+                    </span>
+
+                    <span>
+                        ${formatarPreco(
+                            preco
+                        )}
+                    </span>
+
+                </div>
+
+
+                <div class="info">
+
+                    💰
+                    <strong>
+                        Pagamento:
+                    </strong>
+
+                    <span class="${pagoClass}">
+
+                        ${pagoTexto}
+
+                    </span>
+
+                </div>
+
+
+                <div class="info">
+
+                    <small>
+
+                        Recebido:
+                        ${formatarData(
+                            item.enviadoEm
+                        )}
+
+                    </small>
+
+                </div>
+
+
+                <div class="actions">
+
+
+                    ${
+                        item.status !==
+                        "Confirmado"
+
+                        &&
+
+                        item.status !==
+                        "Finalizado"
+
+                        ?
+
+                        `
+
+                        <button
+                            class="confirm"
+                            onclick="mudarStatus(
+                                ${item.id},
+                                'Confirmado'
+                            )"
+                        >
+
+                            ✓ Confirmar
+
+                        </button>
+
+                        `
+
+                        :
+
+                        ""
+
+                    }
+
+
+                    ${
+                        item.status !==
+                        "Pendente"
+
+                        &&
+
+                        item.status !==
+                        "Finalizado"
+
+                        ?
+
+                        `
+
+                        <button
+                            class="pending"
+                            onclick="mudarStatus(
+                                ${item.id},
+                                'Pendente'
+                            )"
+                        >
+
+                            ⏳ Pendente
+
+                        </button>
+
+                        `
+
+                        :
+
+                        ""
+
+                    }
+
+
+                    ${
+                        item.status !==
+                        "Cancelado"
+
+                        &&
+
+                        item.status !==
+                        "Finalizado"
+
+                        ?
+
+                        `
+
+                        <button
+                            class="cancel"
+                            onclick="mudarStatus(
+                                ${item.id},
+                                'Cancelado'
+                            )"
+                        >
+
+                            ❌ Cancelar
+
+                        </button>
+
+                        `
+
+                        :
+
+                        ""
+
+                    }
+
+
+                    ${
+                        !item.pago
+
+                        ?
+
+                        `
+
+                        <button
+                            class="payment"
+                            onclick="mudarPagamento(
+                                ${item.id},
+                                true
+                            )"
+                        >
+
+                            💰 Marcar Pago
+
+                        </button>
+
+                        `
+
+                        :
+
+                        `
+
+                        <button
+                            class="pending"
+                            onclick="mudarPagamento(
+                                ${item.id},
+                                false
+                            )"
+                        >
+
+                            ↩️ Desmarcar Pago
+
+                        </button>
+
+                        `
+
+                    }
+
+
+                    ${
+                        item.status !==
+                        "Finalizado"
+
+                        ?
+
+                        `
+
+                        <button
+                            class="finish"
+                            onclick="finalizar(
+                                ${item.id}
+                            )"
+                        >
+
+                            ✂️ Finalizar Corte
+
+                        </button>
+
+                        `
+
+                        :
+
+                        ""
+
+                    }
+
+
+                    <button
+                        class="delete"
+                        onclick="apagar(
+                            ${item.id}
+                        )"
+                    >
+
+                        🗑️ Apagar
+
+                    </button>
+
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
             );
 
-
-        card.className =
-            "appointment";
-
-
-        let statusClass = "";
-
-
-        if (item.status === "Confirmado") {
-
-            statusClass =
-                "confirmado";
-
         }
-
-
-        if (item.status === "Cancelado") {
-
-            statusClass =
-                "cancelado";
-
-        }
-
-
-        card.innerHTML = `
-
-            <div class="appointment-header">
-
-                <h2>
-                    ${escapeHTML(item.nome)}
-                </h2>
-
-                <span
-                    class="status ${statusClass}"
-                >
-                    ${escapeHTML(item.status)}
-                </span>
-
-            </div>
-
-
-            <div class="info">
-                📞 <strong>Telefone:</strong>
-                ${escapeHTML(item.telefone)}
-            </div>
-
-
-            <div class="info">
-                📧 <strong>E-mail:</strong>
-                ${escapeHTML(
-                    item.email ||
-                    "Não informado"
-                )}
-            </div>
-
-
-            <div class="info">
-                📅 <strong>Data:</strong>
-                ${escapeHTML(item.data)}
-            </div>
-
-
-            <div class="info">
-                🕐 <strong>Horário:</strong>
-                ${escapeHTML(item.horario)}
-            </div>
-
-
-            <div class="info">
-                ✂️ <strong>Serviço:</strong>
-                ${escapeHTML(item.servico)}
-            </div>
-
-
-            <div class="info">
-                💈 <strong>Corte:</strong>
-                ${escapeHTML(item.tipo)}
-            </div>
-
-
-            <div class="info">
-                📝 <strong>Observações:</strong>
-                ${escapeHTML(
-                    item.observacoes ||
-                    "Nenhuma"
-                )}
-            </div>
-
-
-            <div class="info">
-
-                💰 <strong>Pagamento:</strong>
-
-                ${
-                    item.pago
-                    ? "✅ Pago"
-                    : "⏳ Não pago"
-                }
-
-            </div>
-
-
-            <div class="info">
-
-                <small>
-                    Recebido:
-                    ${escapeHTML(
-                        item.enviadoEm || ""
-                    )}
-                </small>
-
-            </div>
-
-
-            <div class="actions">
-
-
-                <button
-                    class="confirm"
-                    onclick="mudarStatus(
-                        ${item.id},
-                        'Confirmado'
-                    )"
-                >
-                    ✓ Confirmar
-                </button>
-
-
-                <button
-                    class="pending"
-                    onclick="mudarStatus(
-                        ${item.id},
-                        'Pendente'
-                    )"
-                >
-                    Pendente
-                </button>
-
-
-                <button
-                    class="cancel"
-                    onclick="mudarStatus(
-                        ${item.id},
-                        'Cancelado'
-                    )"
-                >
-                    ✕ Cancelar
-                </button>
-
-
-                <button
-                    class="${
-                        item.pago
-                        ? "payment off"
-                        : "payment"
-                    }"
-                    onclick="mudarPagamento(
-                        ${item.id},
-                        ${!item.pago}
-                    )"
-                >
-                    ${
-                        item.pago
-                        ? "↩️ Desmarcar pago"
-                        : "💰 Marcar pago"
-                    }
-                </button>
-
-
-                <button
-                    class="delete"
-                    onclick="apagarAgendamento(
-                        ${item.id}
-                    )"
-                >
-                    🗑️ Apagar
-                </button>
-
-
-            </div>
-
-        `;
-
-
-        container.appendChild(card);
-
-    });
+    );
 
 }
 
 
-// ==============================
+// =================================================
 // STATUS
-// ==============================
+// =================================================
 
 async function mudarStatus(
     id,
     status
 ) {
+
+
+    if (
+        status ===
+        "Cancelado"
+    ) {
+
+        const confirmar =
+            confirm(
+                "Tem certeza que deseja cancelar este agendamento?"
+            );
+
+
+        if (!confirmar) {
+
+            return;
+
+        }
+
+    }
+
 
     try {
 
@@ -788,17 +1588,24 @@ async function mudarStatus(
                 "/api/status",
                 {
 
-                    method: "POST",
+                    method:
+                        "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
+
                     },
 
-                    body: JSON.stringify({
-                        id,
-                        status
-                    })
+                    body:
+                        JSON.stringify({
+
+                            id,
+
+                            status
+
+                        })
 
                 }
             );
@@ -808,11 +1615,13 @@ async function mudarStatus(
             await response.json();
 
 
-        if (!resultado.success) {
+        if (
+            !resultado.success
+        ) {
 
             alert(
                 resultado.message ||
-                "Erro ao alterar status."
+                "Erro ao atualizar."
             );
 
             return;
@@ -822,11 +1631,14 @@ async function mudarStatus(
 
         await carregar();
 
+    }
 
-    } catch (error) {
+    catch (error) {
+
+        console.error(error);
 
         alert(
-            "Erro ao conectar ao servidor."
+            "Erro de conexão."
         );
 
     }
@@ -834,14 +1646,51 @@ async function mudarStatus(
 }
 
 
-// ==============================
+// =================================================
+// FINALIZAR
+// =================================================
+
+async function finalizar(
+    id
+) {
+
+
+    const confirmar =
+        confirm(
+
+            "Finalizar este corte?\n\n" +
+
+            "O horário será liberado " +
+
+            "para outro cliente."
+
+        );
+
+
+    if (!confirmar) {
+
+        return;
+
+    }
+
+
+    await mudarStatus(
+        id,
+        "Finalizado"
+    );
+
+}
+
+
+// =================================================
 // PAGAMENTO
-// ==============================
+// =================================================
 
 async function mudarPagamento(
     id,
     pago
 ) {
+
 
     try {
 
@@ -850,17 +1699,24 @@ async function mudarPagamento(
                 "/api/payment",
                 {
 
-                    method: "POST",
+                    method:
+                        "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
+
                     },
 
-                    body: JSON.stringify({
-                        id,
-                        pago
-                    })
+                    body:
+                        JSON.stringify({
+
+                            id,
+
+                            pago
+
+                        })
 
                 }
             );
@@ -870,10 +1726,11 @@ async function mudarPagamento(
             await response.json();
 
 
-        if (!resultado.success) {
+        if (
+            !resultado.success
+        ) {
 
             alert(
-                resultado.message ||
                 "Erro ao atualizar pagamento."
             );
 
@@ -884,11 +1741,14 @@ async function mudarPagamento(
 
         await carregar();
 
+    }
 
-    } catch (error) {
+    catch (error) {
+
+        console.error(error);
 
         alert(
-            "Erro ao conectar ao servidor."
+            "Erro de conexão."
         );
 
     }
@@ -896,18 +1756,22 @@ async function mudarPagamento(
 }
 
 
-// ==============================
+// =================================================
 // APAGAR
-// ==============================
+// =================================================
 
-async function apagarAgendamento(
+async function apagar(
     id
 ) {
 
+
     const confirmar =
         confirm(
-            "⚠️ Tem certeza que deseja apagar este agendamento?\n\n" +
+
+            "⚠️ APAGAR AGENDAMENTO?\n\n" +
+
             "Essa ação não pode ser desfeita."
+
         );
 
 
@@ -925,16 +1789,22 @@ async function apagarAgendamento(
                 "/api/delete",
                 {
 
-                    method: "POST",
+                    method:
+                        "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
+
                     },
 
-                    body: JSON.stringify({
-                        id
-                    })
+                    body:
+                        JSON.stringify({
+
+                            id
+
+                        })
 
                 }
             );
@@ -944,11 +1814,13 @@ async function apagarAgendamento(
             await response.json();
 
 
-        if (!resultado.success) {
+        if (
+            !resultado.success
+        ) {
 
             alert(
                 resultado.message ||
-                "Erro ao apagar agendamento."
+                "Erro ao apagar."
             );
 
             return;
@@ -958,11 +1830,14 @@ async function apagarAgendamento(
 
         await carregar();
 
+    }
 
-    } catch (error) {
+    catch (error) {
+
+        console.error(error);
 
         alert(
-            "Erro ao conectar ao servidor."
+            "Erro de conexão."
         );
 
     }
@@ -970,31 +1845,145 @@ async function apagarAgendamento(
 }
 
 
-// ==============================
-// SEGURANÇA HTML
-// ==============================
+// =================================================
+// CLASSE DO STATUS
+// =================================================
 
-function escapeHTML(text) {
+function getStatusClass(
+    status
+) {
+
+
+    if (
+        status ===
+        "Pendente"
+    ) {
+
+        return "status-pendente";
+
+    }
+
+
+    if (
+        status ===
+        "Confirmado"
+    ) {
+
+        return "status-confirmado";
+
+    }
+
+
+    if (
+        status ===
+        "Cancelado"
+    ) {
+
+        return "status-cancelado";
+
+    }
+
+
+    if (
+        status ===
+        "Finalizado"
+    ) {
+
+        return "status-finalizado";
+
+    }
+
+
+    return "";
+
+}
+
+
+// =================================================
+// ESCAPAR HTML
+// =================================================
+
+function escapeHTML(
+    texto
+) {
+
 
     const div =
         document.createElement(
             "div"
         );
 
+
     div.textContent =
-        text ?? "";
+        texto ?? "";
+
 
     return div.innerHTML;
 
 }
 
 
-// ==============================
+// =================================================
+// PREÇO
+// =================================================
+
+function formatarPreco(
+    valor
+) {
+
+    return "$" +
+
+        Number(
+            valor || 0
+        ).toFixed(2);
+
+}
+
+
+// =================================================
+// DATA
+// =================================================
+
+function formatarData(
+    valor
+) {
+
+
+    if (!valor) {
+
+        return "Não informado";
+
+    }
+
+
+    try {
+
+        return new Date(
+            valor
+        ).toLocaleString(
+            "pt-BR"
+        );
+
+    }
+
+    catch {
+
+        return valor;
+
+    }
+
+}
+
+
+// =================================================
 // INICIAR
-// ==============================
+// =================================================
 
 carregar();
 
+
+// Atualiza automaticamente
+// a cada 5 segundos
 
 setInterval(
     carregar,
@@ -1002,7 +1991,6 @@ setInterval(
 );
 
 </script>
-
 
 </body>
 
