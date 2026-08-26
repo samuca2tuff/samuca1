@@ -17,10 +17,10 @@ app.use(express.static(__dirname));
 
 
 // ==============================
-// CRIAR TABELA
+// BANCO DE DADOS
 // ==============================
 
-async function criarTabela() {
+async function criarBanco() {
 
     try {
 
@@ -36,11 +36,18 @@ async function criarTabela() {
                 tipo TEXT NOT NULL,
                 observacoes TEXT,
                 status TEXT DEFAULT 'Pendente',
+                pago BOOLEAN DEFAULT FALSE,
                 enviado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `);
 
-        console.log("✅ Banco conectado.");
+        // Caso a tabela já existisse antes
+        await pool.query(`
+            ALTER TABLE appointments
+            ADD COLUMN IF NOT EXISTS pago BOOLEAN DEFAULT FALSE
+        `);
+
+        console.log("✅ Banco conectado e tabela pronta.");
 
     } catch (error) {
 
@@ -50,11 +57,11 @@ async function criarTabela() {
 
 }
 
-criarTabela();
+criarBanco();
 
 
 // ==============================
-// RECEBER AGENDAMENTO
+// NOVO AGENDAMENTO
 // ==============================
 
 app.post("/api/submit", async (req, res) => {
@@ -99,9 +106,11 @@ app.post("/api/submit", async (req, res) => {
                 horario,
                 servico,
                 tipo,
-                observacoes
+                observacoes,
+                status,
+                pago
             )
-            VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+            VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'Pendente',FALSE)
             RETURNING *
             `,
             [
@@ -138,7 +147,7 @@ app.post("/api/submit", async (req, res) => {
 
 
 // ==============================
-// PEGAR AGENDAMENTOS
+// BUSCAR AGENDAMENTOS
 // ==============================
 
 app.get("/api/submissions", async (req, res) => {
@@ -157,6 +166,7 @@ app.get("/api/submissions", async (req, res) => {
                 tipo,
                 observacoes,
                 status,
+                pago,
                 enviado_em AS "enviadoEm"
             FROM appointments
             ORDER BY id DESC
@@ -203,7 +213,7 @@ app.post("/api/status", async (req, res) => {
 
         }
 
-        await pool.query(
+        const result = await pool.query(
             `
             UPDATE appointments
             SET status = $1
@@ -211,6 +221,15 @@ app.post("/api/status", async (req, res) => {
             `,
             [status, id]
         );
+
+        if (result.rowCount === 0) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Agendamento não encontrado."
+            });
+
+        }
 
         res.json({
             success: true
@@ -222,6 +241,59 @@ app.post("/api/status", async (req, res) => {
 
         res.status(500).json({
             success: false
+        });
+
+    }
+
+});
+
+
+// ==============================
+// MARCAR / DESMARCAR PAGAMENTO
+// ==============================
+
+app.post("/api/payment", async (req, res) => {
+
+    try {
+
+        const { id, pago } = req.body;
+
+        const result = await pool.query(
+            `
+            UPDATE appointments
+            SET pago = $1
+            WHERE id = $2
+            `,
+            [Boolean(pago), id]
+        );
+
+        if (result.rowCount === 0) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Agendamento não encontrado."
+            });
+
+        }
+
+        console.log(
+            pago
+                ? "💰 Pagamento registrado:"
+                : "↩️ Pagamento removido:",
+            id
+        );
+
+        res.json({
+            success: true
+        });
+
+    } catch (error) {
+
+        console.error("❌ ERRO PAGAMENTO:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Erro ao atualizar pagamento."
         });
 
     }
