@@ -1,11 +1,9 @@
 const express = require("express");
 const { Pool } = require("pg");
-const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// PostgreSQL
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
@@ -13,14 +11,19 @@ const pool = new Pool({
     }
 });
 
-// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 
-// Criar tabela automaticamente
+
+// ==============================
+// CRIAR TABELA
+// ==============================
+
 async function criarTabela() {
+
     try {
+
         await pool.query(`
             CREATE TABLE IF NOT EXISTS appointments (
                 id BIGSERIAL PRIMARY KEY,
@@ -37,19 +40,22 @@ async function criarTabela() {
             )
         `);
 
-        console.log("✅ Banco conectado e tabela pronta.");
+        console.log("✅ Banco conectado.");
 
     } catch (error) {
-        console.error("❌ Erro no banco:", error.message);
+
+        console.error("❌ Erro no banco:", error);
+
     }
+
 }
 
 criarTabela();
 
 
-// ===============================
+// ==============================
 // RECEBER AGENDAMENTO
-// ===============================
+// ==============================
 
 app.post("/api/submit", async (req, res) => {
 
@@ -74,10 +80,12 @@ app.post("/api/submit", async (req, res) => {
             !servico ||
             !tipo
         ) {
+
             return res.status(400).json({
                 success: false,
-                message: "Preencha todos os campos obrigatórios."
+                message: "Preencha os campos obrigatórios."
             });
+
         }
 
         const result = await pool.query(
@@ -108,7 +116,7 @@ app.post("/api/submit", async (req, res) => {
             ]
         );
 
-        console.log("✅ Novo agendamento:", nome);
+        console.log("✅ Agendamento salvo:", nome);
 
         res.json({
             success: true,
@@ -117,19 +125,21 @@ app.post("/api/submit", async (req, res) => {
 
     } catch (error) {
 
-        console.error("❌ ERRO DATABASE:", error);
+        console.error("❌ ERRO AO SALVAR:", error);
 
         res.status(500).json({
             success: false,
             message: "Erro ao salvar agendamento."
         });
+
     }
+
 });
 
 
-// ===============================
-// BUSCAR AGENDAMENTOS
-// ===============================
+// ==============================
+// PEGAR AGENDAMENTOS
+// ==============================
 
 app.get("/api/submissions", async (req, res) => {
 
@@ -162,13 +172,15 @@ app.get("/api/submissions", async (req, res) => {
             success: false,
             message: "Erro ao buscar agendamentos."
         });
+
     }
+
 });
 
 
-// ===============================
-// ALTERAR STATUS
-// ===============================
+// ==============================
+// MUDAR STATUS
+// ==============================
 
 app.post("/api/status", async (req, res) => {
 
@@ -176,13 +188,13 @@ app.post("/api/status", async (req, res) => {
 
         const { id, status } = req.body;
 
-        const statusPermitidos = [
+        const permitidos = [
             "Pendente",
             "Confirmado",
             "Cancelado"
         ];
 
-        if (!statusPermitidos.includes(status)) {
+        if (!permitidos.includes(status)) {
 
             return res.status(400).json({
                 success: false,
@@ -191,7 +203,7 @@ app.post("/api/status", async (req, res) => {
 
         }
 
-        const result = await pool.query(
+        await pool.query(
             `
             UPDATE appointments
             SET status = $1
@@ -199,15 +211,6 @@ app.post("/api/status", async (req, res) => {
             `,
             [status, id]
         );
-
-        if (result.rowCount === 0) {
-
-            return res.status(404).json({
-                success: false,
-                message: "Agendamento não encontrado."
-            });
-
-        }
 
         res.json({
             success: true
@@ -220,13 +223,71 @@ app.post("/api/status", async (req, res) => {
         res.status(500).json({
             success: false
         });
+
     }
+
 });
 
 
-// ===============================
+// ==============================
+// APAGAR AGENDAMENTO
+// ==============================
+
+app.post("/api/delete", async (req, res) => {
+
+    try {
+
+        const { id } = req.body;
+
+        if (!id) {
+
+            return res.status(400).json({
+                success: false,
+                message: "ID não informado."
+            });
+
+        }
+
+        const result = await pool.query(
+            `
+            DELETE FROM appointments
+            WHERE id = $1
+            `,
+            [id]
+        );
+
+        if (result.rowCount === 0) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Agendamento não encontrado."
+            });
+
+        }
+
+        console.log("🗑️ Agendamento apagado:", id);
+
+        res.json({
+            success: true
+        });
+
+    } catch (error) {
+
+        console.error("❌ ERRO AO APAGAR:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Erro ao apagar agendamento."
+        });
+
+    }
+
+});
+
+
+// ==============================
 // SERVIDOR
-// ===============================
+// ==============================
 
 app.listen(PORT, () => {
 
