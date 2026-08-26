@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -16,1073 +17,430 @@
 
 * {
     box-sizing: border-box;
-}
-
-:root {
-    --bg: #070707;
-    --card: #111111;
-    --card2: #0c0c0c;
-    --border: #292929;
-    --blue: #348cff;
-    --blue2: #287cff;
-    --green: #39ff88;
-    --yellow: #ffd83d;
-    --red: #ff6b6b;
-    --orange: #ff9f43;
-    --text: #ffffff;
-    --muted: #888888;
+    font-family: Arial, sans-serif;
 }
 
 body {
-
     margin: 0;
-
-    background:
-        radial-gradient(
-            circle at top right,
-            rgba(52,140,255,.08),
-            transparent 30%
-        ),
-        #070707;
-
+    background: #070707;
     color: white;
-
-    font-family:
-        Inter,
-        Arial,
-        sans-serif;
-
-    min-height: 100vh;
-
 }
 
 
-/* =====================================================
+/* =========================================
    HEADER
-===================================================== */
+========================================= */
 
 header {
-
-    height: 76px;
-
-    background:
-        rgba(17,17,17,.92);
-
-    backdrop-filter:
-        blur(15px);
-
-    border-bottom:
-        1px solid var(--border);
+    height: 75px;
+    background: #111;
+    border-bottom: 1px solid #292929;
 
     display: flex;
-
     align-items: center;
+    justify-content: space-between;
 
-    justify-content:
-        space-between;
-
-    padding:
-        0 35px;
-
-    position: sticky;
-
-    top: 0;
-
-    z-index: 20;
-
+    padding: 0 35px;
 }
-
 
 .logo {
-
-    font-size: 23px;
-
-    font-weight: 900;
-
+    font-size: 24px;
+    font-weight: bold;
     letter-spacing: 3px;
-
 }
-
 
 .logo span {
-
-    color: var(--blue);
-
+    color: #348cff;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
 .online {
-
-    color: var(--green);
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-}
-
-
-/* =====================================================
-   CONTAINER
-===================================================== */
-
-.container {
-
-    max-width: 1550px;
-
-    margin: auto;
-
-    padding: 35px;
-
-}
-
-
-/* =====================================================
-   TITLE
-===================================================== */
-
-.title {
-
-    display: flex;
-
-    justify-content:
-        space-between;
-
-    align-items: center;
-
-    gap: 20px;
-
-    margin-bottom: 25px;
-
-}
-
-
-.title h1 {
-
-    margin: 0;
-
-    font-size: 30px;
-
-}
-
-
-.subtitle {
-
-    color: var(--muted);
-
-    margin-top: 7px;
-
+    color: #39ff88;
     font-size: 13px;
-
 }
 
+.logout {
+    padding: 9px 16px;
 
-.refresh {
+    border: 1px solid #3a3a3a;
+    border-radius: 8px;
 
-    border: 0;
-
-    background:
-        linear-gradient(
-            135deg,
-            #287cff,
-            #348cff
-        );
-
-    color: white;
-
-    padding:
-        13px 20px;
-
-    border-radius: 10px;
+    background: #191919;
+    color: #ff6b6b;
 
     font-weight: bold;
-
     cursor: pointer;
 
     transition: .2s;
+}
 
+.logout:hover {
+    background: #3a1616;
+    border-color: #ff6b6b;
 }
 
 
-.refresh:hover {
+/* =========================================
+   CONTAINER
+========================================= */
 
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 8px 25px
-        rgba(40,124,255,.25);
-
+.container {
+    padding: 35px;
+    max-width: 1500px;
+    margin: auto;
 }
 
 
-/* =====================================================
-   STATS
-===================================================== */
+/* =========================================
+   TÍTULO
+========================================= */
 
-.stats {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(180px,1fr)
-        );
-
-    gap: 14px;
-
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 25px;
-
 }
 
-
-.stat {
-
-    background:
-        linear-gradient(
-            145deg,
-            #121212,
-            #0d0d0d
-        );
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 15px;
-
-    padding: 20px;
-
-    transition: .2s;
-
-}
-
-
-.stat:hover {
-
-    border-color:
-        #3b3b3b;
-
-    transform:
-        translateY(-2px);
-
-}
-
-
-.stat p {
-
+.title h1 {
     margin: 0;
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-    font-weight: bold;
-
-    letter-spacing: 1px;
-
 }
 
+.refresh {
+    padding: 12px 20px;
 
-.stat h2 {
+    border: 0;
+    border-radius: 8px;
 
-    margin:
-        10px 0 0;
-
-    font-size: 27px;
-
-    color: var(--blue);
-
-}
-
-
-/* =====================================================
-   TOOLS
-===================================================== */
-
-.tools {
-
-    display: grid;
-
-    grid-template-columns:
-        1fr 190px;
-
-    gap: 10px;
-
-    margin-bottom: 18px;
-
-}
-
-
-.search,
-.date-filter {
-
-    width: 100%;
-
-    padding: 13px 15px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 10px;
-
-    background: #0d0d0d;
-
+    background: #287cff;
     color: white;
 
-    outline: none;
-
+    cursor: pointer;
+    font-weight: bold;
 }
 
 
-.search:focus,
-.date-filter:focus {
+/* =========================================
+   ESTATÍSTICAS
+========================================= */
 
-    border-color:
-        var(--blue);
+.stats {
+    display: grid;
 
+    grid-template-columns:
+        repeat(auto-fit, minmax(190px, 1fr));
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+}
+
+.stat {
+    background: #111;
+
+    border: 1px solid #292929;
+    border-radius: 12px;
+
+    padding: 20px;
+}
+
+.stat p {
+    color: #777;
+    margin: 0;
+    font-size: 12px;
+}
+
+.stat h2 {
+    margin: 10px 0 0;
+    color: #348cff;
 }
 
 
-/* =====================================================
-   TABS
-===================================================== */
+/* =========================================
+   ABAS
+========================================= */
 
 .tabs {
-
     display: flex;
-
     gap: 8px;
 
     overflow-x: auto;
 
     margin-bottom: 25px;
-
     padding-bottom: 5px;
-
 }
-
 
 .tab {
-
-    border:
-        1px solid var(--border);
-
-    background: #111;
-
-    color: #999;
-
-    border-radius: 10px;
-
-    padding:
-        11px 16px;
-
     white-space: nowrap;
 
+    padding: 11px 18px;
+
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 8px;
+
+    color: #aaa;
+
     cursor: pointer;
-
     font-weight: bold;
-
-    transition: .2s;
-
 }
-
 
 .tab:hover {
-
     color: white;
-
-    border-color:
-        #444;
-
 }
-
 
 .tab.active {
-
-    background:
-        linear-gradient(
-            135deg,
-            #287cff,
-            #348cff
-        );
-
-    border-color:
-        var(--blue);
-
+    background: #287cff;
+    border-color: #287cff;
     color: white;
-
 }
 
 
-/* =====================================================
-   APPOINTMENTS
-===================================================== */
+/* =========================================
+   AGENDAMENTOS
+========================================= */
 
 #appointments {
-
     display: grid;
 
     grid-template-columns:
-        repeat(
-            auto-fill,
-            minmax(350px,1fr)
-        );
+        repeat(auto-fill, minmax(350px, 1fr));
 
-    gap: 18px;
-
+    gap: 20px;
 }
 
 
-/* =====================================================
+/* =========================================
    CARD
-===================================================== */
+========================================= */
 
 .appointment {
+    background: #111;
 
-    background:
-        linear-gradient(
-            145deg,
-            #121212,
-            #0d0d0d
-        );
+    border: 1px solid #292929;
+    border-radius: 15px;
 
-    border:
-        1px solid var(--border);
+    padding: 22px;
 
-    border-radius: 17px;
-
-    padding: 21px;
-
-    transition: .2s;
-
-    animation:
-        aparecer .25s ease;
-
+    transition:
+        transform .15s,
+        border .15s;
 }
-
-
-@keyframes aparecer {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(8px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
 
 .appointment:hover {
-
-    border-color:
-        #3d3d3d;
-
-    transform:
-        translateY(-2px);
-
+    transform: translateY(-2px);
+    border-color: #3a3a3a;
 }
 
-
 .appointment-header {
-
     display: flex;
 
-    justify-content:
-        space-between;
-
+    justify-content: space-between;
     align-items: center;
 
     gap: 10px;
 
-    margin-bottom: 18px;
-
+    margin-bottom: 20px;
 }
-
 
 .appointment-header h2 {
-
     margin: 0;
-
     font-size: 20px;
-
 }
 
-
 .status {
-
-    padding:
-        6px 10px;
+    padding: 6px 10px;
 
     border-radius: 20px;
 
-    font-size: 10px;
-
+    font-size: 11px;
     font-weight: bold;
 
     white-space: nowrap;
-
 }
-
-
-/* STATUS */
 
 .status-pendente {
-
     background: #332b00;
-
-    color: var(--yellow);
-
+    color: #ffd83d;
 }
-
 
 .status-confirmado {
-
     background: #073d25;
-
-    color: var(--green);
-
+    color: #39ff88;
 }
-
-
-.status-andamento {
-
-    background: #3d2508;
-
-    color: var(--orange);
-
-}
-
 
 .status-cancelado {
-
     background: #451818;
-
-    color: var(--red);
-
+    color: #ff6b6b;
 }
-
 
 .status-finalizado {
-
     background: #172d45;
-
     color: #6fb4ff;
-
 }
 
 
-/* =====================================================
+/* =========================================
    INFO
-===================================================== */
+========================================= */
 
 .info {
-
-    color: #999;
-
-    font-size: 13px;
-
-    margin:
-        9px 0;
-
-    line-height: 1.45;
-
+    margin: 10px 0;
+    color: #aaa;
+    line-height: 1.4;
 }
-
 
 .info strong {
-
     color: white;
-
 }
 
-
-/* =====================================================
-   PRICE
-===================================================== */
-
 .price {
-
-    display: flex;
-
-    justify-content:
-        space-between;
-
-    align-items: center;
-
-    margin-top: 17px;
-
+    margin-top: 18px;
     padding: 15px;
 
     background: #090909;
+    border: 1px solid #292929;
+    border-radius: 10px;
 
-    border:
-        1px solid var(--border);
-
-    border-radius: 11px;
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-
-.price-value {
-
-    color: var(--green);
-
-    font-size: 21px;
-
-    font-weight: 900;
-
+.price span:last-child {
+    color: #39ff88;
+    font-size: 20px;
+    font-weight: bold;
 }
-
 
 .paid {
-
-    color: var(--green);
-
+    color: #39ff88;
     font-weight: bold;
-
 }
-
 
 .unpaid {
-
-    color: var(--yellow);
-
+    color: #ffd83d;
     font-weight: bold;
-
 }
 
 
-/* =====================================================
-   ACTIONS
-===================================================== */
+/* =========================================
+   AÇÕES
+========================================= */
 
 .actions {
-
     display: grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        repeat(2, 1fr);
 
     gap: 8px;
 
-    margin-top: 18px;
-
+    margin-top: 20px;
 }
 
-
 .actions button {
+    padding: 11px;
 
     border: 0;
-
-    border-radius: 8px;
-
-    padding: 11px 8px;
-
-    color: white;
-
-    font-weight: bold;
+    border-radius: 7px;
 
     cursor: pointer;
 
-    transition: .15s;
-
+    color: white;
+    font-weight: bold;
 }
-
-
-.actions button:hover {
-
-    transform:
-        translateY(-1px);
-
-    filter:
-        brightness(1.12);
-
-}
-
 
 .confirm {
-
     background: #168b4d;
-
 }
-
 
 .pending {
-
     background: #806d00;
-
 }
-
-
-.start {
-
-    background: #bd6d15;
-
-}
-
 
 .cancel {
-
     background: #8b2424;
-
 }
-
 
 .payment {
-
     background: #176b52;
-
 }
-
 
 .finish {
-
     background: #287cff;
-
 }
-
 
 .delete {
-
     background: #4a2020;
+}
 
+.actions button:hover {
+    opacity: .85;
 }
 
 
-/* =====================================================
-   EMPTY
-===================================================== */
+/* =========================================
+   VAZIO
+========================================= */
 
 .empty {
+    grid-column: 1 / -1;
 
-    grid-column:
-        1 / -1;
-
+    color: #666;
     text-align: center;
 
-    padding: 80px 20px;
+    padding: 70px 20px;
 
     background: #111;
 
-    border:
-        1px solid var(--border);
-
-    border-radius: 17px;
-
-    color: #666;
-
+    border: 1px solid #292929;
+    border-radius: 15px;
 }
 
 
-/* =====================================================
-   POPUP
-===================================================== */
-
-.popup-backdrop {
-
-    position: fixed;
-
-    inset: 0;
-
-    background:
-        rgba(0,0,0,.72);
-
-    backdrop-filter:
-        blur(8px);
-
-    display: none;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 20px;
-
-    z-index: 100;
-
-}
-
-
-.popup-backdrop.show {
-
-    display: flex;
-
-}
-
-
-.popup {
-
-    width: 100%;
-
-    max-width: 430px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #181818,
-            #0d0d0d
-        );
-
-    border:
-        1px solid #333;
-
-    border-radius: 18px;
-
-    padding: 25px;
-
-    box-shadow:
-        0 30px 80px
-        rgba(0,0,0,.55);
-
-    animation:
-        popupIn .2s ease;
-
-}
-
-
-@keyframes popupIn {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            scale(.95)
-            translateY(10px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            scale(1)
-            translateY(0);
-
-    }
-
-}
-
-
-.popup-icon {
-
-    font-size: 35px;
-
-    margin-bottom: 10px;
-
-}
-
-
-.popup h2 {
-
-    margin:
-        0 0 8px;
-
-}
-
-
-.popup p {
-
-    color: #999;
-
-    line-height: 1.5;
-
-    font-size: 14px;
-
-}
-
-
-.popup-buttons {
-
-    display: flex;
-
-    gap: 10px;
-
-    margin-top: 22px;
-
-}
-
-
-.popup-buttons button {
-
-    flex: 1;
-
-    padding: 12px;
-
-    border: 0;
-
-    border-radius: 9px;
-
-    cursor: pointer;
-
-    font-weight: bold;
-
-}
-
-
-.popup-cancel {
-
-    background: #222;
-
-    color: white;
-
-}
-
-
-.popup-confirm {
-
-    background: var(--blue2);
-
-    color: white;
-
-}
-
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-.toast {
-
-    position: fixed;
-
-    right: 20px;
-
-    bottom: 20px;
-
-    max-width: 350px;
-
-    padding:
-        14px 18px;
-
-    background: #151515;
-
-    border:
-        1px solid #333;
-
-    border-radius: 11px;
-
-    box-shadow:
-        0 15px 40px
-        rgba(0,0,0,.4);
-
-    transform:
-        translateY(100px);
-
-    opacity: 0;
-
-    transition: .25s;
-
-    z-index: 200;
-
-}
-
-
-.toast.show {
-
-    transform:
-        translateY(0);
-
-    opacity: 1;
-
-}
-
-
-.toast.success {
-
-    border-color:
-        #176b52;
-
-}
-
-
-.toast.error {
-
-    border-color:
-        #8b2424;
-
-}
-
-
-/* =====================================================
+/* =========================================
    MOBILE
-===================================================== */
+========================================= */
 
-@media(max-width: 700px) {
+@media(max-width: 600px) {
 
     header {
-
-        padding:
-            0 18px;
-
+        padding: 0 18px;
     }
-
 
     .logo {
-
-        font-size: 16px;
-
+        font-size: 17px;
     }
 
+    .online {
+        display: none;
+    }
 
     .container {
-
-        padding:
-            22px 15px;
-
+        padding: 20px 15px;
     }
-
 
     .title {
-
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
-
+        align-items: flex-start;
+        gap: 15px;
     }
 
-
-    .refresh {
-
-        width: 100%;
-
+    .title h1 {
+        font-size: 24px;
     }
-
-
-    .tools {
-
-        grid-template-columns: 1fr;
-
-    }
-
 
     #appointments {
-
         grid-template-columns: 1fr;
-
     }
 
-
     .actions {
-
         grid-template-columns: 1fr;
-
     }
 
 }
@@ -1098,15 +456,22 @@ header {
 <header>
 
     <div class="logo">
-
         SAM<span>UCA</span> BARBERSHOP
-
     </div>
 
 
-    <div class="online">
+    <div class="header-right">
 
-        ● ONLINE
+        <div class="online">
+            ● ONLINE
+        </div>
+
+        <button
+            class="logout"
+            onclick="sair()"
+        >
+            🚪 Sair
+        </button>
 
     </div>
 
@@ -1118,163 +483,60 @@ header {
 
     <div class="title">
 
-        <div>
-
-            <h1>
-                Dashboard
-            </h1>
-
-            <div class="subtitle">
-                Gerenciamento de agendamentos
-            </div>
-
-        </div>
-
+        <h1>
+            Agendamentos
+        </h1>
 
         <button
             class="refresh"
             onclick="carregar()"
         >
-
             ↻ Atualizar
-
         </button>
 
     </div>
 
 
-    <!-- =================================================
-         ESTATÍSTICAS
-    ================================================== -->
+    <!-- ESTATÍSTICAS -->
 
     <div class="stats">
 
-
         <div class="stat">
-
-            <p>
-                TOTAL
-            </p>
-
-            <h2 id="total">
-                0
-            </h2>
-
+            <p>TOTAL</p>
+            <h2 id="total">0</h2>
         </div>
 
-
         <div class="stat">
-
-            <p>
-                PENDENTES
-            </p>
-
-            <h2 id="pendentes">
-                0
-            </h2>
-
+            <p>PENDENTES</p>
+            <h2 id="pendentes">0</h2>
         </div>
 
-
         <div class="stat">
-
-            <p>
-                CONFIRMADOS
-            </p>
-
-            <h2 id="confirmados">
-                0
-            </h2>
-
+            <p>CONFIRMADOS</p>
+            <h2 id="confirmados">0</h2>
         </div>
 
-
         <div class="stat">
-
-            <p>
-                EM ANDAMENTO
-            </p>
-
-            <h2 id="andamento">
-                0
-            </h2>
-
+            <p>PAGOS</p>
+            <h2 id="pagos">0</h2>
         </div>
 
-
         <div class="stat">
-
-            <p>
-                FINALIZADOS
-            </p>
-
-            <h2 id="finalizados">
-                0
-            </h2>
-
+            <p>FINALIZADOS</p>
+            <h2 id="finalizados">0</h2>
         </div>
 
-
         <div class="stat">
-
-            <p>
-                PAGOS
-            </p>
-
-            <h2 id="pagos">
-                0
-            </h2>
-
+            <p>TOTAL RECEBIDO</p>
+            <h2 id="recebido">$0.00</h2>
         </div>
-
-
-        <div class="stat">
-
-            <p>
-                TOTAL RECEBIDO
-            </p>
-
-            <h2 id="recebido">
-                $0.00
-            </h2>
-
-        </div>
-
 
     </div>
 
 
-    <!-- =================================================
-         BUSCA
-    ================================================== -->
-
-    <div class="tools">
-
-        <input
-            id="busca"
-            class="search"
-            type="text"
-            placeholder="🔎 Buscar por nome ou telefone..."
-            oninput="renderizar()"
-        >
-
-
-        <input
-            id="filtroData"
-            class="date-filter"
-            type="date"
-            onchange="renderizar()"
-        >
-
-    </div>
-
-
-    <!-- =================================================
-         ABAS
-    ================================================== -->
+    <!-- ABAS -->
 
     <div class="tabs">
-
 
         <button
             class="tab active"
@@ -1283,14 +545,12 @@ header {
             📋 Todos
         </button>
 
-
         <button
             class="tab"
             onclick="mudarAba('Pendente', this)"
         >
             ⏳ Pendentes
         </button>
-
 
         <button
             class="tab"
@@ -1299,23 +559,6 @@ header {
             ✅ Confirmados
         </button>
 
-
-        <button
-            class="tab"
-            onclick="mudarAba('Em andamento', this)"
-        >
-            ✂️ Em andamento
-        </button>
-
-
-        <button
-            class="tab"
-            onclick="mudarAba('Finalizado', this)"
-        >
-            🏁 Finalizados
-        </button>
-
-
         <button
             class="tab"
             onclick="mudarAba('pago', this)"
@@ -1323,6 +566,12 @@ header {
             💰 Pagos
         </button>
 
+        <button
+            class="tab"
+            onclick="mudarAba('Finalizado', this)"
+        >
+            ✂️ Finalizados
+        </button>
 
         <button
             class="tab"
@@ -1331,13 +580,8 @@ header {
             ❌ Cancelados
         </button>
 
-
     </div>
 
-
-    <!-- =================================================
-         CARDS
-    ================================================== -->
 
     <div id="appointments"></div>
 
@@ -1345,94 +589,70 @@ header {
 </div>
 
 
-<!-- =====================================================
-     POPUP
-====================================================== -->
-
-<div
-    id="popupBackdrop"
-    class="popup-backdrop"
->
-
-    <div class="popup">
-
-        <div
-            id="popupIcon"
-            class="popup-icon"
-        >
-            ⚠️
-        </div>
-
-
-        <h2 id="popupTitle">
-            Confirmar ação
-        </h2>
-
-
-        <p id="popupMessage">
-            Tem certeza?
-        </p>
-
-
-        <div class="popup-buttons">
-
-            <button
-                class="popup-cancel"
-                onclick="fecharPopup()"
-            >
-                Voltar
-            </button>
-
-
-            <button
-                id="popupConfirm"
-                class="popup-confirm"
-            >
-                Confirmar
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     TOAST
-====================================================== -->
-
-<div
-    id="toast"
-    class="toast"
->
-</div>
-
-
 <script>
+
 
 let dados = [];
 
 let filtroAtual = "todos";
 
-let popupCallback = null;
+
+// ================================================
+// VERIFICAR LOGIN
+// ================================================
+
+async function verificarLogin() {
+
+    try {
+
+        const response =
+            await fetch("/api/auth");
+
+        if (!response.ok) {
+
+            window.location.href =
+                "/login.html";
+
+            return false;
+
+        }
+
+        return true;
+
+    }
+
+    catch {
+
+        window.location.href =
+            "/login.html";
+
+        return false;
+
+    }
+
+}
 
 
-// =====================================================
+// ================================================
 // CARREGAR
-// =====================================================
+// ================================================
 
 async function carregar() {
 
     try {
 
         const response =
-            await fetch(
-                "/api/submissions",
-                {
-                    cache: "no-store"
-                }
-            );
+            await fetch("/api/submissions");
+
+
+        if (response.status === 401) {
+
+            window.location.href =
+                "/login.html";
+
+            return;
+
+        }
 
 
         if (!response.ok) {
@@ -1465,12 +685,11 @@ async function carregar() {
 
             <div class="empty">
 
-                ❌ Não foi possível carregar
-                os agendamentos.
+                ❌ Servidor offline.
 
                 <br><br>
 
-                Verifique o servidor.
+                Verifique sua conexão.
 
             </div>
 
@@ -1481,9 +700,9 @@ async function carregar() {
 }
 
 
-// =====================================================
+// ================================================
 // ESTATÍSTICAS
-// =====================================================
+// ================================================
 
 function atualizarEstatisticas() {
 
@@ -1496,67 +715,46 @@ function atualizarEstatisticas() {
     document.getElementById(
         "pendentes"
     ).textContent =
-
         dados.filter(
-            x =>
-                x.status === "Pendente"
+            x => x.status === "Pendente"
         ).length;
 
 
     document.getElementById(
         "confirmados"
     ).textContent =
-
         dados.filter(
-            x =>
-                x.status === "Confirmado"
-        ).length;
-
-
-    document.getElementById(
-        "andamento"
-    ).textContent =
-
-        dados.filter(
-            x =>
-                x.status === "Em andamento"
-        ).length;
-
-
-    document.getElementById(
-        "finalizados"
-    ).textContent =
-
-        dados.filter(
-            x =>
-                x.status === "Finalizado"
+            x => x.status === "Confirmado"
         ).length;
 
 
     document.getElementById(
         "pagos"
     ).textContent =
-
         dados.filter(
-            x =>
-                x.pago === true
+            x => x.pago === true
         ).length;
 
 
-    const recebido =
+    document.getElementById(
+        "finalizados"
+    ).textContent =
+        dados.filter(
+            x => x.status === "Finalizado"
+        ).length;
+
+
+    const totalRecebido =
 
         dados
 
             .filter(
-                x =>
-                    x.pago === true
+                x => x.pago === true
             )
 
             .reduce(
-                (
-                    total,
-                    item
-                ) =>
+
+                (total, item) =>
 
                     total +
                     Number(
@@ -1564,20 +762,23 @@ function atualizarEstatisticas() {
                     ),
 
                 0
+
             );
 
 
     document.getElementById(
         "recebido"
     ).textContent =
-        formatarPreco(recebido);
+        formatarPreco(
+            totalRecebido
+        );
 
 }
 
 
-// =====================================================
-// ABA
-// =====================================================
+// ================================================
+// ABAS
+// ================================================
 
 function mudarAba(
     filtro,
@@ -1591,6 +792,7 @@ function mudarAba(
     document
         .querySelectorAll(".tab")
         .forEach(
+
             item => {
 
                 item.classList.remove(
@@ -1598,6 +800,7 @@ function mudarAba(
                 );
 
             }
+
         );
 
 
@@ -1611,9 +814,9 @@ function mudarAba(
 }
 
 
-// =====================================================
+// ================================================
 // RENDERIZAR
-// =====================================================
+// ================================================
 
 function renderizar() {
 
@@ -1623,27 +826,9 @@ function renderizar() {
         );
 
 
-    const busca =
-        document.getElementById(
-            "busca"
-        ).value
-        .trim()
-        .toLowerCase();
-
-
-    const dataFiltro =
-        document.getElementById(
-            "filtroData"
-        ).value;
-
-
     let lista =
         dados.slice();
 
-
-    // ---------------------------------------------
-    // FILTRO ABA
-    // ---------------------------------------------
 
     if (
         filtroAtual !== "todos"
@@ -1675,68 +860,6 @@ function renderizar() {
     }
 
 
-    // ---------------------------------------------
-    // BUSCA
-    // ---------------------------------------------
-
-    if (busca) {
-
-        lista =
-            lista.filter(
-                item => {
-
-                    const nome =
-                        String(
-                            item.nome || ""
-                        ).toLowerCase();
-
-
-                    const telefone =
-                        String(
-                            item.telefone || ""
-                        ).toLowerCase();
-
-
-                    return (
-
-                        nome.includes(
-                            busca
-                        )
-
-                        ||
-
-                        telefone.includes(
-                            busca
-                        )
-
-                    );
-
-                }
-            );
-
-    }
-
-
-    // ---------------------------------------------
-    // DATA
-    // ---------------------------------------------
-
-    if (dataFiltro) {
-
-        lista =
-            lista.filter(
-                item =>
-                    item.data ===
-                    dataFiltro
-            );
-
-    }
-
-
-    // ---------------------------------------------
-    // VAZIO
-    // ---------------------------------------------
-
     if (
         lista.length === 0
     ) {
@@ -1745,12 +868,8 @@ function renderizar() {
 
             <div class="empty">
 
-                📭
-
-                <br><br>
-
                 Nenhum agendamento
-                encontrado.
+                nesta categoria.
 
             </div>
 
@@ -1763,10 +882,6 @@ function renderizar() {
 
     container.innerHTML = "";
 
-
-    // ---------------------------------------------
-    // MAIS RECENTES PRIMEIRO
-    // ---------------------------------------------
 
     lista.forEach(
         item => {
@@ -1781,20 +896,28 @@ function renderizar() {
                 "appointment";
 
 
-            const preco =
-                Number(
-                    item.preco || 0
-                );
-
-
             const statusClass =
                 getStatusClass(
                     item.status
                 );
 
 
-            const pago =
-                item.pago === true;
+            const preco =
+                Number(
+                    item.preco || 0
+                );
+
+
+            const pagoTexto =
+                item.pago
+                    ? "✓ PAGO"
+                    : "Não pago";
+
+
+            const pagoClass =
+                item.pago
+                    ? "paid"
+                    : "unpaid";
 
 
             card.innerHTML = `
@@ -1802,108 +925,61 @@ function renderizar() {
                 <div class="appointment-header">
 
                     <h2>
-                        ${escapeHTML(
-                            item.nome
-                        )}
+                        ${escapeHTML(item.nome)}
                     </h2>
 
-
-                    <span
-                        class="status ${statusClass}"
-                    >
-
-                        ${escapeHTML(
-                            item.status
-                        )}
-
+                    <span class="status ${statusClass}">
+                        ${escapeHTML(item.status)}
                     </span>
 
                 </div>
 
 
                 <div class="info">
-
-                    📞
-                    <strong>Telefone:</strong>
-
-                    ${escapeHTML(
-                        item.telefone
-                    )}
-
+                    📞 <strong>Telefone:</strong>
+                    ${escapeHTML(item.telefone)}
                 </div>
 
 
                 <div class="info">
-
-                    📧
-                    <strong>E-mail:</strong>
-
+                    📧 <strong>E-mail:</strong>
                     ${escapeHTML(
                         item.email ||
                         "Não informado"
                     )}
-
                 </div>
 
 
                 <div class="info">
-
-                    📅
-                    <strong>Data:</strong>
-
-                    ${escapeHTML(
-                        item.data
-                    )}
-
+                    📅 <strong>Data:</strong>
+                    ${escapeHTML(item.data)}
                 </div>
 
 
                 <div class="info">
-
-                    🕐
-                    <strong>Horário:</strong>
-
-                    ${escapeHTML(
-                        item.horario
-                    )}
-
+                    🕐 <strong>Horário:</strong>
+                    ${escapeHTML(item.horario)}
                 </div>
 
 
                 <div class="info">
-
-                    ✂️
-                    <strong>Serviço:</strong>
-
-                    ${escapeHTML(
-                        item.servico
-                    )}
-
+                    ✂️ <strong>Serviço:</strong>
+                    ${escapeHTML(item.servico)}
                 </div>
 
 
                 <div class="info">
-
-                    💈
-                    <strong>Corte:</strong>
-
-                    ${escapeHTML(
-                        item.tipo
-                    )}
-
+                    💈 <strong>Corte:</strong>
+                    ${escapeHTML(item.tipo)}
                 </div>
 
 
                 <div class="info">
-
-                    📝
-                    <strong>Observações:</strong>
-
+                    📝 <strong>Observações:</strong>
                     ${escapeHTML(
                         item.observacoes ||
                         "Nenhuma"
                     )}
-
                 </div>
 
 
@@ -1913,12 +989,8 @@ function renderizar() {
                         💵 Valor
                     </span>
 
-                    <span class="price-value">
-
-                        ${formatarPreco(
-                            preco
-                        )}
-
+                    <span>
+                        ${formatarPreco(preco)}
                     </span>
 
                 </div>
@@ -1926,38 +998,14 @@ function renderizar() {
 
                 <div class="info">
 
-                    💳
-                    <strong>Pagamento:</strong>
+                    💰
+                    <strong>
+                        Pagamento:
+                    </strong>
 
-                    <span
-                        class="${
-                            pago
-                            ? "paid"
-                            : "unpaid"
-                        }"
-                    >
-
-                        ${
-                            pago
-                            ? "✓ PAGO"
-                            : "⏳ NÃO PAGO"
-                        }
-
+                    <span class="${pagoClass}">
+                        ${pagoTexto}
                     </span>
-
-                </div>
-
-
-                <div class="info">
-
-                    <small>
-
-                        Recebido:
-                        ${formatarData(
-                            item.enviadoEm
-                        )}
-
-                    </small>
 
                 </div>
 
@@ -1966,8 +1014,8 @@ function renderizar() {
 
 
                     ${
-                        item.status ===
-                        "Pendente"
+                        item.status !== "Confirmado" &&
+                        item.status !== "Finalizado"
 
                         ?
 
@@ -1975,16 +1023,12 @@ function renderizar() {
 
                         <button
                             class="confirm"
-                            onclick="
-                                mudarStatus(
-                                    ${item.id},
-                                    'Confirmado'
-                                )
-                            "
+                            onclick="mudarStatus(
+                                ${item.id},
+                                'Confirmado'
+                            )"
                         >
-
                             ✓ Confirmar
-
                         </button>
 
                         `
@@ -1997,24 +1041,21 @@ function renderizar() {
 
 
                     ${
-                        item.status ===
-                        "Confirmado"
+                        item.status !== "Pendente" &&
+                        item.status !== "Finalizado"
 
                         ?
 
                         `
 
                         <button
-                            class="start"
-                            onclick="
-                                iniciarCorte(
-                                    ${item.id}
-                                )
-                            "
+                            class="pending"
+                            onclick="mudarStatus(
+                                ${item.id},
+                                'Pendente'
+                            )"
                         >
-
-                            ✂️ Iniciar corte
-
+                            ⏳ Pendente
                         </button>
 
                         `
@@ -2027,50 +1068,8 @@ function renderizar() {
 
 
                     ${
-                        item.status ===
-                        "Em andamento"
-
-                        ?
-
-                        `
-
-                        <button
-                            class="finish"
-                            onclick="
-                                finalizar(
-                                    ${item.id}
-                                )
-                            "
-                        >
-
-                            ✓ Finalizar corte
-
-                        </button>
-
-                        `
-
-                        :
-
-                        ""
-
-                    }
-
-
-                    ${
-                        (
-                            item.status ===
-                            "Pendente"
-
-                            ||
-
-                            item.status ===
-                            "Confirmado"
-
-                            ||
-
-                            item.status ===
-                            "Em andamento"
-                        )
+                        item.status !== "Cancelado" &&
+                        item.status !== "Finalizado"
 
                         ?
 
@@ -2078,15 +1077,12 @@ function renderizar() {
 
                         <button
                             class="cancel"
-                            onclick="
-                                cancelar(
-                                    ${item.id}
-                                )
-                            "
+                            onclick="mudarStatus(
+                                ${item.id},
+                                'Cancelado'
+                            )"
                         >
-
                             ❌ Cancelar
-
                         </button>
 
                         `
@@ -2099,7 +1095,7 @@ function renderizar() {
 
 
                     ${
-                        !pago
+                        !item.pago
 
                         ?
 
@@ -2107,16 +1103,12 @@ function renderizar() {
 
                         <button
                             class="payment"
-                            onclick="
-                                mudarPagamento(
-                                    ${item.id},
-                                    true
-                                )
-                            "
+                            onclick="mudarPagamento(
+                                ${item.id},
+                                true
+                            )"
                         >
-
-                            💰 Marcar pago
-
+                            💰 Marcar Pago
                         </button>
 
                         `
@@ -2127,16 +1119,12 @@ function renderizar() {
 
                         <button
                             class="pending"
-                            onclick="
-                                mudarPagamento(
-                                    ${item.id},
-                                    false
-                                )
-                            "
+                            onclick="mudarPagamento(
+                                ${item.id},
+                                false
+                            )"
                         >
-
-                            ↩️ Desmarcar pago
-
+                            ↩️ Desmarcar Pago
                         </button>
 
                         `
@@ -2144,17 +1132,38 @@ function renderizar() {
                     }
 
 
+                    ${
+                        item.status !== "Finalizado"
+
+                        ?
+
+                        `
+
+                        <button
+                            class="finish"
+                            onclick="finalizar(
+                                ${item.id}
+                            )"
+                        >
+                            ✂️ Finalizar Corte
+                        </button>
+
+                        `
+
+                        :
+
+                        ""
+
+                    }
+
+
                     <button
                         class="delete"
-                        onclick="
-                            apagar(
-                                ${item.id}
-                            )
-                        "
+                        onclick="apagar(
+                            ${item.id}
+                        )"
                     >
-
                         🗑️ Apagar
-
                     </button>
 
 
@@ -2173,98 +1182,33 @@ function renderizar() {
 }
 
 
-// =====================================================
-// INICIAR CORTE
-// =====================================================
-
-function iniciarCorte(id) {
-
-    abrirPopup(
-
-        "✂️",
-
-        "Iniciar corte?",
-
-        "O agendamento será movido para 'Em andamento'.",
-
-        async () => {
-
-            await mudarStatus(
-                id,
-                "Em andamento"
-            );
-
-        }
-
-    );
-
-}
-
-
-// =====================================================
-// FINALIZAR
-// =====================================================
-
-function finalizar(id) {
-
-    abrirPopup(
-
-        "🏁",
-
-        "Finalizar corte?",
-
-        "O corte será marcado como finalizado e o horário ficará disponível novamente para outro cliente.",
-
-        async () => {
-
-            await mudarStatus(
-                id,
-                "Finalizado"
-            );
-
-        }
-
-    );
-
-}
-
-
-// =====================================================
-// CANCELAR
-// =====================================================
-
-function cancelar(id) {
-
-    abrirPopup(
-
-        "❌",
-
-        "Cancelar agendamento?",
-
-        "O horário será liberado para outro cliente.",
-
-        async () => {
-
-            await mudarStatus(
-                id,
-                "Cancelado"
-            );
-
-        }
-
-    );
-
-}
-
-
-// =====================================================
+// ================================================
 // STATUS
-// =====================================================
+// ================================================
 
 async function mudarStatus(
     id,
     status
 ) {
+
+    if (
+        status === "Cancelado"
+    ) {
+
+        const confirmar =
+            confirm(
+                "Tem certeza que deseja cancelar este agendamento?"
+            );
+
+
+        if (!confirmar) {
+
+            return;
+
+        }
+
+    }
+
 
     try {
 
@@ -2273,23 +1217,17 @@ async function mudarStatus(
                 "/api/status",
                 {
 
-                    method:
-                        "POST",
+                    method: "POST",
 
                     headers: {
-
                         "Content-Type":
                             "application/json"
-
                     },
 
                     body:
                         JSON.stringify({
-
                             id,
-
                             status
-
                         })
 
                 }
@@ -2301,34 +1239,20 @@ async function mudarStatus(
 
 
         if (
-            !response.ok ||
             !resultado.success
         ) {
 
-            mostrarToast(
-
+            alert(
                 resultado.message ||
-                "Erro ao alterar status.",
-
-                "error"
-
+                "Erro ao atualizar."
             );
 
-            return false;
+            return;
 
         }
 
 
-        mostrarToast(
-            "✓ Status atualizado.",
-            "success"
-        );
-
-
         await carregar();
-
-
-        return true;
 
     }
 
@@ -2336,23 +1260,51 @@ async function mudarStatus(
 
         console.error(error);
 
-
-        mostrarToast(
-            "Erro de conexão.",
-            "error"
+        alert(
+            "Erro de conexão."
         );
-
-
-        return false;
 
     }
 
 }
 
 
-// =====================================================
+// ================================================
+// FINALIZAR
+// ================================================
+
+async function finalizar(id) {
+
+    const confirmar =
+        confirm(
+
+            "Finalizar este corte?\n\n" +
+
+            "O horário será liberado " +
+
+            "para outro cliente."
+
+        );
+
+
+    if (!confirmar) {
+
+        return;
+
+    }
+
+
+    await mudarStatus(
+        id,
+        "Finalizado"
+    );
+
+}
+
+
+// ================================================
 // PAGAMENTO
-// =====================================================
+// ================================================
 
 async function mudarPagamento(
     id,
@@ -2366,23 +1318,17 @@ async function mudarPagamento(
                 "/api/payment",
                 {
 
-                    method:
-                        "POST",
+                    method: "POST",
 
                     headers: {
-
                         "Content-Type":
                             "application/json"
-
                     },
 
                     body:
                         JSON.stringify({
-
                             id,
-
                             pago
-
                         })
 
                 }
@@ -2394,29 +1340,16 @@ async function mudarPagamento(
 
 
         if (
-            !response.ok ||
             !resultado.success
         ) {
 
-            mostrarToast(
-                "Erro ao atualizar pagamento.",
-                "error"
+            alert(
+                "Erro ao atualizar pagamento."
             );
 
             return;
 
         }
-
-
-        mostrarToast(
-
-            pago
-            ? "💰 Pagamento marcado como pago."
-            : "Pagamento desmarcado.",
-
-            "success"
-
-        );
 
 
         await carregar();
@@ -2427,10 +1360,8 @@ async function mudarPagamento(
 
         console.error(error);
 
-
-        mostrarToast(
-            "Erro de conexão.",
-            "error"
+        alert(
+            "Erro de conexão."
         );
 
     }
@@ -2438,257 +1369,158 @@ async function mudarPagamento(
 }
 
 
-// =====================================================
+// ================================================
 // APAGAR
-// =====================================================
+// ================================================
 
-function apagar(id) {
+async function apagar(id) {
 
-    abrirPopup(
+    const confirmar =
+        confirm(
 
-        "🗑️",
+            "⚠️ APAGAR AGENDAMENTO?\n\n" +
 
-        "Apagar agendamento?",
+            "Essa ação não pode ser desfeita."
 
-        "Essa ação é permanente e não poderá ser desfeita.",
-
-        async () => {
-
-            try {
-
-                const response =
-                    await fetch(
-                        "/api/delete",
-                        {
-
-                            method:
-                                "POST",
-
-                            headers: {
-
-                                "Content-Type":
-                                    "application/json"
-
-                            },
-
-                            body:
-                                JSON.stringify({
-
-                                    id
-
-                                })
-
-                        }
-                    );
+        );
 
 
-                const resultado =
-                    await response.json();
+    if (!confirmar) {
+
+        return;
+
+    }
 
 
-                if (
-                    !response.ok ||
-                    !resultado.success
-                ) {
+    try {
 
-                    mostrarToast(
+        const response =
+            await fetch(
+                "/api/delete",
+                {
 
-                        resultado.message ||
-                        "Erro ao apagar.",
+                    method: "POST",
 
-                        "error"
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
 
-                    );
-
-                    return;
+                    body:
+                        JSON.stringify({
+                            id
+                        })
 
                 }
+            );
 
 
-                mostrarToast(
-                    "🗑️ Agendamento apagado.",
-                    "success"
-                );
+        const resultado =
+            await response.json();
 
-
-                await carregar();
-
-            }
-
-            catch (error) {
-
-                console.error(error);
-
-
-                mostrarToast(
-                    "Erro de conexão.",
-                    "error"
-                );
-
-            }
-
-        }
-
-    );
-
-}
-
-
-// =====================================================
-// POPUP
-// =====================================================
-
-function abrirPopup(
-    icone,
-    titulo,
-    mensagem,
-    callback
-) {
-
-    document.getElementById(
-        "popupIcon"
-    ).textContent =
-        icone;
-
-
-    document.getElementById(
-        "popupTitle"
-    ).textContent =
-        titulo;
-
-
-    document.getElementById(
-        "popupMessage"
-    ).textContent =
-        mensagem;
-
-
-    popupCallback =
-        callback;
-
-
-    document
-        .getElementById(
-            "popupBackdrop"
-        )
-        .classList.add(
-            "show"
-        );
-
-}
-
-
-function fecharPopup() {
-
-    document
-        .getElementById(
-            "popupBackdrop"
-        )
-        .classList.remove(
-            "show"
-        );
-
-
-    popupCallback =
-        null;
-
-}
-
-
-document.getElementById(
-    "popupConfirm"
-).addEventListener(
-    "click",
-    async function() {
-
-        const callback =
-            popupCallback;
-
-
-        fecharPopup();
-
-
-        if (callback) {
-
-            await callback();
-
-        }
-
-    }
-);
-
-
-document.getElementById(
-    "popupBackdrop"
-).addEventListener(
-    "click",
-    function(event) {
 
         if (
-            event.target === this
+            !resultado.success
         ) {
 
-            fecharPopup();
+            alert(
+                resultado.message ||
+                "Erro ao apagar."
+            );
+
+            return;
 
         }
 
+
+        await carregar();
+
     }
-);
 
+    catch (error) {
 
-// =====================================================
-// TOAST
-// =====================================================
+        console.error(error);
 
-let toastTimer;
-
-
-function mostrarToast(
-    mensagem,
-    tipo = "success"
-) {
-
-    const toast =
-        document.getElementById(
-            "toast"
+        alert(
+            "Erro de conexão."
         );
 
-
-    toast.textContent =
-        mensagem;
-
-
-    toast.className =
-        `toast ${tipo} show`;
-
-
-    clearTimeout(
-        toastTimer
-    );
-
-
-    toastTimer =
-        setTimeout(
-            () => {
-
-                toast.classList.remove(
-                    "show"
-                );
-
-            },
-            3000
-        );
+    }
 
 }
 
 
-// =====================================================
-// STATUS CLASS
-// =====================================================
+// ================================================
+// SAIR / LOGOUT
+// ================================================
 
-function getStatusClass(
-    status
-) {
+async function sair() {
+
+    const confirmar =
+        confirm(
+            "Deseja realmente sair do dashboard?"
+        );
+
+
+    if (!confirmar) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/logout",
+                {
+                    method: "POST"
+                }
+            );
+
+
+        const resultado =
+            await response.json();
+
+
+        if (
+            resultado.success
+        ) {
+
+            window.location.href =
+                "/login.html";
+
+        }
+
+        else {
+
+            alert(
+                "Não foi possível sair."
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Erro de conexão."
+        );
+
+    }
+
+}
+
+
+// ================================================
+// CLASSE STATUS
+// ================================================
+
+function getStatusClass(status) {
 
     if (
         status === "Pendente"
@@ -2704,15 +1536,6 @@ function getStatusClass(
     ) {
 
         return "status-confirmado";
-
-    }
-
-
-    if (
-        status === "Em andamento"
-    ) {
-
-        return "status-andamento";
 
     }
 
@@ -2740,13 +1563,11 @@ function getStatusClass(
 }
 
 
-// =====================================================
+// ================================================
 // ESCAPAR HTML
-// =====================================================
+// ================================================
 
-function escapeHTML(
-    texto
-) {
+function escapeHTML(texto) {
 
     const div =
         document.createElement(
@@ -2763,15 +1584,14 @@ function escapeHTML(
 }
 
 
-// =====================================================
+// ================================================
 // PREÇO
-// =====================================================
+// ================================================
 
-function formatarPreco(
-    valor
-) {
+function formatarPreco(valor) {
 
     return "$" +
+
         Number(
             valor || 0
         ).toFixed(2);
@@ -2779,54 +1599,31 @@ function formatarPreco(
 }
 
 
-// =====================================================
-// DATA
-// =====================================================
+// ================================================
+// INICIAR
+// ================================================
 
-function formatarData(
-    valor
-) {
+(async function iniciar() {
 
-    if (!valor) {
-
-        return "Não informado";
-
-    }
+    const logado =
+        await verificarLogin();
 
 
-    try {
+    if (logado) {
 
-        return new Date(
-            valor
-        ).toLocaleString(
-            "pt-BR"
+        carregar();
+
+        setInterval(
+            carregar,
+            5000
         );
 
     }
 
-    catch {
-
-        return valor;
-
-    }
-
-}
-
-
-// =====================================================
-// ATUALIZAÇÃO AUTOMÁTICA
-// =====================================================
-
-carregar();
-
-
-setInterval(
-    carregar,
-    5000
-);
+})();
 
 </script>
 
 </body>
-
 </html>
+```
