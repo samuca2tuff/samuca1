@@ -2,13 +2,8 @@
 <html lang="pt-BR">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SAMUCA • Dashboard</title>
 
@@ -29,11 +24,9 @@ header {
     min-height: 75px;
     background: #111;
     border-bottom: 1px solid #292929;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     padding: 15px 35px;
     gap: 15px;
 }
@@ -104,8 +97,7 @@ header {
 
 .stats {
     display: grid;
-    grid-template-columns:
-        repeat(auto-fit, minmax(190px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
     gap: 15px;
     margin-bottom: 30px;
 }
@@ -139,8 +131,7 @@ header {
 
 .report-grid {
     display: grid;
-    grid-template-columns:
-        repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 15px;
 }
 
@@ -172,13 +163,10 @@ header {
 .filters input {
     width: 100%;
     padding: 13px 15px;
-
     border-radius: 8px;
     border: 1px solid #292929;
-
     background: #111;
     color: white;
-
     outline: none;
 }
 
@@ -209,15 +197,11 @@ header {
 
 .tab {
     white-space: nowrap;
-
     padding: 11px 18px;
-
     background: #111;
     border: 1px solid #292929;
     border-radius: 8px;
-
     color: #aaa;
-
     cursor: pointer;
     font-weight: bold;
 }
@@ -234,8 +218,7 @@ header {
 
 #appointments {
     display: grid;
-    grid-template-columns:
-        repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 20px;
 }
 
@@ -244,10 +227,7 @@ header {
     border: 1px solid #292929;
     border-radius: 15px;
     padding: 22px;
-
-    transition:
-        transform .15s,
-        border .15s;
+    transition: transform .15s, border .15s;
 }
 
 .appointment:hover {
@@ -319,11 +299,9 @@ header {
 .price {
     margin-top: 18px;
     padding: 15px;
-
     background: #090909;
     border: 1px solid #292929;
     border-radius: 10px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -347,9 +325,7 @@ header {
 
 .actions {
     display: grid;
-    grid-template-columns:
-        repeat(2, 1fr);
-
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
     margin-top: 20px;
 }
@@ -359,7 +335,6 @@ header {
     border: 0;
     border-radius: 7px;
     cursor: pointer;
-
     color: white;
     font-weight: bold;
 }
@@ -398,12 +373,9 @@ header {
 
 .empty {
     grid-column: 1 / -1;
-
     color: #666;
     text-align: center;
-
     padding: 70px 20px;
-
     background: #111;
     border: 1px solid #292929;
     border-radius: 15px;
@@ -412,12 +384,9 @@ header {
 .history-info {
     margin-bottom: 20px;
     padding: 15px 18px;
-
     background: #0d2419;
     border: 1px solid #164d31;
-
     border-radius: 10px;
-
     color: #39ff88;
 }
 
@@ -470,9 +439,7 @@ header {
 
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -486,10 +453,7 @@ header {
             ● ONLINE
         </div>
 
-        <button
-            class="logout"
-            onclick="sair()"
-        >
+        <button class="logout" onclick="sair()">
             🚪 Sair
         </button>
 
@@ -497,9 +461,7 @@ header {
 
 </header>
 
-
 <div class="container">
-
 
     <div class="title">
 
@@ -507,17 +469,11 @@ header {
             Agendamentos
         </h1>
 
-        <button
-            class="refresh"
-            onclick="carregar()"
-        >
+        <button class="refresh" onclick="carregar()">
             ↻ Atualizar
         </button>
 
     </div>
-
-
-    <!-- ESTATÍSTICAS -->
 
     <div class="stats">
 
@@ -558,9 +514,6 @@ header {
 
     </div>
 
-
-    <!-- RELATÓRIO -->
-
     <div class="report">
 
         <h2>
@@ -570,41 +523,23 @@ header {
         <div class="report-grid">
 
             <div class="report-card">
-
                 <p>HOJE</p>
-
-                <h2 id="ganhoHoje">
-                    $0.00
-                </h2>
-
+                <h2 id="ganhoHoje">$0.00</h2>
             </div>
 
             <div class="report-card">
-
                 <p>ESTA SEMANA</p>
-
-                <h2 id="ganhoSemana">
-                    $0.00
-                </h2>
-
+                <h2 id="ganhoSemana">$0.00</h2>
             </div>
 
             <div class="report-card">
-
                 <p>ESTE MÊS</p>
-
-                <h2 id="ganhoMes">
-                    $0.00
-                </h2>
-
+                <h2 id="ganhoMes">$0.00</h2>
             </div>
 
         </div>
 
     </div>
-
-
-    <!-- BUSCA -->
 
     <div class="filters">
 
@@ -621,154 +556,82 @@ header {
             onchange="renderizar()"
         >
 
-        <button
-            class="clear-filter"
-            onclick="limparFiltros()"
-        >
+        <button class="clear-filter" onclick="limparFiltros()">
             Limpar filtros
         </button>
 
     </div>
 
-
-    <!-- ABAS -->
-
     <div class="tabs">
 
-        <button
-            class="tab active"
-            onclick="mudarAba('todos', this)"
-        >
+        <button class="tab active" onclick="mudarAba('todos', this)">
             📋 Todos
         </button>
 
-        <button
-            class="tab"
-            onclick="mudarAba('Pendente', this)"
-        >
+        <button class="tab" onclick="mudarAba('Pendente', this)">
             ⏳ Pendentes
         </button>
 
-        <button
-            class="tab"
-            onclick="mudarAba('Confirmado', this)"
-        >
+        <button class="tab" onclick="mudarAba('Confirmado', this)">
             ✅ Confirmados
         </button>
 
-        <button
-            class="tab"
-            onclick="mudarAba('Em andamento', this)"
-        >
+        <button class="tab" onclick="mudarAba('Em andamento', this)">
             💈 Em andamento
         </button>
 
-        <button
-            class="tab"
-            onclick="mudarAba('pago', this)"
-        >
+        <button class="tab" onclick="mudarAba('pago', this)">
             💰 Pagos
         </button>
 
-        <button
-            class="tab"
-            onclick="mudarAba('historico', this)"
-        >
+        <button class="tab" onclick="mudarAba('historico', this)">
             📚 Histórico pago
         </button>
 
-        <button
-            class="tab"
-            onclick="mudarAba('Finalizado', this)"
-        >
+        <button class="tab" onclick="mudarAba('Finalizado', this)">
             ✂️ Finalizados
         </button>
 
-        <button
-            class="tab"
-            onclick="mudarAba('Cancelado', this)"
-        >
+        <button class="tab" onclick="mudarAba('Cancelado', this)">
             ❌ Cancelados
         </button>
 
     </div>
 
-
     <div id="appointments"></div>
-
 
 </div>
 
-
 <script>
 
-
 let dados = [];
-
 let filtroAtual = "todos";
-
-
-// =====================================================
-// DATA DE HOJE
-// =====================================================
 
 function obterHoje() {
 
     const hoje = new Date();
 
-    const ano =
-        hoje.getFullYear();
-
-    const mes =
-        String(
-            hoje.getMonth() + 1
-        ).padStart(2, "0");
-
-    const dia =
-        String(
-            hoje.getDate()
-        ).padStart(2, "0");
-
-    return `${ano}-${mes}-${dia}`;
+    return hoje.getFullYear() + "-" +
+        String(hoje.getMonth() + 1).padStart(2, "0") + "-" +
+        String(hoje.getDate()).padStart(2, "0");
 
 }
-
-
-// =====================================================
-// CONFIGURAR DATA INTELIGENTE
-// =====================================================
 
 function configurarData() {
 
     const campo =
-        document.getElementById(
-            "filtroData"
-        );
+        document.getElementById("filtroData");
 
     const hoje =
         obterHoje();
 
-
-    // Nunca permitir datas anteriores
-
     campo.min = hoje;
 
-
-    // Se não tiver data selecionada,
-    // começa automaticamente em hoje
-
     if (!campo.value) {
-
         campo.value = hoje;
-
     }
 
 }
-
-
-// =====================================================
-// VERIFICAR LOGIN
-// =====================================================
 
 async function verificarLogin() {
 
@@ -776,7 +639,6 @@ async function verificarLogin() {
 
         const response =
             await fetch("/api/auth");
-
 
         if (!response.ok) {
 
@@ -786,7 +648,6 @@ async function verificarLogin() {
             return false;
 
         }
-
 
         return true;
 
@@ -803,27 +664,16 @@ async function verificarLogin() {
 
 }
 
-
-// =====================================================
-// CARREGAR
-// =====================================================
-
 async function carregar() {
 
     try {
 
         configurarData();
 
-
         const response =
-            await fetch(
-                "/api/submissions"
-            );
+            await fetch("/api/submissions");
 
-
-        if (
-            response.status === 401
-        ) {
+        if (response.status === 401) {
 
             window.location.href =
                 "/login.html";
@@ -832,24 +682,14 @@ async function carregar() {
 
         }
 
-
         if (!response.ok) {
-
-            throw new Error(
-                "Erro no servidor"
-            );
-
+            throw new Error("Erro no servidor");
         }
 
-
-        dados =
-            await response.json();
-
+        dados = await response.json();
 
         atualizarEstatisticas();
-
         atualizarRelatorio();
-
         renderizar();
 
     }
@@ -857,7 +697,6 @@ async function carregar() {
     catch (error) {
 
         console.error(error);
-
 
         document.getElementById(
             "appointments"
@@ -879,142 +718,63 @@ async function carregar() {
 
 }
 
-
-// =====================================================
-// ESTATÍSTICAS
-// =====================================================
-
 function atualizarEstatisticas() {
 
-    document.getElementById(
-        "total"
-    ).textContent =
+    document.getElementById("total").textContent =
         dados.length;
 
+    document.getElementById("pendentes").textContent =
+        dados.filter(x => x.status === "Pendente").length;
 
-    document.getElementById(
-        "pendentes"
-    ).textContent =
-        dados.filter(
-            x =>
-                x.status === "Pendente"
-        ).length;
+    document.getElementById("confirmados").textContent =
+        dados.filter(x => x.status === "Confirmado").length;
 
+    document.getElementById("andamento").textContent =
+        dados.filter(x => x.status === "Em andamento").length;
 
-    document.getElementById(
-        "confirmados"
-    ).textContent =
-        dados.filter(
-            x =>
-                x.status === "Confirmado"
-        ).length;
+    document.getElementById("pagos").textContent =
+        dados.filter(x => x.pago === true).length;
 
-
-    document.getElementById(
-        "andamento"
-    ).textContent =
-        dados.filter(
-            x =>
-                x.status === "Em andamento"
-        ).length;
-
-
-    document.getElementById(
-        "pagos"
-    ).textContent =
-        dados.filter(
-            x =>
-                x.pago === true
-        ).length;
-
-
-    document.getElementById(
-        "finalizados"
-    ).textContent =
-        dados.filter(
-            x =>
-                x.status === "Finalizado"
-        ).length;
-
+    document.getElementById("finalizados").textContent =
+        dados.filter(x => x.status === "Finalizado").length;
 
     const totalRecebido =
-
         dados
-
-            .filter(
-                x =>
-                    x.pago === true
-            )
-
+            .filter(x => x.pago === true)
             .reduce(
-
                 (total, item) =>
-
-                    total +
-                    Number(
-                        item.preco || 0
-                    ),
-
+                    total + Number(item.preco || 0),
                 0
-
             );
 
-
-    document.getElementById(
-        "recebido"
-    ).textContent =
-        formatarPreco(
-            totalRecebido
-        );
+    document.getElementById("recebido").textContent =
+        formatarPreco(totalRecebido);
 
 }
 
-
-// =====================================================
-// RELATÓRIO
-// =====================================================
-
 function atualizarRelatorio() {
 
-    const hoje =
-        new Date();
-
+    const hoje = new Date();
 
     const hojeTexto =
-        formatarDataISO(
-            hoje
-        );
-
+        formatarDataISO(hoje);
 
     const inicioSemana =
-        new Date(
-            hoje
-        );
-
+        new Date(hoje);
 
     const diaSemana =
         hoje.getDay();
-
 
     const diferenca =
         diaSemana === 0
             ? 6
             : diaSemana - 1;
 
-
     inicioSemana.setDate(
-        hoje.getDate() -
-        diferenca
+        hoje.getDate() - diferenca
     );
 
-
-    inicioSemana.setHours(
-        0,
-        0,
-        0,
-        0
-    );
-
+    inicioSemana.setHours(0, 0, 0, 0);
 
     const inicioMes =
         new Date(
@@ -1023,363 +783,206 @@ function atualizarRelatorio() {
             1
         );
 
-
     let ganhoHoje = 0;
     let ganhoSemana = 0;
     let ganhoMes = 0;
 
+    dados.forEach(item => {
 
-    dados.forEach(
-        item => {
-
-            if (!item.pago) {
-                return;
-            }
-
-
-            const valor =
-                Number(
-                    item.preco || 0
-                );
-
-
-            const dataItem =
-                criarDataLocal(
-                    item.data
-                );
-
-
-            if (
-                item.data ===
-                hojeTexto
-            ) {
-
-                ganhoHoje +=
-                    valor;
-
-            }
-
-
-            if (
-                dataItem >=
-                inicioSemana
-            ) {
-
-                ganhoSemana +=
-                    valor;
-
-            }
-
-
-            if (
-                dataItem >=
-                inicioMes
-            ) {
-
-                ganhoMes +=
-                    valor;
-
-            }
-
+        if (!item.pago) {
+            return;
         }
-    );
 
+        const valor =
+            Number(item.preco || 0);
 
-    document.getElementById(
-        "ganhoHoje"
-    ).textContent =
-        formatarPreco(
-            ganhoHoje
-        );
+        const dataItem =
+            criarDataLocal(item.data);
 
+        if (item.data === hojeTexto) {
+            ganhoHoje += valor;
+        }
 
-    document.getElementById(
-        "ganhoSemana"
-    ).textContent =
-        formatarPreco(
-            ganhoSemana
-        );
+        if (dataItem >= inicioSemana) {
+            ganhoSemana += valor;
+        }
 
+        if (dataItem >= inicioMes) {
+            ganhoMes += valor;
+        }
 
-    document.getElementById(
-        "ganhoMes"
-    ).textContent =
-        formatarPreco(
-            ganhoMes
-        );
+    });
+
+    document.getElementById("ganhoHoje").textContent =
+        formatarPreco(ganhoHoje);
+
+    document.getElementById("ganhoSemana").textContent =
+        formatarPreco(ganhoSemana);
+
+    document.getElementById("ganhoMes").textContent =
+        formatarPreco(ganhoMes);
 
 }
 
+function mudarAba(filtro, botao) {
 
-// =====================================================
-// ABAS
-// =====================================================
-
-function mudarAba(
-    filtro,
-    botao
-) {
-
-    filtroAtual =
-        filtro;
-
+    filtroAtual = filtro;
 
     document
         .querySelectorAll(".tab")
-        .forEach(
-            item => {
+        .forEach(item => {
+            item.classList.remove("active");
+        });
 
-                item.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-
-    botao.classList.add(
-        "active"
-    );
-
+    botao.classList.add("active");
 
     renderizar();
 
 }
-
-
-// =====================================================
-// LIMPAR FILTROS
-// =====================================================
 
 function limparFiltros() {
 
-    document.getElementById(
-        "busca"
-    ).value = "";
+    document.getElementById("busca").value = "";
 
-
-    // Voltar para HOJE
-
-    document.getElementById(
-        "filtroData"
-    ).value =
+    document.getElementById("filtroData").value =
         obterHoje();
-
 
     renderizar();
 
 }
-
-
-// =====================================================
-// RENDERIZAR
-// =====================================================
 
 function renderizar() {
 
     const container =
-        document.getElementById(
-            "appointments"
-        );
-
+        document.getElementById("appointments");
 
     const busca =
         document
-            .getElementById(
-                "busca"
-            )
+            .getElementById("busca")
             .value
             .trim()
             .toLowerCase();
 
-
     const dataFiltro =
-        document.getElementById(
-            "filtroData"
-        ).value;
+        document.getElementById("filtroData").value;
 
-
-    let lista =
-        dados.slice();
-
+    let lista = dados.slice();
 
     // =================================================
-    // ABA
+    // FILTRO DAS ABAS
     // =================================================
 
-    if (
-        filtroAtual !== "todos"
-    ) {
+    if (filtroAtual !== "todos") {
 
-        // PAGOS
-
-        if (
-            filtroAtual === "pago"
-        ) {
+        if (filtroAtual === "pago") {
 
             lista =
                 lista.filter(
-                    item =>
-                        item.pago === true
+                    item => item.pago === true
                 );
 
         }
 
+        else if (filtroAtual === "historico") {
 
-        // HISTÓRICO PAGO
-
-        else if (
-            filtroAtual === "historico"
-        ) {
+            // CORRIGIDO:
+            // TODO agendamento pago aparece aqui,
+            // independente do status.
 
             lista =
                 lista.filter(
-                    item =>
-                        item.pago === true &&
-                        (
-                            item.status ===
-                            "Finalizado"
-                            ||
-                            item.status ===
-                            "Cancelado"
-                        )
+                    item => item.pago === true
                 );
 
         }
-
-
-        // STATUS NORMAL
 
         else {
 
             lista =
                 lista.filter(
                     item =>
-                        item.status ===
-                        filtroAtual
+                        item.status === filtroAtual
                 );
 
         }
 
     }
 
-
     // =================================================
-    // BUSCA INTELIGENTE
+    // BUSCA
     // =================================================
 
     if (busca) {
 
         lista =
-            lista.filter(
-                item => {
+            lista.filter(item => {
 
-                    const nome =
-                        normalizar(
-                            item.nome
-                        );
+                const nome =
+                    normalizar(item.nome);
 
+                const telefone =
+                    normalizar(item.telefone);
 
-                    const telefone =
-                        normalizar(
-                            item.telefone
-                        );
+                const email =
+                    normalizar(item.email);
 
+                const servico =
+                    normalizar(item.servico);
 
-                    const email =
-                        normalizar(
-                            item.email
-                        );
+                const horario =
+                    normalizar(item.horario);
 
+                return (
+                    nome.includes(busca) ||
+                    telefone.includes(busca) ||
+                    email.includes(busca) ||
+                    servico.includes(busca) ||
+                    horario.includes(busca)
+                );
 
-                    const servico =
-                        normalizar(
-                            item.servico
-                        );
-
-
-                    const horario =
-                        normalizar(
-                            item.horario
-                        );
-
-
-                    return (
-
-                        nome.includes(
-                            busca
-                        )
-
-                        ||
-
-                        telefone.includes(
-                            busca
-                        )
-
-                        ||
-
-                        email.includes(
-                            busca
-                        )
-
-                        ||
-
-                        servico.includes(
-                            busca
-                        )
-
-                        ||
-
-                        horario.includes(
-                            busca
-                        )
-
-                    );
-
-                }
-            );
+            });
 
     }
-
 
     // =================================================
     // DATA
     // =================================================
 
-    if (dataFiltro) {
+    /*
+       IMPORTANTE:
+
+       Na aba Histórico pago não aplicamos
+       automaticamente o filtro de hoje.
+
+       Assim você consegue visualizar
+       TODOS os cortes pagos.
+    */
+
+    if (dataFiltro && filtroAtual !== "historico") {
 
         lista =
             lista.filter(
                 item =>
-                    item.data ===
-                    dataFiltro
+                    item.data === dataFiltro
             );
 
     }
-
 
     // =================================================
     // VAZIO
     // =================================================
 
-    if (
-        lista.length === 0
-    ) {
+    if (lista.length === 0) {
 
         let mensagem =
             "Nenhum agendamento encontrado.";
 
-
-        if (
-            filtroAtual ===
-            "historico"
-        ) {
+        if (filtroAtual === "historico") {
 
             mensagem =
                 "📚 Nenhum corte pago no histórico.";
 
         }
-
 
         container.innerHTML = `
 
@@ -1395,33 +998,22 @@ function renderizar() {
 
     }
 
+    container.innerHTML = "";
 
     // =================================================
     // AVISO HISTÓRICO
     // =================================================
 
-    container.innerHTML =
-        "";
-
-
-    if (
-        filtroAtual ===
-        "historico"
-    ) {
+    if (filtroAtual === "historico") {
 
         const aviso =
-            document.createElement(
-                "div"
-            );
-
+            document.createElement("div");
 
         aviso.className =
             "history-info";
 
-
         aviso.style.gridColumn =
             "1 / -1";
-
 
         aviso.innerHTML = `
 
@@ -1429,513 +1021,291 @@ function renderizar() {
 
             <br>
 
-            Aqui aparecem os cortes que já foram pagos
-            e finalizados/cancelados.
+            Aqui aparecem todos os cortes que já foram pagos.
 
         `;
 
-
-        container.appendChild(
-            aviso
-        );
+        container.appendChild(aviso);
 
     }
-
 
     // =================================================
     // CARDS
     // =================================================
 
-    lista.forEach(
-        item => {
+    lista.forEach(item => {
 
-            const card =
-                document.createElement(
-                    "div"
-                );
+        const card =
+            document.createElement("div");
 
+        card.className =
+            "appointment";
 
-            card.className =
-                "appointment";
+        const statusClass =
+            getStatusClass(item.status);
 
+        const preco =
+            Number(item.preco || 0);
 
-            const statusClass =
-                getStatusClass(
-                    item.status
-                );
+        const pagoTexto =
+            item.pago
+                ? "✓ PAGO"
+                : "Não pago";
 
+        const pagoClass =
+            item.pago
+                ? "paid"
+                : "unpaid";
 
-            const preco =
-                Number(
-                    item.preco || 0
-                );
+        card.innerHTML = `
 
+            <div class="appointment-header">
 
-            const pagoTexto =
-                item.pago
-                    ? "✓ PAGO"
-                    : "Não pago";
+                <h2>
+                    ${escapeHTML(item.nome)}
+                </h2>
 
+                <span class="status ${statusClass}">
+                    ${escapeHTML(item.status)}
+                </span>
 
-            const pagoClass =
-                item.pago
-                    ? "paid"
-                    : "unpaid";
+            </div>
 
+            <div class="info">
+                📞
+                <strong>Telefone:</strong>
+                ${escapeHTML(item.telefone)}
+            </div>
 
-            card.innerHTML = `
+            <div class="info">
+                📧
+                <strong>E-mail:</strong>
+                ${escapeHTML(item.email || "Não informado")}
+            </div>
 
-                <div class="appointment-header">
+            <div class="info">
+                📅
+                <strong>Data:</strong>
+                ${formatarData(item.data)}
+            </div>
 
-                    <h2>
-                        ${escapeHTML(
-                            item.nome
-                        )}
-                    </h2>
+            <div class="info">
+                🕐
+                <strong>Horário:</strong>
+                ${escapeHTML(item.horario)}
+            </div>
 
-                    <span
-                        class="
-                            status
-                            ${statusClass}
-                        "
-                    >
-                        ${escapeHTML(
-                            item.status
-                        )}
-                    </span>
+            <div class="info">
+                ✂️
+                <strong>Serviço:</strong>
+                ${escapeHTML(item.servico)}
+            </div>
 
-                </div>
+            <div class="info">
+                💈
+                <strong>Corte:</strong>
+                ${escapeHTML(item.tipo)}
+            </div>
 
+            <div class="info">
+                📝
+                <strong>Observações:</strong>
+                ${escapeHTML(item.observacoes || "Nenhuma")}
+            </div>
 
-                <div class="info">
+            <div class="price">
 
-                    📞
-                    <strong>
-                        Telefone:
-                    </strong>
+                <span>
+                    💵 Valor
+                </span>
 
-                    ${escapeHTML(
-                        item.telefone
-                    )}
+                <span>
+                    ${formatarPreco(preco)}
+                </span>
 
-                </div>
+            </div>
 
+            <div class="info">
 
-                <div class="info">
+                💰
+                <strong>Pagamento:</strong>
 
-                    📧
-                    <strong>
-                        E-mail:
-                    </strong>
+                <span class="${pagoClass}">
+                    ${pagoTexto}
+                </span>
 
-                    ${escapeHTML(
-                        item.email ||
-                        "Não informado"
-                    )}
+            </div>
 
-                </div>
+            <div class="actions">
 
+                ${
+                    item.status !== "Confirmado" &&
+                    item.status !== "Em andamento" &&
+                    item.status !== "Finalizado"
 
-                <div class="info">
+                    ?
 
-                    📅
-                    <strong>
-                        Data:
-                    </strong>
-
-                    ${formatarData(
-                        item.data
-                    )}
-
-                </div>
-
-
-                <div class="info">
-
-                    🕐
-                    <strong>
-                        Horário:
-                    </strong>
-
-                    ${escapeHTML(
-                        item.horario
-                    )}
-
-                </div>
-
-
-                <div class="info">
-
-                    ✂️
-                    <strong>
-                        Serviço:
-                    </strong>
-
-                    ${escapeHTML(
-                        item.servico
-                    )}
-
-                </div>
-
-
-                <div class="info">
-
-                    💈
-                    <strong>
-                        Corte:
-                    </strong>
-
-                    ${escapeHTML(
-                        item.tipo
-                    )}
-
-                </div>
-
-
-                <div class="info">
-
-                    📝
-                    <strong>
-                        Observações:
-                    </strong>
-
-                    ${escapeHTML(
-                        item.observacoes ||
-                        "Nenhuma"
-                    )}
-
-                </div>
-
-
-                <div class="price">
-
-                    <span>
-                        💵 Valor
-                    </span>
-
-                    <span>
-                        ${formatarPreco(
-                            preco
-                        )}
-                    </span>
-
-                </div>
-
-
-                <div class="info">
-
-                    💰
-
-                    <strong>
-                        Pagamento:
-                    </strong>
-
-                    <span
-                        class="${pagoClass}"
-                    >
-                        ${pagoTexto}
-                    </span>
-
-                </div>
-
-
-                <div class="actions">
-
-
-                    ${
-                        item.status !==
-                        "Confirmado"
-
-                        &&
-
-                        item.status !==
-                        "Em andamento"
-
-                        &&
-
-                        item.status !==
-                        "Finalizado"
-
-                        ?
-
-                        `
-
-                        <button
-                            class="confirm"
-                            onclick="
-                                mudarStatus(
-                                    ${item.id},
-                                    'Confirmado'
-                                )
-                            "
-                        >
-                            ✓ Confirmar
-                        </button>
-
-                        `
-
-                        :
-
-                        ""
-
-                    }
-
-
-                    ${
-                        item.status ===
-                        "Confirmado"
-
-                        ?
-
-                        `
-
-                        <button
-                            class="progress"
-                            onclick="
-                                mudarStatus(
-                                    ${item.id},
-                                    'Em andamento'
-                                )
-                            "
-                        >
-                            💈 Iniciar Corte
-                        </button>
-
-                        `
-
-                        :
-
-                        ""
-
-                    }
-
-
-                    ${
-                        item.status !==
-                        "Pendente"
-
-                        &&
-
-                        item.status !==
-                        "Finalizado"
-
-                        &&
-
-                        item.status !==
-                        "Cancelado"
-
-                        ?
-
-                        `
-
-                        <button
-                            class="pending"
-                            onclick="
-                                mudarStatus(
-                                    ${item.id},
-                                    'Pendente'
-                                )
-                            "
-                        >
-                            ⏳ Pendente
-                        </button>
-
-                        `
-
-                        :
-
-                        ""
-
-                    }
-
-
-                    ${
-                        item.status !==
-                        "Cancelado"
-
-                        &&
-
-                        item.status !==
-                        "Finalizado"
-
-                        ?
-
-                        `
-
-                        <button
-                            class="cancel"
-                            onclick="
-                                mudarStatus(
-                                    ${item.id},
-                                    'Cancelado'
-                                )
-                            "
-                        >
-                            ❌ Cancelar
-                        </button>
-
-                        `
-
-                        :
-
-                        ""
-
-                    }
-
-
-                    ${
-                        !item.pago
-
-                        ?
-
-                        `
-
-                        <button
-                            class="payment"
-                            onclick="
-                                mudarPagamento(
-                                    ${item.id},
-                                    true
-                                )
-                            "
-                        >
-                            💰 Marcar Pago
-                        </button>
-
-                        `
-
-                        :
-
-                        `
-
-                        <button
-                            class="pending"
-                            onclick="
-                                mudarPagamento(
-                                    ${item.id},
-                                    false
-                                )
-                            "
-                        >
-                            ↩️ Desmarcar Pago
-                        </button>
-
-                        `
-
-                    }
-
-
-                    ${
-                        item.status !==
-                        "Finalizado"
-
-                        &&
-
-                        item.status !==
-                        "Cancelado"
-
-                        ?
-
-                        `
-
-                        <button
-                            class="finish"
-                            onclick="
-                                finalizar(
-                                    ${item.id}
-                                )
-                            "
-                        >
-                            ✂️ Finalizar Corte
-                        </button>
-
-                        `
-
-                        :
-
-                        ""
-
-                    }
-
-
+                    `
                     <button
-                        class="delete"
-                        onclick="
-                            apagar(
-                                ${item.id}
-                            )
-                        "
+                        class="confirm"
+                        onclick="mudarStatus(${item.id}, 'Confirmado')"
                     >
-                        🗑️ Apagar
+                        ✓ Confirmar
                     </button>
+                    `
 
+                    :
 
-                </div>
+                    ""
+                }
 
-            `;
+                ${
+                    item.status === "Confirmado"
 
+                    ?
 
-            container.appendChild(
-                card
-            );
+                    `
+                    <button
+                        class="progress"
+                        onclick="mudarStatus(${item.id}, 'Em andamento')"
+                    >
+                        💈 Iniciar Corte
+                    </button>
+                    `
 
-        }
-    );
+                    :
+
+                    ""
+                }
+
+                ${
+                    item.status !== "Pendente" &&
+                    item.status !== "Finalizado" &&
+                    item.status !== "Cancelado"
+
+                    ?
+
+                    `
+                    <button
+                        class="pending"
+                        onclick="mudarStatus(${item.id}, 'Pendente')"
+                    >
+                        ⏳ Pendente
+                    </button>
+                    `
+
+                    :
+
+                    ""
+                }
+
+                ${
+                    item.status !== "Cancelado" &&
+                    item.status !== "Finalizado"
+
+                    ?
+
+                    `
+                    <button
+                        class="cancel"
+                        onclick="mudarStatus(${item.id}, 'Cancelado')"
+                    >
+                        ❌ Cancelar
+                    </button>
+                    `
+
+                    :
+
+                    ""
+                }
+
+                ${
+                    !item.pago
+
+                    ?
+
+                    `
+                    <button
+                        class="payment"
+                        onclick="mudarPagamento(${item.id}, true)"
+                    >
+                        💰 Marcar Pago
+                    </button>
+                    `
+
+                    :
+
+                    `
+                    <button
+                        class="pending"
+                        onclick="mudarPagamento(${item.id}, false)"
+                    >
+                        ↩️ Desmarcar Pago
+                    </button>
+                    `
+                }
+
+                ${
+                    item.status !== "Finalizado" &&
+                    item.status !== "Cancelado"
+
+                    ?
+
+                    `
+                    <button
+                        class="finish"
+                        onclick="finalizar(${item.id})"
+                    >
+                        ✂️ Finalizar Corte
+                    </button>
+                    `
+
+                    :
+
+                    ""
+                }
+
+                <button
+                    class="delete"
+                    onclick="apagar(${item.id})"
+                >
+                    🗑️ Apagar
+                </button>
+
+            </div>
+
+        `;
+
+        container.appendChild(card);
+
+    });
 
 }
-
-
-// =====================================================
-// NORMALIZAR BUSCA
-// =====================================================
 
 function normalizar(valor) {
 
-    return String(
-        valor || ""
-    )
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(
-        /[\u0300-\u036f]/g,
-        ""
-    )
-    .replace(
-        /[^a-z0-9]/g,
-        ""
-    );
+    return String(valor || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "");
 
 }
 
+async function mudarStatus(id, status) {
 
-// =====================================================
-// STATUS
-// =====================================================
-
-async function mudarStatus(
-    id,
-    status
-) {
-
-    if (
-        status ===
-        "Cancelado"
-    ) {
+    if (status === "Cancelado") {
 
         const confirmar =
             confirm(
                 "Tem certeza que deseja cancelar este agendamento?"
             );
 
-
         if (!confirmar) {
-
             return;
-
         }
 
     }
-
 
     try {
 
@@ -1943,15 +1313,11 @@ async function mudarStatus(
             await fetch(
                 "/api/status",
                 {
-
-                    method:
-                        "POST",
+                    method: "POST",
 
                     headers: {
-
                         "Content-Type":
                             "application/json"
-
                     },
 
                     body:
@@ -1959,15 +1325,10 @@ async function mudarStatus(
                             id,
                             status
                         })
-
                 }
             );
 
-
-        if (
-            response.status ===
-            401
-        ) {
+        if (response.status === 401) {
 
             window.location.href =
                 "/login.html";
@@ -1976,14 +1337,10 @@ async function mudarStatus(
 
         }
 
-
         const resultado =
             await response.json();
 
-
-        if (
-            !resultado.success
-        ) {
+        if (!resultado.success) {
 
             alert(
                 resultado.message ||
@@ -1994,7 +1351,6 @@ async function mudarStatus(
 
         }
 
-
         await carregar();
 
     }
@@ -2003,39 +1359,23 @@ async function mudarStatus(
 
         console.error(error);
 
-        alert(
-            "Erro de conexão."
-        );
+        alert("Erro de conexão.");
 
     }
 
 }
 
-
-// =====================================================
-// FINALIZAR
-// =====================================================
-
 async function finalizar(id) {
 
     const confirmar =
         confirm(
-
             "Finalizar este corte?\n\n" +
-
-            "O horário será liberado " +
-
-            "para outro cliente."
-
+            "O horário será liberado para outro cliente."
         );
 
-
     if (!confirmar) {
-
         return;
-
     }
-
 
     await mudarStatus(
         id,
@@ -2044,15 +1384,7 @@ async function finalizar(id) {
 
 }
 
-
-// =====================================================
-// PAGAMENTO
-// =====================================================
-
-async function mudarPagamento(
-    id,
-    pago
-) {
+async function mudarPagamento(id, pago) {
 
     try {
 
@@ -2060,15 +1392,11 @@ async function mudarPagamento(
             await fetch(
                 "/api/payment",
                 {
-
-                    method:
-                        "POST",
+                    method: "POST",
 
                     headers: {
-
                         "Content-Type":
                             "application/json"
-
                     },
 
                     body:
@@ -2076,15 +1404,10 @@ async function mudarPagamento(
                             id,
                             pago
                         })
-
                 }
             );
 
-
-        if (
-            response.status ===
-            401
-        ) {
+        if (response.status === 401) {
 
             window.location.href =
                 "/login.html";
@@ -2093,16 +1416,13 @@ async function mudarPagamento(
 
         }
 
-
         const resultado =
             await response.json();
 
-
-        if (
-            !resultado.success
-        ) {
+        if (!resultado.success) {
 
             alert(
+                resultado.message ||
                 "Erro ao atualizar pagamento."
             );
 
@@ -2110,8 +1430,33 @@ async function mudarPagamento(
 
         }
 
-
         await carregar();
+
+        /*
+           Se marcou como pago,
+           abre automaticamente o histórico.
+        */
+
+        if (pago === true) {
+
+            const botaoHistorico =
+                document.querySelectorAll(".tab")[5];
+
+            filtroAtual = "historico";
+
+            document
+                .querySelectorAll(".tab")
+                .forEach(tab =>
+                    tab.classList.remove("active")
+                );
+
+            if (botaoHistorico) {
+                botaoHistorico.classList.add("active");
+            }
+
+            renderizar();
+
+        }
 
     }
 
@@ -2119,37 +1464,23 @@ async function mudarPagamento(
 
         console.error(error);
 
-        alert(
-            "Erro de conexão."
-        );
+        alert("Erro de conexão.");
 
     }
 
 }
 
-
-// =====================================================
-// APAGAR
-// =====================================================
-
 async function apagar(id) {
 
     const confirmar =
         confirm(
-
             "⚠️ APAGAR AGENDAMENTO?\n\n" +
-
             "Essa ação não pode ser desfeita."
-
         );
 
-
     if (!confirmar) {
-
         return;
-
     }
-
 
     try {
 
@@ -2157,30 +1488,21 @@ async function apagar(id) {
             await fetch(
                 "/api/delete",
                 {
-
-                    method:
-                        "POST",
+                    method: "POST",
 
                     headers: {
-
                         "Content-Type":
                             "application/json"
-
                     },
 
                     body:
                         JSON.stringify({
                             id
                         })
-
                 }
             );
 
-
-        if (
-            response.status ===
-            401
-        ) {
+        if (response.status === 401) {
 
             window.location.href =
                 "/login.html";
@@ -2189,14 +1511,10 @@ async function apagar(id) {
 
         }
 
-
         const resultado =
             await response.json();
 
-
-        if (
-            !resultado.success
-        ) {
+        if (!resultado.success) {
 
             alert(
                 resultado.message ||
@@ -2207,7 +1525,6 @@ async function apagar(id) {
 
         }
 
-
         await carregar();
 
     }
@@ -2216,18 +1533,11 @@ async function apagar(id) {
 
         console.error(error);
 
-        alert(
-            "Erro de conexão."
-        );
+        alert("Erro de conexão.");
 
     }
 
 }
-
-
-// =====================================================
-// SAIR
-// =====================================================
 
 async function sair() {
 
@@ -2236,13 +1546,9 @@ async function sair() {
             "Deseja realmente sair do dashboard?"
         );
 
-
     if (!confirmar) {
-
         return;
-
     }
-
 
     try {
 
@@ -2250,19 +1556,14 @@ async function sair() {
             await fetch(
                 "/api/logout",
                 {
-                    method:
-                        "POST"
+                    method: "POST"
                 }
             );
-
 
         const resultado =
             await response.json();
 
-
-        if (
-            resultado.success
-        ) {
+        if (resultado.success) {
 
             window.location.href =
                 "/login.html";
@@ -2283,189 +1584,83 @@ async function sair() {
 
         console.error(error);
 
-        alert(
-            "Erro de conexão."
-        );
+        alert("Erro de conexão.");
 
     }
 
 }
 
+function getStatusClass(status) {
 
-// =====================================================
-// CLASSE STATUS
-// =====================================================
-
-function getStatusClass(
-    status
-) {
-
-    if (
-        status ===
-        "Pendente"
-    ) {
-
+    if (status === "Pendente")
         return "status-pendente";
 
-    }
-
-
-    if (
-        status ===
-        "Confirmado"
-    ) {
-
+    if (status === "Confirmado")
         return "status-confirmado";
 
-    }
-
-
-    if (
-        status ===
-        "Em andamento"
-    ) {
-
+    if (status === "Em andamento")
         return "status-andamento";
 
-    }
-
-
-    if (
-        status ===
-        "Cancelado"
-    ) {
-
+    if (status === "Cancelado")
         return "status-cancelado";
 
-    }
-
-
-    if (
-        status ===
-        "Finalizado"
-    ) {
-
+    if (status === "Finalizado")
         return "status-finalizado";
-
-    }
-
 
     return "";
 
 }
 
-
-// =====================================================
-// ESCAPAR HTML
-// =====================================================
-
-function escapeHTML(
-    texto
-) {
+function escapeHTML(texto) {
 
     const div =
-        document.createElement(
-            "div"
-        );
-
+        document.createElement("div");
 
     div.textContent =
         texto ?? "";
-
 
     return div.innerHTML;
 
 }
 
-
-// =====================================================
-// PREÇO
-// =====================================================
-
-function formatarPreco(
-    valor
-) {
+function formatarPreco(valor) {
 
     return "$" +
-
-        Number(
-            valor || 0
-        ).toFixed(2);
+        Number(valor || 0).toFixed(2);
 
 }
 
-
-// =====================================================
-// DATA LOCAL
-// =====================================================
-
-function criarDataLocal(
-    data
-) {
+function criarDataLocal(data) {
 
     if (!data) {
-
-        return new Date(
-            "invalid"
-        );
-
+        return new Date("invalid");
     }
-
 
     const partes =
         data.split("-");
 
-
     return new Date(
-
-        Number(
-            partes[0]
-        ),
-
-        Number(
-            partes[1]
-        ) - 1,
-
-        Number(
-            partes[2]
-        )
-
+        Number(partes[0]),
+        Number(partes[1]) - 1,
+        Number(partes[2])
     );
 
 }
 
-
-// =====================================================
-// DATA ISO
-// =====================================================
-
-function formatarDataISO(
-    data
-) {
+function formatarDataISO(data) {
 
     const ano =
         data.getFullYear();
 
-
     const mes =
         String(
             data.getMonth() + 1
-        )
-        .padStart(
-            2,
-            "0"
-        );
-
+        ).padStart(2, "0");
 
     const dia =
         String(
             data.getDate()
-        )
-        .padStart(
-            2,
-            "0"
-        );
-
+        ).padStart(2, "0");
 
     return (
         ano +
@@ -2477,34 +1672,18 @@ function formatarDataISO(
 
 }
 
-
-// =====================================================
-// DATA VISÍVEL
-// =====================================================
-
-function formatarData(
-    data
-) {
+function formatarData(data) {
 
     if (!data) {
-
         return "";
-
     }
-
 
     const partes =
         data.split("-");
 
-
-    if (
-        partes.length !== 3
-    ) {
-
+    if (partes.length !== 3) {
         return data;
-
     }
-
 
     return (
         partes[2] +
@@ -2516,24 +1695,16 @@ function formatarData(
 
 }
 
-
-// =====================================================
-// INICIAR
-// =====================================================
-
 (async function iniciar() {
 
     configurarData();
 
-
     const logado =
         await verificarLogin();
-
 
     if (logado) {
 
         carregar();
-
 
         setInterval(
             carregar,
@@ -2547,5 +1718,4 @@ function formatarData(
 </script>
 
 </body>
-
 </html>
