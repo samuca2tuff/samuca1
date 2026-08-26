@@ -10,11 +10,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -29,68 +25,37 @@
     --green: #39ff88;
     --red: #ff5252;
     --bg: #050609;
-    --card: rgba(17,18,23,.88);
+    --card: rgba(17, 18, 23, .88);
     --border: rgba(255,255,255,.09);
-}
-
-html {
-    width: 100%;
-    overflow-x: hidden;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
-    width: 100%;
-
     background:
-        radial-gradient(
-            circle at 15% 10%,
-            rgba(52,140,255,.13),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 85% 90%,
-            rgba(57,255,136,.07),
-            transparent 30%
-        ),
+        radial-gradient(circle at 15% 10%, rgba(52,140,255,.13), transparent 30%),
+        radial-gradient(circle at 85% 90%, rgba(57,255,136,.07), transparent 30%),
         var(--bg);
-
     color: white;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: 35px 15px;
-
-    overflow-x: hidden;
 }
 
 .form {
     width: 560px;
     max-width: 100%;
-
     background: var(--card);
-
     backdrop-filter: blur(20px);
-
     border: 1px solid var(--border);
-
     border-radius: 24px;
-
     padding: 38px;
-
-    box-shadow:
-        0 25px 80px rgba(0,0,0,.5);
-
+    box-shadow: 0 25px 80px rgba(0,0,0,.5);
     animation: aparecer .5s ease;
-
-    overflow: hidden;
 }
 
 @keyframes aparecer {
-
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -100,7 +65,6 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
-
 }
 
 .logo {
@@ -110,11 +74,8 @@ body {
 
 .logo h1 {
     margin: 0;
-
     font-size: 42px;
-
     font-weight: 800;
-
     letter-spacing: 5px;
 }
 
@@ -124,54 +85,34 @@ body {
 
 .logo p {
     margin-top: 8px;
-
     color: #777;
-
     font-size: 11px;
-
     font-weight: 600;
-
     letter-spacing: 3px;
 }
 
 label {
     display: block;
-
     margin-top: 20px;
     margin-bottom: 8px;
-
     color: #a7a7ad;
-
     font-size: 12px;
-
     font-weight: 600;
 }
 
 input,
 select,
 textarea {
-
     width: 100%;
     max-width: 100%;
-    min-width: 0;
-
     padding: 15px;
-
     background: rgba(5,6,9,.9);
-
     border: 1px solid var(--border);
-
     border-radius: 11px;
-
     color: white;
-
     outline: none;
-
     transition: .2s;
-
     font-size: 14px;
-
-    display: block;
 }
 
 input::placeholder,
@@ -182,641 +123,360 @@ textarea::placeholder {
 input:focus,
 select:focus,
 textarea:focus {
-
     border-color: var(--blue);
-
-    box-shadow:
-        0 0 0 3px rgba(52,140,255,.1);
+    box-shadow: 0 0 0 3px rgba(52,140,255,.1);
 }
 
 textarea {
-
     height: 100px;
-
     resize: vertical;
 }
 
+/* DATA */
 
-/* =====================================================
-   DATA
-   ===================================================== */
-
-input[type="date"] {
-
+#data {
     width: 100%;
     max-width: 100%;
-    min-width: 0;
-
-    display: block;
-
-    box-sizing: border-box;
-
-    -webkit-appearance: auto;
-    appearance: auto;
 }
 
-
-/* =====================================================
-   SOMENTE A COR DO ÍCONE DO CALENDÁRIO
-   ===================================================== */
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-
-    opacity: 1;
-
-    filter: invert(1);
-
-    cursor: pointer;
-}
-
-
-/* =====================================================
-   HORÁRIOS
-   ===================================================== */
+/* HORÁRIOS */
 
 .horarios {
-
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
+    grid-template-columns: repeat(3, 1fr);
     gap: 9px;
 }
 
 .horario {
-
     padding: 13px 5px;
-
     border-radius: 10px;
-
     border: 1px solid var(--border);
-
     background: rgba(5,6,9,.9);
-
     color: white;
-
     text-align: center;
-
     cursor: pointer;
-
     transition: .2s;
-
     font-size: 13px;
-
     font-weight: 700;
 }
 
 .horario:hover {
-
     transform: translateY(-2px);
-
     border-color: var(--blue);
-
-    background:
-        rgba(52,140,255,.08);
+    background: rgba(52,140,255,.08);
 }
 
 .horario.selecionado {
-
-    background:
-        linear-gradient(
-            135deg,
-            #287cff,
-            #348cff
-        );
-
+    background: linear-gradient(135deg, #287cff, #348cff);
     border-color: #348cff;
-
-    box-shadow:
-        0 5px 20px
-        rgba(52,140,255,.25);
+    box-shadow: 0 5px 20px rgba(52,140,255,.25);
 }
 
 .horario.ocupado {
-
-    background:
-        rgba(255,70,70,.07);
-
-    border-color:
-        rgba(255,70,70,.25);
-
+    background: rgba(255,70,70,.07);
+    border-color: rgba(255,70,70,.25);
     color: #ff6666;
-
     cursor: not-allowed;
-
     text-decoration: line-through;
 }
 
 .horario.loading {
-
     opacity: .5;
-
     cursor: wait;
 }
 
 .legenda {
-
     display: flex;
-
     gap: 18px;
-
     margin-top: 12px;
-
     font-size: 11px;
-
     color: #777;
 }
 
 .legenda span {
-
     display: flex;
-
     align-items: center;
-
     gap: 6px;
 }
 
 .dot {
-
     width: 8px;
     height: 8px;
-
     border-radius: 50%;
 }
 
 .dot.disponivel {
-
     background: var(--green);
-
-    box-shadow:
-        0 0 8px
-        rgba(57,255,136,.5);
+    box-shadow: 0 0 8px rgba(57,255,136,.5);
 }
 
 .dot.ocupado {
-
     background: var(--red);
 }
 
-
-/* =====================================================
-   PREÇO
-   ===================================================== */
+/* PREÇO */
 
 .preco-box {
-
     margin-top: 25px;
-
     padding: 22px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(52,140,255,.08),
-            rgba(57,255,136,.04)
-        );
-
+    background: linear-gradient(
+        135deg,
+        rgba(52,140,255,.08),
+        rgba(57,255,136,.04)
+    );
     border: 1px solid var(--border);
-
     border-radius: 15px;
 }
 
 .preco-titulo {
-
     color: #777;
-
     font-size: 10px;
-
     font-weight: 700;
-
     letter-spacing: 1.5px;
 }
 
 .preco {
-
     margin-top: 5px;
-
     font-size: 32px;
-
     font-weight: 800;
-
     color: var(--green);
 }
 
-
-/* =====================================================
-   RESUMO
-   ===================================================== */
+/* RESUMO */
 
 .resumo-final {
-
     margin-top: 18px;
-
     padding: 21px;
-
-    background:
-        rgba(5,6,9,.8);
-
-    border:
-        1px solid
-        rgba(52,140,255,.3);
-
+    background: rgba(5,6,9,.8);
+    border: 1px solid rgba(52,140,255,.3);
     border-radius: 15px;
 }
 
 .resumo-titulo {
-
     color: var(--blue);
-
     font-size: 11px;
-
     font-weight: 800;
-
     letter-spacing: 1.5px;
-
     margin-bottom: 14px;
 }
 
 .resumo-item {
-
     display: flex;
-
     justify-content: space-between;
-
     gap: 15px;
-
     padding: 7px 0;
-
     color: #777;
-
     font-size: 13px;
 }
 
 .resumo-item strong {
-
     color: white;
-
     text-align: right;
 }
 
 .linha {
-
     height: 1px;
-
     background: var(--border);
-
     margin: 12px 0;
 }
 
 .total-final {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
 }
 
 .total-final span {
-
     font-size: 13px;
-
     font-weight: 800;
 }
 
 .total-final strong {
-
     font-size: 28px;
-
     color: var(--green);
 }
 
-
-/* =====================================================
-   BOTÃO
-   ===================================================== */
+/* BOTÃO */
 
 button.agendar {
-
     width: 100%;
-
     margin-top: 22px;
-
     padding: 17px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #287cff,
-            #348cff
-        );
-
+    background: linear-gradient(135deg, #287cff, #348cff);
     border: none;
-
     border-radius: 11px;
-
     color: white;
-
     font-weight: 800;
-
     cursor: pointer;
-
     font-size: 14px;
-
     transition: .2s;
-
-    box-shadow:
-        0 8px 25px
-        rgba(40,124,255,.2);
+    box-shadow: 0 8px 25px rgba(40,124,255,.2);
 }
 
 button.agendar:hover {
-
     transform: translateY(-2px);
-
-    box-shadow:
-        0 12px 30px
-        rgba(40,124,255,.3);
+    box-shadow: 0 12px 30px rgba(40,124,255,.3);
 }
 
 button.agendar:active {
-
     transform: scale(.98);
 }
 
 button.agendar:disabled {
-
     opacity: .5;
-
     cursor: not-allowed;
-
     transform: none;
 }
 
-
-/* =====================================================
-   POPUP
-   ===================================================== */
+/* POPUP */
 
 .popup-overlay {
-
     position: fixed;
-
     inset: 0;
-
-    background:
-        rgba(0,0,0,.7);
-
+    background: rgba(0,0,0,.7);
     backdrop-filter: blur(8px);
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     padding: 20px;
-
     z-index: 9999;
-
     opacity: 0;
-
     visibility: hidden;
-
     transition: .25s;
 }
 
 .popup-overlay.show {
-
     opacity: 1;
-
     visibility: visible;
 }
 
 .popup {
-
     width: 100%;
-
     max-width: 400px;
-
     background: #111318;
-
     border: 1px solid var(--border);
-
     border-radius: 22px;
-
     padding: 30px;
-
     text-align: center;
-
-    box-shadow:
-        0 30px 90px
-        rgba(0,0,0,.7);
-
-    transform:
-        scale(.9)
-        translateY(20px);
-
+    box-shadow: 0 30px 90px rgba(0,0,0,.7);
+    transform: scale(.9) translateY(20px);
     transition: .25s;
 }
 
 .popup-overlay.show .popup {
-
-    transform:
-        scale(1)
-        translateY(0);
+    transform: scale(1) translateY(0);
 }
 
 .popup-icon {
-
     width: 65px;
     height: 65px;
-
     border-radius: 50%;
-
-    margin:
-        0 auto 18px;
-
+    margin: 0 auto 18px;
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 28px;
 }
 
 .popup.success .popup-icon {
-
-    background:
-        rgba(57,255,136,.1);
-
-    color:
-        var(--green);
+    background: rgba(57,255,136,.1);
+    color: var(--green);
 }
 
 .popup.error .popup-icon {
-
-    background:
-        rgba(255,82,82,.1);
-
-    color:
-        var(--red);
+    background: rgba(255,82,82,.1);
+    color: var(--red);
 }
 
 .popup h2 {
-
-    margin:
-        0 0 10px;
-
+    margin: 0 0 10px;
     font-size: 21px;
 }
 
 .popup p {
-
     color: #888;
-
     line-height: 1.6;
-
     margin: 0;
 }
 
 .popup-details {
-
     margin-top: 18px;
-
     padding: 15px;
-
     background: #090a0d;
-
     border-radius: 12px;
-
     color: #aaa;
-
     font-size: 13px;
-
     line-height: 1.8;
 }
 
 .popup button {
-
     width: 100%;
-
     border: 0;
-
     padding: 13px;
-
     margin-top: 20px;
-
     border-radius: 10px;
-
     background: var(--blue2);
-
     color: white;
-
     font-weight: 700;
-
     cursor: pointer;
 }
 
-
-/* =====================================================
-   CELULAR
-   ===================================================== */
+/* MOBILE */
 
 @media (max-width: 560px) {
 
     body {
-
-        width: 100%;
-
-        padding:
-            12px;
-
+        padding: 12px;
         align-items: flex-start;
-
-        overflow-x: hidden;
     }
 
     .form {
-
         width: 100%;
         max-width: 100%;
-
         margin-top: 10px;
-
-        padding:
-            25px 18px;
-
+        padding: 25px 18px;
         border-radius: 20px;
-
-        overflow: hidden;
     }
 
     .logo h1 {
-
         font-size: 34px;
     }
 
     .horarios {
-
-        grid-template-columns:
-            repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    input,
-    select,
-    textarea {
+    /*
+       CORREÇÃO DA CAIXA DE DATA
+       Mais baixa no celular,
+       sem alterar o ícone do calendário.
+    */
 
+    #data {
         width: 100%;
         max-width: 100%;
-        min-width: 0;
-    }
-
-    input[type="date"] {
-
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-
-        height: 48px;
-
-        padding:
-            12px 10px;
-
+        height: 44px;
+        min-height: 44px;
+        padding: 8px 12px;
         font-size: 14px;
-
-        border-radius: 11px;
-
-        overflow: hidden;
+        line-height: normal;
+        box-sizing: border-box;
     }
 
 }
 
-
-/* =====================================================
-   CELULAR PEQUENO
-   ===================================================== */
+/* CELULARES MUITO PEQUENOS */
 
 @media (max-width: 380px) {
 
-    body {
-        padding: 8px;
-    }
-
     .form {
-
-        padding:
-            22px 14px;
+        padding: 22px 15px;
     }
 
-    input[type="date"] {
-
-        padding:
-            12px 8px;
-
-        font-size: 13px;
+    #data {
+        height: 42px;
+        min-height: 42px;
+        padding: 7px 10px;
     }
 
 }
@@ -830,74 +490,45 @@ button.agendar:disabled {
 <div class="form">
 
     <div class="logo">
-
         <h1>SAM<span>UCA</span></h1>
-
-        <p>
-            BARBERSHOP • AGENDAMENTO
-        </p>
-
+        <p>BARBERSHOP • AGENDAMENTO</p>
     </div>
 
-
-    <label>
-        Nome completo *
-    </label>
-
+    <label>Nome completo *</label>
     <input
         id="nome"
         type="text"
         placeholder="Digite seu nome"
     >
 
-
-    <label>
-        Telefone *
-    </label>
-
+    <label>Telefone *</label>
     <input
         id="telefone"
         type="tel"
         placeholder="(00) 00000-0000"
     >
 
-
-    <label>
-        E-mail
-    </label>
-
+    <label>E-mail</label>
     <input
         id="email"
         type="email"
         placeholder="seuemail@email.com"
     >
 
-
-    <label>
-        📅 Escolha a data *
-    </label>
+    <label>📅 Escolha a data *</label>
 
     <input
         id="data"
         type="date"
     >
 
+    <label>🕐 Escolha o horário *</label>
 
-    <label>
-        🕐 Escolha o horário *
-    </label>
-
-    <div
-        id="horarios"
-        class="horarios"
-    >
-
+    <div id="horarios" class="horarios">
         <div class="horario">
             Escolha uma data
         </div>
-
     </div>
-
 
     <div class="legenda">
 
@@ -913,10 +544,7 @@ button.agendar:disabled {
 
     </div>
 
-
-    <label>
-        ✂️ Serviço *
-    </label>
+    <label>✂️ Serviço *</label>
 
     <select id="servico">
 
@@ -942,10 +570,7 @@ button.agendar:disabled {
 
     </select>
 
-
-    <label>
-        💈 Tipo de corte *
-    </label>
+    <label>💈 Tipo de corte *</label>
 
     <select id="tipo">
 
@@ -979,16 +604,12 @@ button.agendar:disabled {
 
     </select>
 
-
-    <label>
-        📝 Observações
-    </label>
+    <label>📝 Observações</label>
 
     <textarea
         id="observacoes"
         placeholder="Ex: Não subir muito o degradê..."
     ></textarea>
-
 
     <div class="preco-box">
 
@@ -1005,13 +626,11 @@ button.agendar:disabled {
 
     </div>
 
-
     <div class="resumo-final">
 
         <div class="resumo-titulo">
             🧾 RESUMO DO AGENDAMENTO
         </div>
-
 
         <div class="resumo-item">
 
@@ -1025,7 +644,6 @@ button.agendar:disabled {
 
         </div>
 
-
         <div class="resumo-item">
 
             <span>
@@ -1037,7 +655,6 @@ button.agendar:disabled {
             </strong>
 
         </div>
-
 
         <div class="resumo-item">
 
@@ -1051,9 +668,7 @@ button.agendar:disabled {
 
         </div>
 
-
         <div class="linha"></div>
-
 
         <div class="total-final">
 
@@ -1069,7 +684,6 @@ button.agendar:disabled {
 
     </div>
 
-
     <button
         id="botao"
         class="agendar"
@@ -1077,7 +691,6 @@ button.agendar:disabled {
     >
         ✂️ AGENDAR CORTE
     </button>
-
 
     <div id="status"></div>
 
@@ -1125,11 +738,6 @@ button.agendar:disabled {
 
 <script>
 
-
-/* =====================================================
-   PREÇOS
-   ===================================================== */
-
 const PRECOS = {
 
     "Corte masculino": 25,
@@ -1143,36 +751,26 @@ const PRECOS = {
 };
 
 
-/* =====================================================
-   HORÁRIOS
-   ===================================================== */
-
 const HORARIOS = [
 
     "09:00",
     "09:30",
-
     "10:00",
     "10:30",
-
     "11:00",
     "11:30",
 
     "13:00",
     "13:30",
-
     "14:00",
     "14:30",
-
     "15:00",
     "15:30",
 
     "16:00",
     "16:30",
-
     "17:00",
     "17:30",
-
     "18:00",
     "18:30"
 
@@ -1188,14 +786,13 @@ const campoData =
     document.getElementById("data");
 
 
-/* =====================================================
-   DATA DE HOJE
-   ===================================================== */
+/* =========================================
+   DATA MÍNIMA = HOJE
+========================================= */
 
 function obterDataHoje() {
 
-    const agora =
-        new Date();
+    const agora = new Date();
 
     const ano =
         agora.getFullYear();
@@ -1210,77 +807,81 @@ function obterDataHoje() {
             agora.getDate()
         ).padStart(2, "0");
 
-    return (
-        ano +
-        "-" +
-        mes +
-        "-" +
-        dia
-    );
+    return `${ano}-${mes}-${dia}`;
 
 }
 
 
-const dataHoje =
-    obterDataHoje();
+function atualizarDataMinima() {
+
+    const hoje =
+        obterDataHoje();
+
+    campoData.min = hoje;
+
+}
 
 
-/* =====================================================
-   DATA MÍNIMA
-   ===================================================== */
+/*
+   Atualiza automaticamente a cada minuto.
+   Assim, quando virar o dia,
+   a data mínima também muda.
+*/
 
-campoData.min =
-    dataHoje;
+atualizarDataMinima();
 
-
-/* =====================================================
-   DATA PADRÃO = HOJE
-   ===================================================== */
-
-campoData.value =
-    dataHoje;
+setInterval(
+    atualizarDataMinima,
+    60000
+);
 
 
-/* =====================================================
-   ALTERAÇÃO DA DATA
-   ===================================================== */
+/* =========================================
+   DATA
+========================================= */
 
 campoData.addEventListener(
     "change",
     async function() {
 
-        const dataEscolhida =
-            campoData.value;
+        const hoje =
+            obterDataHoje();
 
+        /*
+           Segurança extra:
+           impede datas anteriores a hoje.
+        */
 
         if (
-            dataEscolhida &&
-            dataEscolhida < dataHoje
+            campoData.value &&
+            campoData.value < hoje
         ) {
 
+            campoData.value = "";
+
             mostrarPopup(
-
                 "error",
-
                 "Data inválida",
-
                 "Você só pode escolher hoje ou uma data futura."
-
             );
 
+            document
+                .getElementById("horarios")
+                .innerHTML =
+                '<div class="horario">Escolha uma data</div>';
 
-            campoData.value =
-                dataHoje;
+            horarioSelecionado = "";
+
+            atualizarResumo();
+
+            return;
 
         }
 
 
-        horarioSelecionado =
-            "";
-
+        horarioSelecionado = "";
 
         atualizarResumo();
-
 
         await carregarHorarios();
 
@@ -1288,9 +889,9 @@ campoData.addEventListener(
 );
 
 
-/* =====================================================
+/* =========================================
    SERVIÇO
-   ===================================================== */
+========================================= */
 
 document
     .getElementById("servico")
@@ -1306,20 +907,17 @@ document
     );
 
 
-/* =====================================================
-   CARREGAR HORÁRIOS
-   ===================================================== */
+/* =========================================
+   HORÁRIOS
+========================================= */
 
 async function carregarHorarios() {
 
     const data =
         campoData.value;
 
-
     const container =
-        document.getElementById(
-            "horarios"
-        );
+        document.getElementById("horarios");
 
 
     if (!data) {
@@ -1332,29 +930,14 @@ async function carregarHorarios() {
     }
 
 
-    if (
-        data < dataHoje
-    ) {
-
-        campoData.value =
-            dataHoje;
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        "";
+    container.innerHTML = "";
 
 
     HORARIOS.forEach(
-        function() {
+        () => {
 
             const div =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
             div.className =
                 "horario loading";
@@ -1362,9 +945,7 @@ async function carregarHorarios() {
             div.textContent =
                 "⏳";
 
-            container.appendChild(
-                div
-            );
+            container.appendChild(div);
 
         }
     );
@@ -1383,9 +964,7 @@ async function carregarHorarios() {
             await response.json();
 
 
-        if (
-            !resultado.success
-        ) {
+        if (!resultado.success) {
 
             throw new Error(
                 "Erro ao consultar horários"
@@ -1402,25 +981,20 @@ async function carregarHorarios() {
 
     }
 
-    catch (error) {
+    catch(error) {
 
-        console.error(
-            error
-        );
+        console.error(error);
 
 
         container.innerHTML = `
 
             <div
                 class="horario"
-                style="
-                    grid-column:1/-1;
-                    color:#ff6b6b;
-                "
+                style="grid-column:1/-1;color:#ff6b6b;"
             >
 
-                ❌ Não foi possível
-                carregar os horários.
+                ❌ Não foi possível carregar
+                os horários.
 
                 <br>
 
@@ -1435,24 +1009,21 @@ async function carregarHorarios() {
 }
 
 
-/* =====================================================
+/* =========================================
    RENDERIZAR HORÁRIOS
-   ===================================================== */
+========================================= */
 
 function renderizarHorarios() {
 
     const container =
-        document.getElementById(
-            "horarios"
-        );
+        document.getElementById("horarios");
 
 
-    container.innerHTML =
-        "";
+    container.innerHTML = "";
 
 
     HORARIOS.forEach(
-        function(horario) {
+        horario => {
 
             const ocupado =
                 horariosOcupados.includes(
@@ -1461,9 +1032,7 @@ function renderizarHorarios() {
 
 
             const div =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
 
             div.className =
@@ -1510,9 +1079,7 @@ function renderizarHorarios() {
             }
 
 
-            container.appendChild(
-                div
-            );
+            container.appendChild(div);
 
         }
     );
@@ -1520,9 +1087,9 @@ function renderizarHorarios() {
 }
 
 
-/* =====================================================
+/* =========================================
    SELECIONAR HORÁRIO
-   ===================================================== */
+========================================= */
 
 function selecionarHorario(
     horario,
@@ -1530,17 +1097,12 @@ function selecionarHorario(
 ) {
 
     document
-        .querySelectorAll(
-            ".horario"
-        )
+        .querySelectorAll(".horario")
         .forEach(
-            function(item) {
-
+            item =>
                 item.classList.remove(
                     "selecionado"
-                );
-
-            }
+                )
         );
 
 
@@ -1558,95 +1120,46 @@ function selecionarHorario(
 }
 
 
-/* =====================================================
-   ATUALIZAR PREÇO
-   ===================================================== */
+/* =========================================
+   PREÇO
+========================================= */
 
 function atualizarPreco() {
 
     const servico =
-        document
-            .getElementById(
-                "servico"
-            )
-            .value;
+        document.getElementById(
+            "servico"
+        ).value;
 
 
     const preco =
         PRECOS[servico] || 0;
 
 
-    document
-        .getElementById(
-            "preco"
-        )
-        .textContent =
-            "$" +
-            preco.toFixed(2);
+    document.getElementById(
+        "preco"
+    ).textContent =
+        "$" + preco.toFixed(2);
 
 
-    document
-        .getElementById(
-            "finalPreco"
-        )
-        .textContent =
-            "$" +
-            preco.toFixed(2);
+    document.getElementById(
+        "finalPreco"
+    ).textContent =
+        "$" + preco.toFixed(2);
 
 }
 
 
-/* =====================================================
-   FORMATAR DATA
-   ===================================================== */
-
-function formatarData(
-    data
-) {
-
-    if (!data) {
-
-        return "—";
-
-    }
-
-
-    const partes =
-        data.split("-");
-
-
-    if (
-        partes.length !== 3
-    ) {
-
-        return data;
-
-    }
-
-
-    return (
-        partes[2] +
-        "/" +
-        partes[1] +
-        "/" +
-        partes[0]
-    );
-
-}
-
-
-/* =====================================================
-   ATUALIZAR RESUMO
-   ===================================================== */
+/* =========================================
+   RESUMO
+========================================= */
 
 function atualizarResumo() {
 
     const servico =
-        document
-            .getElementById(
-                "servico"
-            )
-            .value;
+        document.getElementById(
+            "servico"
+        ).value;
 
 
     const data =
@@ -1657,46 +1170,35 @@ function atualizarResumo() {
         PRECOS[servico] || 0;
 
 
-    document
-        .getElementById(
-            "finalServico"
-        )
-        .textContent =
-            servico || "—";
+    document.getElementById(
+        "finalServico"
+    ).textContent =
+        servico || "—";
 
 
-    document
-        .getElementById(
-            "finalData"
-        )
-        .textContent =
-            formatarData(
-                data
-            );
+    document.getElementById(
+        "finalData"
+    ).textContent =
+        data || "—";
 
 
-    document
-        .getElementById(
-            "finalHorario"
-        )
-        .textContent =
-            horarioSelecionado || "—";
+    document.getElementById(
+        "finalHorario"
+    ).textContent =
+        horarioSelecionado || "—";
 
 
-    document
-        .getElementById(
-            "finalPreco"
-        )
-        .textContent =
-            "$" +
-            preco.toFixed(2);
+    document.getElementById(
+        "finalPreco"
+    ).textContent =
+        "$" + preco.toFixed(2);
 
 }
 
 
-/* =====================================================
+/* =========================================
    POPUP
-   ===================================================== */
+========================================= */
 
 function mostrarPopup(
     tipo,
@@ -1718,42 +1220,33 @@ function mostrarPopup(
 
 
     popup.className =
-        "popup " +
-        tipo;
+        "popup " + tipo;
 
 
-    document
-        .getElementById(
-            "popupTitle"
-        )
-        .textContent =
-            titulo;
+    document.getElementById(
+        "popupTitle"
+    ).textContent =
+        titulo;
 
 
-    document
-        .getElementById(
-            "popupMessage"
-        )
-        .textContent =
-            mensagem;
+    document.getElementById(
+        "popupMessage"
+    ).textContent =
+        mensagem;
 
 
-    document
-        .getElementById(
-            "popupDetails"
-        )
-        .innerHTML =
-            detalhes;
+    document.getElementById(
+        "popupDetails"
+    ).innerHTML =
+        detalhes;
 
 
-    document
-        .getElementById(
-            "popupIcon"
-        )
-        .textContent =
-            tipo === "success"
-                ? "✓"
-                : "!";
+    document.getElementById(
+        "popupIcon"
+    ).textContent =
+        tipo === "success"
+            ? "✓"
+            : "!";
 
 
     overlay.classList.add(
@@ -1762,10 +1255,6 @@ function mostrarPopup(
 
 }
 
-
-/* =====================================================
-   FECHAR POPUP
-   ===================================================== */
 
 function fecharPopup() {
 
@@ -1800,9 +1289,9 @@ document
     );
 
 
-/* =====================================================
+/* =========================================
    AGENDAR
-   ===================================================== */
+========================================= */
 
 async function agendar() {
 
@@ -1821,28 +1310,19 @@ async function agendar() {
     const dados = {
 
         nome:
-            document
-                .getElementById(
-                    "nome"
-                )
-                .value
-                .trim(),
+            document.getElementById(
+                "nome"
+            ).value.trim(),
 
         telefone:
-            document
-                .getElementById(
-                    "telefone"
-                )
-                .value
-                .trim(),
+            document.getElementById(
+                "telefone"
+            ).value.trim(),
 
         email:
-            document
-                .getElementById(
-                    "email"
-                )
-                .value
-                .trim(),
+            document.getElementById(
+                "email"
+            ).value.trim(),
 
         data:
             campoData.value,
@@ -1851,65 +1331,46 @@ async function agendar() {
             horarioSelecionado,
 
         servico:
-            document
-                .getElementById(
-                    "servico"
-                )
-                .value,
+            document.getElementById(
+                "servico"
+            ).value,
 
         tipo:
-            document
-                .getElementById(
-                    "tipo"
-                )
-                .value,
+            document.getElementById(
+                "tipo"
+            ).value,
 
         observacoes:
-            document
-                .getElementById(
-                    "observacoes"
-                )
-                .value
-                .trim()
+            document.getElementById(
+                "observacoes"
+            ).value.trim()
 
     };
 
 
-    /* =================================================
-       VALIDAR DATA
-       ================================================= */
+    /* Segurança extra */
+
+    const hoje =
+        obterDataHoje();
+
 
     if (
-        !dados.data ||
-        dados.data < dataHoje
+        dados.data &&
+        dados.data < hoje
     ) {
 
         mostrarPopup(
-
             "error",
-
             "Data inválida",
-
             "Você só pode escolher hoje ou uma data futura."
-
         );
 
-
-        campoData.value =
-            dataHoje;
-
-
-        atualizarResumo();
-
+        atualizarDataMinima();
 
         return;
 
     }
 
-
-    /* =================================================
-       CAMPOS OBRIGATÓRIOS
-       ================================================= */
 
     if (
 
@@ -1928,24 +1389,15 @@ async function agendar() {
     ) {
 
         mostrarPopup(
-
             "error",
-
             "Campos incompletos",
-
             "Preencha todos os campos obrigatórios antes de continuar."
-
         );
-
 
         return;
 
     }
 
-
-    /* =================================================
-       HORÁRIO OCUPADO
-       ================================================= */
 
     if (
         horariosOcupados.includes(
@@ -1954,13 +1406,9 @@ async function agendar() {
     ) {
 
         mostrarPopup(
-
             "error",
-
             "Horário ocupado",
-
             "Esse horário acabou de ser reservado. Escolha outro horário."
-
         );
 
 
@@ -1973,13 +1421,10 @@ async function agendar() {
 
 
     const preco =
-        PRECOS[
-            dados.servico
-        ];
+        PRECOS[dados.servico];
 
 
-    botao.disabled =
-        true;
+    botao.disabled = true;
 
 
     status.textContent =
@@ -2028,9 +1473,7 @@ async function agendar() {
 
                 `
 
-                    📅 ${formatarData(
-                        dados.data
-                    )}
+                    📅 ${dados.data}
 
                     <br>
 
@@ -2052,8 +1495,10 @@ async function agendar() {
                             font-size:18px;
                         "
                     >
+
                         Total:
                         $${preco.toFixed(2)}
+
                     </strong>
 
                 `
@@ -2061,54 +1506,39 @@ async function agendar() {
             );
 
 
-            document
-                .getElementById(
-                    "nome"
-                )
-                .value = "";
+            document.getElementById(
+                "nome"
+            ).value = "";
 
 
-            document
-                .getElementById(
-                    "telefone"
-                )
-                .value = "";
+            document.getElementById(
+                "telefone"
+            ).value = "";
 
 
-            document
-                .getElementById(
-                    "email"
-                )
-                .value = "";
+            document.getElementById(
+                "email"
+            ).value = "";
 
 
-            document
-                .getElementById(
-                    "data"
-                )
-                .value =
-                    dataHoje;
+            document.getElementById(
+                "data"
+            ).value = "";
 
 
-            document
-                .getElementById(
-                    "servico"
-                )
-                .value = "";
+            document.getElementById(
+                "servico"
+            ).value = "";
 
 
-            document
-                .getElementById(
-                    "tipo"
-                )
-                .value = "";
+            document.getElementById(
+                "tipo"
+            ).value = "";
 
 
-            document
-                .getElementById(
-                    "observacoes"
-                )
-                .value = "";
+            document.getElementById(
+                "observacoes"
+            ).value = "";
 
 
             horarioSelecionado =
@@ -2124,15 +1554,10 @@ async function agendar() {
             atualizarResumo();
 
 
-            document
-                .getElementById(
-                    "horarios"
-                )
-                .innerHTML =
-                    '<div class="horario">Escolha uma data</div>';
-
-
-            await carregarHorarios();
+            document.getElementById(
+                "horarios"
+            ).innerHTML =
+                '<div class="horario">Escolha uma data</div>';
 
         }
 
@@ -2142,13 +1567,9 @@ async function agendar() {
         ) {
 
             mostrarPopup(
-
                 "error",
-
                 "Horário indisponível",
-
                 "Esse horário acabou de ser reservado por outra pessoa. Escolha outro."
-
             );
 
 
@@ -2160,14 +1581,10 @@ async function agendar() {
         else {
 
             mostrarPopup(
-
                 "error",
-
                 "Não foi possível agendar",
-
                 resultado.message ||
                 "Ocorreu um erro ao realizar o agendamento."
-
             );
 
         }
@@ -2175,21 +1592,15 @@ async function agendar() {
     }
 
 
-    catch (error) {
+    catch(error) {
 
-        console.error(
-            error
-        );
+        console.error(error);
 
 
         mostrarPopup(
-
             "error",
-
             "Erro de conexão",
-
             "Não foi possível conectar ao servidor. Tente novamente."
-
         );
 
     }
@@ -2205,15 +1616,15 @@ async function agendar() {
 }
 
 
-/* =====================================================
-   INICIAR
-   ===================================================== */
+/* =========================================
+   INICIALIZAÇÃO
+========================================= */
+
+atualizarDataMinima();
 
 atualizarPreco();
 
 atualizarResumo();
-
-carregarHorarios();
 
 </script>
 
