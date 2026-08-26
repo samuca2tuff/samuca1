@@ -48,6 +48,18 @@ body {
     border-radius: 24px;
     padding: 38px;
     box-shadow: 0 25px 80px rgba(0,0,0,.5);
+    animation: aparecer .5s ease;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .logo {
@@ -96,7 +108,6 @@ textarea {
     outline: none;
     transition: .2s;
     font-size: 14px;
-    box-sizing: border-box;
 }
 
 input::placeholder,
@@ -116,21 +127,23 @@ textarea {
     resize: vertical;
 }
 
-/* DATA */
+/* =====================================================
+   DATA
+   ===================================================== */
+
 #data {
     width: 100%;
     max-width: 100%;
-    min-width: 0;
     height: 50px;
-    min-height: 50px;
     padding: 15px;
-    margin: 0;
-    display: block;
     box-sizing: border-box;
-    color-scheme: dark;
+    display: block;
 }
 
-/* HORÁRIOS */
+/* =====================================================
+   HORÁRIOS
+   ===================================================== */
+
 .horarios {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -197,13 +210,17 @@ textarea {
 
 .dot.disponivel {
     background: var(--green);
+    box-shadow: 0 0 8px rgba(57,255,136,.5);
 }
 
 .dot.ocupado {
     background: var(--red);
 }
 
-/* PREÇO */
+/* =====================================================
+   PREÇO
+   ===================================================== */
+
 .preco-box {
     margin-top: 25px;
     padding: 22px;
@@ -230,7 +247,10 @@ textarea {
     color: var(--green);
 }
 
-/* RESUMO */
+/* =====================================================
+   RESUMO
+   ===================================================== */
+
 .resumo-final {
     margin-top: 18px;
     padding: 21px;
@@ -283,7 +303,10 @@ textarea {
     color: var(--green);
 }
 
-/* BOTÃO */
+/* =====================================================
+   BOTÃO
+   ===================================================== */
+
 button.agendar {
     width: 100%;
     margin-top: 22px;
@@ -295,9 +318,24 @@ button.agendar {
     font-weight: 800;
     cursor: pointer;
     font-size: 14px;
+    transition: .2s;
+    box-shadow: 0 8px 25px rgba(40,124,255,.2);
 }
 
-/* POPUP */
+button.agendar:hover {
+    transform: translateY(-2px);
+}
+
+button.agendar:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =====================================================
+   POPUP
+   ===================================================== */
+
 .popup-overlay {
     position: fixed;
     inset: 0;
@@ -326,6 +364,7 @@ button.agendar {
     border-radius: 22px;
     padding: 30px;
     text-align: center;
+    box-shadow: 0 30px 90px rgba(0,0,0,.7);
 }
 
 .popup-icon {
@@ -357,6 +396,7 @@ button.agendar {
 .popup p {
     color: #888;
     line-height: 1.6;
+    margin: 0;
 }
 
 .popup-details {
@@ -378,9 +418,13 @@ button.agendar {
     background: var(--blue2);
     color: white;
     font-weight: 700;
+    cursor: pointer;
 }
 
-/* MOBILE */
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
 @media (max-width:560px) {
 
     body {
@@ -402,18 +446,20 @@ button.agendar {
 
     input,
     select,
-    textarea,
+    textarea {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* DATA MENOR E ALINHADA COM EMAIL */
     #data {
         width: 100%;
         max-width: 100%;
-        min-width: 0;
-    }
-
-    #data {
-        height: 48px;
-        min-height: 48px;
-        padding: 12px;
+        height: 45px;
+        min-height: 45px;
+        padding: 10px 12px;
         margin: 0;
+        box-sizing: border-box;
         display: block;
     }
 
@@ -452,8 +498,15 @@ button.agendar {
 </div>
 
 <div class="legenda">
-    <span><span class="dot disponivel"></span> Disponível</span>
-    <span><span class="dot ocupado"></span> Ocupado</span>
+    <span>
+        <span class="dot disponivel"></span>
+        Disponível
+    </span>
+
+    <span>
+        <span class="dot ocupado"></span>
+        Ocupado
+    </span>
 </div>
 
 <label>✂️ Serviço *</label>
@@ -480,16 +533,26 @@ button.agendar {
 
 <label>📝 Observações</label>
 
-<textarea id="observacoes" placeholder="Ex: Não subir muito o degradê..."></textarea>
+<textarea
+    id="observacoes"
+    placeholder="Ex: Não subir muito o degradê..."
+></textarea>
 
 <div class="preco-box">
-    <div class="preco-titulo">VALOR DO SERVIÇO</div>
-    <div class="preco" id="preco">$0.00</div>
+    <div class="preco-titulo">
+        VALOR DO SERVIÇO
+    </div>
+
+    <div class="preco" id="preco">
+        $0.00
+    </div>
 </div>
 
 <div class="resumo-final">
 
-    <div class="resumo-titulo">🧾 RESUMO DO AGENDAMENTO</div>
+    <div class="resumo-titulo">
+        🧾 RESUMO DO AGENDAMENTO
+    </div>
 
     <div class="resumo-item">
         <span>Serviço</span>
@@ -515,7 +578,11 @@ button.agendar {
 
 </div>
 
-<button id="botao" class="agendar" onclick="agendar()">
+<button
+    id="botao"
+    class="agendar"
+    onclick="agendar()"
+>
     ✂️ AGENDAR CORTE
 </button>
 
@@ -523,92 +590,186 @@ button.agendar {
 
 </div>
 
-<div id="popupOverlay" class="popup-overlay">
+<!-- POPUP -->
 
-<div id="popup" class="popup">
+<div
+    id="popupOverlay"
+    class="popup-overlay"
+>
 
-    <div id="popupIcon" class="popup-icon">✓</div>
+    <div id="popup" class="popup">
 
-    <h2 id="popupTitle">Agendamento</h2>
+        <div
+            id="popupIcon"
+            class="popup-icon"
+        >
+            ✓
+        </div>
 
-    <p id="popupMessage"></p>
+        <h2 id="popupTitle">
+            Agendamento
+        </h2>
 
-    <div id="popupDetails" class="popup-details"></div>
+        <p id="popupMessage"></p>
 
-    <button onclick="fecharPopup()">FECHAR</button>
+        <div
+            id="popupDetails"
+            class="popup-details"
+        ></div>
 
-</div>
+        <button onclick="fecharPopup()">
+            FECHAR
+        </button>
+
+    </div>
 
 </div>
 
 <script>
 
 const PRECOS = {
-    "Corte masculino":25,
-    "Corte + barba":35,
-    "Barba":15,
-    "Corte infantil":20
+    "Corte masculino": 25,
+    "Corte + barba": 35,
+    "Barba": 15,
+    "Corte infantil": 20
 };
 
 const HORARIOS = [
-    "09:00","09:30","10:00","10:30","11:00","11:30",
-    "13:00","13:30","14:00","14:30","15:00","15:30",
-    "16:00","16:30","17:00","17:30","18:00","18:30"
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+    "18:00",
+    "18:30"
 ];
 
 let horarioSelecionado = "";
 let horariosOcupados = [];
 
-const campoData = document.getElementById("data");
+const campoData =
+    document.getElementById("data");
 
-function dataLocal() {
+/* =====================================================
+   DATA INTELIGENTE
+   ===================================================== */
+
+function obterDataHoje() {
 
     const agora = new Date();
 
-    const ano = agora.getFullYear();
-    const mes = String(agora.getMonth()+1).padStart(2,"0");
-    const dia = String(agora.getDate()).padStart(2,"0");
+    const ano =
+        agora.getFullYear();
+
+    const mes =
+        String(
+            agora.getMonth() + 1
+        ).padStart(2,"0");
+
+    const dia =
+        String(
+            agora.getDate()
+        ).padStart(2,"0");
 
     return `${ano}-${mes}-${dia}`;
 }
 
-const hoje = dataLocal();
+function atualizarDataMinima() {
 
-campoData.min = hoje;
+    const hoje =
+        obterDataHoje();
 
-campoData.addEventListener("change", async function() {
+    campoData.min = hoje;
 
-    if (campoData.value < hoje) {
-
-        campoData.value = hoje;
-
-        mostrarPopup(
-            "error",
-            "Data inválida",
-            "Você só pode escolher hoje ou uma data futura."
-        );
-
-        return;
+    if (
+        campoData.value &&
+        campoData.value < hoje
+    ) {
+        campoData.value = "";
     }
+}
 
-    horarioSelecionado = "";
+atualizarDataMinima();
 
-    atualizarResumo();
+/*
+   Atualiza automaticamente quando
+   o dia muda.
+*/
+setInterval(
+    atualizarDataMinima,
+    60000
+);
 
-    await carregarHorarios();
-});
+campoData.addEventListener(
+    "change",
+    async function() {
 
-document.getElementById("servico").addEventListener("change",function(){
+        const hoje =
+            obterDataHoje();
 
-    atualizarPreco();
-    atualizarResumo();
+        if (
+            campoData.value < hoje
+        ) {
 
-});
+            campoData.value = "";
+
+            mostrarPopup(
+                "error",
+                "Data inválida",
+                "Você só pode escolher hoje ou uma data futura."
+            );
+
+            return;
+        }
+
+        horarioSelecionado = "";
+
+        atualizarResumo();
+
+        await carregarHorarios();
+    }
+);
+
+/* =====================================================
+   SERVIÇO
+   ===================================================== */
+
+document
+.getElementById("servico")
+.addEventListener(
+    "change",
+    function() {
+
+        atualizarPreco();
+        atualizarResumo();
+
+    }
+);
+
+/* =====================================================
+   HORÁRIOS
+   ===================================================== */
 
 async function carregarHorarios() {
 
-    const data = campoData.value;
-    const container = document.getElementById("horarios");
+    const data =
+        campoData.value;
+
+    const container =
+        document.getElementById("horarios");
 
     if (!data) {
 
@@ -622,11 +783,14 @@ async function carregarHorarios() {
 
     HORARIOS.forEach(() => {
 
-        const div = document.createElement("div");
+        const div =
+            document.createElement("div");
 
-        div.className = "horario loading";
+        div.className =
+            "horario loading";
 
-        div.textContent = "⏳";
+        div.textContent =
+            "⏳";
 
         container.appendChild(div);
 
@@ -634,19 +798,19 @@ async function carregarHorarios() {
 
     try {
 
-        const response = await fetch(
-            "/api/horarios?data=" +
-            encodeURIComponent(data)
-        );
+        const response =
+            await fetch(
+                "/api/horarios?data=" +
+                encodeURIComponent(data)
+            );
 
-        const resultado = await response.json();
+        const resultado =
+            await response.json();
 
         if (!resultado.success) {
-
             throw new Error(
                 "Erro ao consultar horários"
             );
-
         }
 
         horariosOcupados =
@@ -659,15 +823,19 @@ async function carregarHorarios() {
         console.error(error);
 
         container.innerHTML = `
-            <div class="horario"
-                style="grid-column:1/-1;color:#ff6b6b;">
+            <div
+                class="horario"
+                style="
+                    grid-column:1/-1;
+                    color:#ff6b6b;
+                "
+            >
                 ❌ Não foi possível carregar os horários.
-                <br>Tente novamente.
+                <br>
+                Tente novamente.
             </div>
         `;
-
     }
-
 }
 
 function renderizarHorarios() {
@@ -677,45 +845,52 @@ function renderizarHorarios() {
 
     container.innerHTML = "";
 
-    HORARIOS.forEach(horario => {
+    HORARIOS.forEach(
+        horario => {
 
-        const ocupado =
-            horariosOcupados.includes(horario);
+            const ocupado =
+                horariosOcupados
+                .includes(horario);
 
-        const div =
-            document.createElement("div");
+            const div =
+                document.createElement("div");
 
-        div.className = "horario";
+            div.className =
+                "horario";
 
-        if (ocupado) {
+            if (ocupado) {
 
-            div.classList.add("ocupado");
-
-            div.innerHTML = `
-                ${horario}
-                <br>
-                <small>🔴 OCUPADO</small>
-            `;
-
-        } else {
-
-            div.textContent = horario;
-
-            div.onclick = function() {
-
-                selecionarHorario(
-                    horario,
-                    div
+                div.classList.add(
+                    "ocupado"
                 );
 
-            };
+                div.innerHTML = `
+                    ${horario}
+                    <br>
+                    <small>
+                        🔴 OCUPADO
+                    </small>
+                `;
 
+            } else {
+
+                div.textContent =
+                    horario;
+
+                div.onclick =
+                    function() {
+
+                        selecionarHorario(
+                            horario,
+                            div
+                        );
+
+                    };
+            }
+
+            container.appendChild(div);
         }
-
-        container.appendChild(div);
-
-    });
-
+    );
 }
 
 function selecionarHorario(
@@ -723,39 +898,59 @@ function selecionarHorario(
     elemento
 ) {
 
-    document.querySelectorAll(".horario")
-        .forEach(item =>
-            item.classList.remove("selecionado")
-        );
+    document
+    .querySelectorAll(".horario")
+    .forEach(
+        item =>
+            item.classList
+            .remove("selecionado")
+    );
 
-    elemento.classList.add("selecionado");
+    elemento.classList.add(
+        "selecionado"
+    );
 
-    horarioSelecionado = horario;
+    horarioSelecionado =
+        horario;
 
     atualizarResumo();
-
 }
+
+/* =====================================================
+   PREÇO
+   ===================================================== */
 
 function atualizarPreco() {
 
     const servico =
-        document.getElementById("servico").value;
+        document
+        .getElementById("servico")
+        .value;
 
     const preco =
         PRECOS[servico] || 0;
 
-    document.getElementById("preco").textContent =
+    document
+    .getElementById("preco")
+    .textContent =
         "$" + preco.toFixed(2);
 
-    document.getElementById("finalPreco").textContent =
+    document
+    .getElementById("finalPreco")
+    .textContent =
         "$" + preco.toFixed(2);
-
 }
+
+/* =====================================================
+   RESUMO
+   ===================================================== */
 
 function atualizarResumo() {
 
     const servico =
-        document.getElementById("servico").value;
+        document
+        .getElementById("servico")
+        .value;
 
     const data =
         campoData.value;
@@ -763,96 +958,139 @@ function atualizarResumo() {
     const preco =
         PRECOS[servico] || 0;
 
-    document.getElementById("finalServico")
-        .textContent =
+    document
+    .getElementById("finalServico")
+    .textContent =
         servico || "—";
 
-    document.getElementById("finalData")
-        .textContent =
+    document
+    .getElementById("finalData")
+    .textContent =
         data || "—";
 
-    document.getElementById("finalHorario")
-        .textContent =
+    document
+    .getElementById("finalHorario")
+    .textContent =
         horarioSelecionado || "—";
 
-    document.getElementById("finalPreco")
-        .textContent =
+    document
+    .getElementById("finalPreco")
+    .textContent =
         "$" + preco.toFixed(2);
-
 }
+
+/* =====================================================
+   POPUP
+   ===================================================== */
 
 function mostrarPopup(
     tipo,
     titulo,
     mensagem,
-    detalhes=""
+    detalhes = ""
 ) {
 
     const overlay =
-        document.getElementById("popupOverlay");
+        document
+        .getElementById(
+            "popupOverlay"
+        );
 
     const popup =
-        document.getElementById("popup");
+        document
+        .getElementById(
+            "popup"
+        );
 
     popup.className =
         "popup " + tipo;
 
-    document.getElementById("popupTitle")
-        .textContent =
+    document
+    .getElementById("popupTitle")
+    .textContent =
         titulo;
 
-    document.getElementById("popupMessage")
-        .textContent =
+    document
+    .getElementById("popupMessage")
+    .textContent =
         mensagem;
 
-    document.getElementById("popupDetails")
-        .innerHTML =
+    document
+    .getElementById("popupDetails")
+    .innerHTML =
         detalhes;
 
-    document.getElementById("popupIcon")
-        .textContent =
-        tipo === "success" ? "✓" : "!";
+    document
+    .getElementById("popupIcon")
+    .textContent =
+        tipo === "success"
+            ? "✓"
+            : "!";
 
-    overlay.classList.add("show");
-
+    overlay.classList.add(
+        "show"
+    );
 }
 
 function fecharPopup() {
 
-    document.getElementById("popupOverlay")
-        .classList.remove("show");
-
+    document
+    .getElementById(
+        "popupOverlay"
+    )
+    .classList.remove(
+        "show"
+    );
 }
 
-document.getElementById("popupOverlay")
-    .addEventListener("click",function(e){
+document
+.getElementById("popupOverlay")
+.addEventListener(
+    "click",
+    function(e) {
 
-        if(e.target === this)
+        if (e.target === this) {
             fecharPopup();
+        }
 
-    });
+    }
+);
+
+/* =====================================================
+   AGENDAR
+   ===================================================== */
 
 async function agendar() {
 
     const botao =
-        document.getElementById("botao");
+        document.getElementById(
+            "botao"
+        );
 
     const status =
-        document.getElementById("status");
+        document.getElementById(
+            "status"
+        );
 
     const dados = {
 
         nome:
-            document.getElementById("nome")
-            .value.trim(),
+            document
+            .getElementById("nome")
+            .value
+            .trim(),
 
         telefone:
-            document.getElementById("telefone")
-            .value.trim(),
+            document
+            .getElementById("telefone")
+            .value
+            .trim(),
 
         email:
-            document.getElementById("email")
-            .value.trim(),
+            document
+            .getElementById("email")
+            .value
+            .trim(),
 
         data:
             campoData.value,
@@ -861,27 +1099,30 @@ async function agendar() {
             horarioSelecionado,
 
         servico:
-            document.getElementById("servico")
+            document
+            .getElementById("servico")
             .value,
 
         tipo:
-            document.getElementById("tipo")
+            document
+            .getElementById("tipo")
             .value,
 
         observacoes:
-            document.getElementById("observacoes")
-            .value.trim()
-
+            document
+            .getElementById("observacoes")
+            .value
+            .trim()
     };
 
-    if(
+    if (
         !dados.nome ||
         !dados.telefone ||
         !dados.data ||
         !dados.horario ||
         !dados.servico ||
         !dados.tipo
-    ){
+    ) {
 
         mostrarPopup(
             "error",
@@ -892,7 +1133,12 @@ async function agendar() {
         return;
     }
 
-    if(dados.data < dataLocal()){
+    const hoje =
+        obterDataHoje();
+
+    if (
+        dados.data < hoje
+    ) {
 
         mostrarPopup(
             "error",
@@ -903,16 +1149,17 @@ async function agendar() {
         return;
     }
 
-    if(
-        horariosOcupados.includes(
+    if (
+        horariosOcupados
+        .includes(
             dados.horario
         )
-    ){
+    ) {
 
         mostrarPopup(
             "error",
             "Horário ocupado",
-            "Esse horário acabou de ser reservado. Escolha outro horário."
+            "Esse horário acabou de ser reservado. Escolha outro."
         );
 
         await carregarHorarios();
@@ -934,11 +1181,13 @@ async function agendar() {
             await fetch(
                 "/api/submit",
                 {
-                    method:"POST",
-                    headers:{
+                    method: "POST",
+
+                    headers: {
                         "Content-Type":
-                        "application/json"
+                            "application/json"
                     },
+
                     body:
                         JSON.stringify(dados)
                 }
@@ -947,10 +1196,10 @@ async function agendar() {
         const resultado =
             await response.json();
 
-        if(
+        if (
             response.ok &&
             resultado.success
-        ){
+        ) {
 
             mostrarPopup(
                 "success",
@@ -961,35 +1210,64 @@ async function agendar() {
                     🕐 ${dados.horario}<br>
                     ✂️ ${dados.servico}<br>
                     💈 ${dados.tipo}<br>
-                    <strong style="color:#39ff88;font-size:18px;">
+                    <strong
+                        style="
+                            color:#39ff88;
+                            font-size:18px;
+                        "
+                    >
                         Total: $${preco.toFixed(2)}
                     </strong>
                 `
             );
 
-            document.getElementById("nome").value="";
-            document.getElementById("telefone").value="";
-            document.getElementById("email").value="";
-            document.getElementById("data").value="";
-            document.getElementById("servico").value="";
-            document.getElementById("tipo").value="";
-            document.getElementById("observacoes").value="";
+            document
+            .getElementById("nome")
+            .value = "";
 
-            horarioSelecionado="";
-            horariosOcupados=[];
+            document
+            .getElementById("telefone")
+            .value = "";
+
+            document
+            .getElementById("email")
+            .value = "";
+
+            document
+            .getElementById("data")
+            .value = "";
+
+            document
+            .getElementById("servico")
+            .value = "";
+
+            document
+            .getElementById("tipo")
+            .value = "";
+
+            document
+            .getElementById("observacoes")
+            .value = "";
+
+            horarioSelecionado =
+                "";
+
+            horariosOcupados =
+                [];
 
             atualizarPreco();
             atualizarResumo();
 
-            document.getElementById("horarios")
-                .innerHTML =
+            document
+            .getElementById("horarios")
+            .innerHTML =
                 '<div class="horario">Escolha uma data</div>';
 
         }
 
-        else if(
+        else if (
             response.status === 409
-        ){
+        ) {
 
             mostrarPopup(
                 "error",
@@ -1009,7 +1287,6 @@ async function agendar() {
                 resultado.message ||
                 "Ocorreu um erro ao realizar o agendamento."
             );
-
         }
 
     } catch(error) {
@@ -1027,7 +1304,6 @@ async function agendar() {
     botao.disabled = false;
 
     status.textContent = "";
-
 }
 
 atualizarPreco();
