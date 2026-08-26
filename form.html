@@ -1,16 +1,35 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
 <title>SAMUCA • Agendamento</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
 <style>
+
 * {
     box-sizing: border-box;
     font-family: "Inter", Arial, sans-serif;
@@ -29,31 +48,60 @@
 body {
     margin: 0;
     min-height: 100vh;
+
     background:
-        radial-gradient(circle at 15% 10%, rgba(52,140,255,.13), transparent 30%),
-        radial-gradient(circle at 85% 90%, rgba(57,255,136,.07), transparent 30%),
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(52,140,255,.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 90%,
+            rgba(57,255,136,.07),
+            transparent 30%
+        ),
         var(--bg);
+
     color: white;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     padding: 35px 15px;
 }
 
 .form {
     width: 560px;
+
     background: var(--card);
+
     backdrop-filter: blur(20px);
+
     border: 1px solid var(--border);
+
     border-radius: 24px;
+
     padding: 38px;
-    box-shadow: 0 25px 80px rgba(0,0,0,.5);
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.5);
+
     animation: aparecer .5s ease;
 }
 
 @keyframes aparecer {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
 }
 
 .logo {
@@ -63,8 +111,10 @@ body {
 
 .logo h1 {
     margin: 0;
+
     font-size: 42px;
     font-weight: 800;
+
     letter-spacing: 5px;
 }
 
@@ -74,17 +124,23 @@ body {
 
 .logo p {
     margin-top: 8px;
+
     color: #777;
+
     font-size: 11px;
     font-weight: 600;
+
     letter-spacing: 3px;
 }
 
 label {
     display: block;
+
     margin-top: 20px;
     margin-bottom: 8px;
+
     color: #a7a7ad;
+
     font-size: 12px;
     font-weight: 600;
 }
@@ -93,13 +149,21 @@ input,
 select,
 textarea {
     width: 100%;
+
     padding: 15px;
+
     background: rgba(5,6,9,.9);
+
     border: 1px solid var(--border);
+
     border-radius: 11px;
+
     color: white;
+
     outline: none;
+
     transition: .2s;
+
     font-size: 14px;
 }
 
@@ -112,7 +176,9 @@ input:focus,
 select:focus,
 textarea:focus {
     border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(52,140,255,.1);
+
+    box-shadow:
+        0 0 0 3px rgba(52,140,255,.1);
 }
 
 textarea {
@@ -120,44 +186,85 @@ textarea {
     resize: vertical;
 }
 
-/* HORÁRIOS */
+
+/* =========================================
+   DATA
+========================================= */
+
+#data {
+    cursor: pointer;
+}
+
+
+/* =========================================
+   HORÁRIOS
+========================================= */
 
 .horarios {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
     gap: 9px;
 }
 
 .horario {
     padding: 13px 5px;
+
     border-radius: 10px;
+
     border: 1px solid var(--border);
+
     background: rgba(5,6,9,.9);
+
     color: white;
+
     text-align: center;
+
     cursor: pointer;
+
     transition: .2s;
+
     font-size: 13px;
     font-weight: 700;
 }
 
 .horario:hover {
     transform: translateY(-2px);
+
     border-color: var(--blue);
-    background: rgba(52,140,255,.08);
+
+    background:
+        rgba(52,140,255,.08);
 }
 
 .horario.selecionado {
-    background: linear-gradient(135deg, #287cff, #348cff);
+    background:
+        linear-gradient(
+            135deg,
+            #287cff,
+            #348cff
+        );
+
     border-color: #348cff;
-    box-shadow: 0 5px 20px rgba(52,140,255,.25);
+
+    box-shadow:
+        0 5px 20px
+        rgba(52,140,255,.25);
 }
 
 .horario.ocupado {
-    background: rgba(255,70,70,.07);
-    border-color: rgba(255,70,70,.25);
+    background:
+        rgba(255,70,70,.07);
+
+    border-color:
+        rgba(255,70,70,.25);
+
     color: #ff6666;
+
     cursor: not-allowed;
+
     text-decoration: line-through;
 }
 
@@ -168,102 +275,148 @@ textarea {
 
 .legenda {
     display: flex;
+
     gap: 18px;
+
     margin-top: 12px;
+
     font-size: 11px;
+
     color: #777;
 }
 
 .legenda span {
     display: flex;
+
     align-items: center;
+
     gap: 6px;
 }
 
 .dot {
     width: 8px;
     height: 8px;
+
     border-radius: 50%;
 }
 
 .dot.disponivel {
     background: var(--green);
-    box-shadow: 0 0 8px rgba(57,255,136,.5);
+
+    box-shadow:
+        0 0 8px
+        rgba(57,255,136,.5);
 }
 
 .dot.ocupado {
     background: var(--red);
 }
 
-/* PREÇO */
+
+/* =========================================
+   PREÇO
+========================================= */
 
 .preco-box {
     margin-top: 25px;
+
     padding: 22px;
-    background: linear-gradient(
-        135deg,
-        rgba(52,140,255,.08),
-        rgba(57,255,136,.04)
-    );
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(52,140,255,.08),
+            rgba(57,255,136,.04)
+        );
+
     border: 1px solid var(--border);
+
     border-radius: 15px;
 }
 
 .preco-titulo {
     color: #777;
+
     font-size: 10px;
     font-weight: 700;
+
     letter-spacing: 1.5px;
 }
 
 .preco {
     margin-top: 5px;
+
     font-size: 32px;
+
     font-weight: 800;
+
     color: var(--green);
 }
 
-/* RESUMO */
+
+/* =========================================
+   RESUMO
+========================================= */
 
 .resumo-final {
     margin-top: 18px;
+
     padding: 21px;
-    background: rgba(5,6,9,.8);
-    border: 1px solid rgba(52,140,255,.3);
+
+    background:
+        rgba(5,6,9,.8);
+
+    border:
+        1px solid
+        rgba(52,140,255,.3);
+
     border-radius: 15px;
 }
 
 .resumo-titulo {
     color: var(--blue);
+
     font-size: 11px;
     font-weight: 800;
+
     letter-spacing: 1.5px;
+
     margin-bottom: 14px;
 }
 
 .resumo-item {
     display: flex;
+
     justify-content: space-between;
+
     gap: 15px;
+
     padding: 7px 0;
+
     color: #777;
+
     font-size: 13px;
 }
 
 .resumo-item strong {
     color: white;
+
     text-align: right;
 }
 
 .linha {
     height: 1px;
+
     background: var(--border);
+
     margin: 12px 0;
 }
 
 .total-final {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 }
 
@@ -274,29 +427,54 @@ textarea {
 
 .total-final strong {
     font-size: 28px;
+
     color: var(--green);
 }
 
-/* BOTÃO */
+
+/* =========================================
+   BOTÃO
+========================================= */
 
 button.agendar {
     width: 100%;
+
     margin-top: 22px;
+
     padding: 17px;
-    background: linear-gradient(135deg, #287cff, #348cff);
+
+    background:
+        linear-gradient(
+            135deg,
+            #287cff,
+            #348cff
+        );
+
     border: none;
+
     border-radius: 11px;
+
     color: white;
+
     font-weight: 800;
+
     cursor: pointer;
+
     font-size: 14px;
+
     transition: .2s;
-    box-shadow: 0 8px 25px rgba(40,124,255,.2);
+
+    box-shadow:
+        0 8px 25px
+        rgba(40,124,255,.2);
 }
 
 button.agendar:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(40,124,255,.3);
+
+    box-shadow:
+        0 12px 30px
+        rgba(40,124,255,.3);
 }
 
 button.agendar:active {
@@ -305,114 +483,181 @@ button.agendar:active {
 
 button.agendar:disabled {
     opacity: .5;
+
     cursor: not-allowed;
+
     transform: none;
 }
 
-/* POPUP */
+
+/* =========================================
+   POPUP
+========================================= */
 
 .popup-overlay {
     position: fixed;
+
     inset: 0;
-    background: rgba(0,0,0,.7);
+
+    background:
+        rgba(0,0,0,.7);
+
     backdrop-filter: blur(8px);
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     padding: 20px;
+
     z-index: 9999;
+
     opacity: 0;
+
     visibility: hidden;
+
     transition: .25s;
 }
 
 .popup-overlay.show {
     opacity: 1;
+
     visibility: visible;
 }
 
 .popup {
     width: 100%;
+
     max-width: 400px;
+
     background: #111318;
+
     border: 1px solid var(--border);
+
     border-radius: 22px;
+
     padding: 30px;
+
     text-align: center;
-    box-shadow: 0 30px 90px rgba(0,0,0,.7);
-    transform: scale(.9) translateY(20px);
+
+    box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.7);
+
+    transform:
+        scale(.9)
+        translateY(20px);
+
     transition: .25s;
 }
 
 .popup-overlay.show .popup {
-    transform: scale(1) translateY(0);
+    transform:
+        scale(1)
+        translateY(0);
 }
 
 .popup-icon {
     width: 65px;
     height: 65px;
+
     border-radius: 50%;
-    margin: 0 auto 18px;
+
+    margin:
+        0 auto 18px;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     font-size: 28px;
 }
 
 .popup.success .popup-icon {
-    background: rgba(57,255,136,.1);
+    background:
+        rgba(57,255,136,.1);
+
     color: var(--green);
 }
 
 .popup.error .popup-icon {
-    background: rgba(255,82,82,.1);
+    background:
+        rgba(255,82,82,.1);
+
     color: var(--red);
 }
 
 .popup h2 {
-    margin: 0 0 10px;
+    margin:
+        0 0 10px;
+
     font-size: 21px;
 }
 
 .popup p {
     color: #888;
+
     line-height: 1.6;
+
     margin: 0;
 }
 
 .popup-details {
     margin-top: 18px;
+
     padding: 15px;
+
     background: #090a0d;
+
     border-radius: 12px;
+
     color: #aaa;
+
     font-size: 13px;
+
     line-height: 1.8;
 }
 
 .popup button {
     width: 100%;
+
     border: 0;
+
     padding: 13px;
+
     margin-top: 20px;
+
     border-radius: 10px;
+
     background: var(--blue2);
+
     color: white;
+
     font-weight: 700;
+
     cursor: pointer;
 }
 
-/* MOBILE */
+
+/* =========================================
+   MOBILE
+========================================= */
 
 @media(max-width: 560px) {
+
     body {
         padding: 12px;
+
         align-items: flex-start;
     }
 
     .form {
         margin-top: 10px;
+
         padding: 25px 18px;
+
         border-radius: 20px;
     }
 
@@ -421,495 +666,1578 @@ button.agendar:disabled {
     }
 
     .horarios {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+            repeat(2, 1fr);
     }
+
 }
+
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="form">
 
-<div class="logo">
-    <h1>SAM<span>UCA</span></h1>
-    <p>BARBERSHOP • AGENDAMENTO</p>
+
+    <div class="logo">
+
+        <h1>
+            SAM<span>UCA</span>
+        </h1>
+
+        <p>
+            BARBERSHOP • AGENDAMENTO
+        </p>
+
+    </div>
+
+
+    <label>
+        Nome completo *
+    </label>
+
+    <input
+        id="nome"
+        type="text"
+        placeholder="Digite seu nome"
+    >
+
+
+    <label>
+        Telefone *
+    </label>
+
+    <input
+        id="telefone"
+        type="tel"
+        placeholder="(00) 00000-0000"
+    >
+
+
+    <label>
+        E-mail
+    </label>
+
+    <input
+        id="email"
+        type="email"
+        placeholder="seuemail@email.com"
+    >
+
+
+    <label>
+        📅 Escolha a data *
+    </label>
+
+    <input
+        id="data"
+        type="date"
+    >
+
+
+    <label>
+        🕐 Escolha o horário *
+    </label>
+
+
+    <div
+        id="horarios"
+        class="horarios"
+    >
+
+        <div class="horario">
+            Escolha uma data
+        </div>
+
+    </div>
+
+
+    <div class="legenda">
+
+        <span>
+            <span class="dot disponivel"></span>
+            Disponível
+        </span>
+
+        <span>
+            <span class="dot ocupado"></span>
+            Ocupado
+        </span>
+
+    </div>
+
+
+    <label>
+        ✂️ Serviço *
+    </label>
+
+
+    <select id="servico">
+
+        <option value="">
+            Selecione o serviço
+        </option>
+
+        <option value="Corte masculino">
+            Corte masculino — $25.00
+        </option>
+
+        <option value="Corte + barba">
+            Corte + barba — $35.00
+        </option>
+
+        <option value="Barba">
+            Barba — $15.00
+        </option>
+
+        <option value="Corte infantil">
+            Corte infantil — $20.00
+        </option>
+
+    </select>
+
+
+    <label>
+        💈 Tipo de corte *
+    </label>
+
+
+    <select id="tipo">
+
+        <option value="">
+            Selecione o corte
+        </option>
+
+        <option>
+            Degradê / Fade
+        </option>
+
+        <option>
+            Taper Fade
+        </option>
+
+        <option>
+            Social
+        </option>
+
+        <option>
+            Buzz Cut
+        </option>
+
+        <option>
+            Undercut
+        </option>
+
+        <option>
+            Outro
+        </option>
+
+    </select>
+
+
+    <label>
+        📝 Observações
+    </label>
+
+
+    <textarea
+        id="observacoes"
+        placeholder="Ex: Não subir muito o degradê..."
+    ></textarea>
+
+
+    <div class="preco-box">
+
+        <div class="preco-titulo">
+            VALOR DO SERVIÇO
+        </div>
+
+        <div
+            class="preco"
+            id="preco"
+        >
+            $0.00
+        </div>
+
+    </div>
+
+
+    <div class="resumo-final">
+
+        <div class="resumo-titulo">
+            🧾 RESUMO DO AGENDAMENTO
+        </div>
+
+
+        <div class="resumo-item">
+
+            <span>
+                Serviço
+            </span>
+
+            <strong id="finalServico">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="resumo-item">
+
+            <span>
+                Data
+            </span>
+
+            <strong id="finalData">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="resumo-item">
+
+            <span>
+                Horário
+            </span>
+
+            <strong id="finalHorario">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="linha"></div>
+
+
+        <div class="total-final">
+
+            <span>
+                TOTAL
+            </span>
+
+            <strong id="finalPreco">
+                $0.00
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <button
+        id="botao"
+        class="agendar"
+        onclick="agendar()"
+    >
+        ✂️ AGENDAR CORTE
+    </button>
+
+
+    <div id="status"></div>
+
+
 </div>
 
-<label>Nome completo *</label> <input id="nome" type="text" placeholder="Digite seu nome">
-
-<label>Telefone *</label> <input id="telefone" type="tel" placeholder="(00) 00000-0000">
-
-<label>E-mail</label> <input id="email" type="email" placeholder="seuemail@email.com">
-
-<label>📅 Escolha a data *</label> <input id="data" type="date">
-
-<label>🕐 Escolha o horário *</label>
-
-<div id="horarios" class="horarios">
-    <div class="horario">Escolha uma data</div>
-</div>
-
-<div class="legenda">
-    <span><span class="dot disponivel"></span> Disponível</span>
-    <span><span class="dot ocupado"></span> Ocupado</span>
-</div>
-
-<label>✂️ Serviço *</label>
-
-<select id="servico">
-    <option value="">Selecione o serviço</option>
-    <option value="Corte masculino">Corte masculino — $25.00</option>
-    <option value="Corte + barba">Corte + barba — $35.00</option>
-    <option value="Barba">Barba — $15.00</option>
-    <option value="Corte infantil">Corte infantil — $20.00</option>
-</select>
-
-<label>💈 Tipo de corte *</label>
-
-<select id="tipo">
-    <option value="">Selecione o corte</option>
-    <option>Degradê / Fade</option>
-    <option>Taper Fade</option>
-    <option>Social</option>
-    <option>Buzz Cut</option>
-    <option>Undercut</option>
-    <option>Outro</option>
-</select>
-
-<label>📝 Observações</label>
-
-<textarea id="observacoes" placeholder="Ex: Não subir muito o degradê..."></textarea>
-
-<div class="preco-box">
-    <div class="preco-titulo">VALOR DO SERVIÇO</div>
-    <div class="preco" id="preco">$0.00</div>
-</div>
-
-<div class="resumo-final">
-
-```
-<div class="resumo-titulo">🧾 RESUMO DO AGENDAMENTO</div>
-
-<div class="resumo-item">
-    <span>Serviço</span>
-    <strong id="finalServico">—</strong>
-</div>
-
-<div class="resumo-item">
-    <span>Data</span>
-    <strong id="finalData">—</strong>
-</div>
-
-<div class="resumo-item">
-    <span>Horário</span>
-    <strong id="finalHorario">—</strong>
-</div>
-
-<div class="linha"></div>
-
-<div class="total-final">
-    <span>TOTAL</span>
-    <strong id="finalPreco">$0.00</strong>
-</div>
-```
-
-</div>
-
-<button id="botao" class="agendar" onclick="agendar()">
-    ✂️ AGENDAR CORTE
-</button>
-
-<div id="status"></div>
-
-</div>
 
 <!-- POPUP -->
 
-<div id="popupOverlay" class="popup-overlay">
+<div
+    id="popupOverlay"
+    class="popup-overlay"
+>
 
-```
-<div id="popup" class="popup">
+    <div
+        id="popup"
+        class="popup"
+    >
 
-    <div id="popupIcon" class="popup-icon">✓</div>
+        <div
+            id="popupIcon"
+            class="popup-icon"
+        >
+            ✓
+        </div>
 
-    <h2 id="popupTitle">Agendamento</h2>
 
-    <p id="popupMessage"></p>
+        <h2 id="popupTitle">
+            Agendamento
+        </h2>
 
-    <div id="popupDetails" class="popup-details"></div>
 
-    <button onclick="fecharPopup()">FECHAR</button>
+        <p id="popupMessage"></p>
+
+
+        <div
+            id="popupDetails"
+            class="popup-details"
+        ></div>
+
+
+        <button onclick="fecharPopup()">
+            FECHAR
+        </button>
+
+    </div>
 
 </div>
-```
 
-</div>
 
 <script>
 
+
+// =====================================================
+// PREÇOS
+// =====================================================
+
 const PRECOS = {
+
     "Corte masculino": 25,
+
     "Corte + barba": 35,
+
     "Barba": 15,
+
     "Corte infantil": 20
+
 };
 
+
+// =====================================================
+// HORÁRIOS
+// =====================================================
+
 const HORARIOS = [
-    "09:00","09:30","10:00","10:30","11:00","11:30",
-    "13:00","13:30","14:00","14:30","15:00","15:30",
-    "16:00","16:30","17:00","17:30","18:00","18:30"
+
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+    "18:00",
+    "18:30"
+
 ];
 
+
 let horarioSelecionado = "";
+
 let horariosOcupados = [];
 
-const campoData = document.getElementById("data");
 
-const hoje = new Date();
+// =====================================================
+// ELEMENTOS
+// =====================================================
 
-campoData.min =
-    hoje.getFullYear() + "-" +
-    String(hoje.getMonth() + 1).padStart(2,"0") + "-" +
-    String(hoje.getDate()).padStart(2,"0");
+const campoData =
+    document.getElementById("data");
 
-campoData.addEventListener("change", async function() {
-    horarioSelecionado = "";
-    atualizarResumo();
-    await carregarHorarios();
-});
+const campoServico =
+    document.getElementById("servico");
 
-document.getElementById("servico").addEventListener("change", function() {
-    atualizarPreco();
-    atualizarResumo();
-});
+
+// =====================================================
+// DATA DE HOJE
+// =====================================================
+//
+// Esta função sempre pega a data atual do computador.
+// Não fica presa à data em que o código foi criado.
+//
+// =====================================================
+
+function obterHojeISO() {
+
+    const hoje =
+        new Date();
+
+
+    const ano =
+        hoje.getFullYear();
+
+
+    const mes =
+        String(
+            hoje.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const dia =
+        String(
+            hoje.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    return (
+        ano +
+        "-" +
+        mes +
+        "-" +
+        dia
+    );
+
+}
+
+
+// =====================================================
+// ATUALIZAR DATA MÍNIMA
+// =====================================================
+
+function atualizarDataMinima() {
+
+    const hoje =
+        obterHojeISO();
+
+
+    campoData.min =
+        hoje;
+
+
+    // Se por algum motivo uma data antiga
+    // estiver selecionada, limpa.
+
+    if (
+        campoData.value &&
+        campoData.value < hoje
+    ) {
+
+        campoData.value = "";
+
+        horarioSelecionado = "";
+
+        horariosOcupados = [];
+
+        atualizarResumo();
+
+        document.getElementById(
+            "horarios"
+        ).innerHTML = `
+
+            <div class="horario">
+
+                Escolha uma data
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+// =====================================================
+// DATA INICIAL
+// =====================================================
+
+atualizarDataMinima();
+
+
+// =====================================================
+// ATUALIZAR DATA AUTOMATICAMENTE
+// =====================================================
+//
+// Se o formulário ficar aberto durante a virada
+// do dia, o sistema atualiza o mínimo.
+//
+// =====================================================
+
+setInterval(
+
+    atualizarDataMinima,
+
+    60000
+
+);
+
+
+// =====================================================
+// ALTERAÇÃO DA DATA
+// =====================================================
+
+campoData.addEventListener(
+
+    "change",
+
+    async function() {
+
+        const hoje =
+            obterHojeISO();
+
+
+        // Segurança extra:
+        // nunca aceita data anterior a hoje.
+
+        if (
+            campoData.value &&
+            campoData.value < hoje
+        ) {
+
+            campoData.value = "";
+
+            horarioSelecionado = "";
+
+            atualizarResumo();
+
+            mostrarPopup(
+
+                "error",
+
+                "Data inválida",
+
+                "Escolha hoje ou uma data futura."
+
+            );
+
+            return;
+
+        }
+
+
+        horarioSelecionado = "";
+
+
+        atualizarResumo();
+
+
+        await carregarHorarios();
+
+    }
+
+);
+
+
+// =====================================================
+// SERVIÇO
+// =====================================================
+
+campoServico.addEventListener(
+
+    "change",
+
+    function() {
+
+        atualizarPreco();
+
+        atualizarResumo();
+
+    }
+
+);
+
+
+// =====================================================
+// CARREGAR HORÁRIOS
+// =====================================================
 
 async function carregarHorarios() {
 
-    const data = campoData.value;
-    const container = document.getElementById("horarios");
+    const data =
+        campoData.value;
+
+
+    const container =
+        document.getElementById(
+            "horarios"
+        );
+
 
     if (!data) {
-        container.innerHTML =
-            '<div class="horario">Escolha uma data</div>';
+
+        container.innerHTML = `
+
+            <div class="horario">
+
+                Escolha uma data
+
+            </div>
+
+        `;
+
         return;
+
     }
+
+
+    // Segurança extra
+
+    if (
+        data < obterHojeISO()
+    ) {
+
+        container.innerHTML = `
+
+            <div
+                class="horario"
+                style="
+                    grid-column:1/-1;
+                    color:#ff6b6b;
+                "
+            >
+
+                ❌ Essa data já passou.
+
+                <br>
+
+                Escolha hoje ou uma data futura.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
 
     container.innerHTML = "";
 
-    HORARIOS.forEach(() => {
-        const div = document.createElement("div");
-        div.className = "horario loading";
-        div.textContent = "⏳";
-        container.appendChild(div);
-    });
+
+    HORARIOS.forEach(
+
+        () => {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "horario loading";
+
+
+            div.textContent =
+                "⏳";
+
+
+            container.appendChild(
+                div
+            );
+
+        }
+
+    );
+
 
     try {
 
-        const response = await fetch(
-            "/api/horarios?data=" + encodeURIComponent(data)
-        );
+        const response =
+            await fetch(
 
-        const resultado = await response.json();
+                "/api/horarios?data=" +
 
-        if (!resultado.success) {
-            throw new Error("Erro ao consultar horários");
+                encodeURIComponent(
+                    data
+                )
+
+            );
+
+
+        const resultado =
+            await response.json();
+
+
+        if (
+            !resultado.success
+        ) {
+
+            throw new Error(
+                "Erro ao consultar horários"
+            );
+
         }
 
-        horariosOcupados = resultado.ocupados || [];
+
+        horariosOcupados =
+            resultado.ocupados || [];
+
 
         renderizarHorarios();
 
-    } catch(error) {
+    }
 
-        console.error(error);
+    catch(error) {
+
+        console.error(
+            error
+        );
+
 
         container.innerHTML = `
-            <div class="horario"
-                style="grid-column:1/-1;color:#ff6b6b;">
+
+            <div
+                class="horario"
+                style="
+                    grid-column:1/-1;
+                    color:#ff6b6b;
+                "
+            >
+
                 ❌ Não foi possível carregar os horários.
-                <br>Tente novamente.
+
+                <br>
+
+                Tente novamente.
+
             </div>
+
         `;
+
     }
+
 }
+
+
+// =====================================================
+// RENDERIZAR HORÁRIOS
+// =====================================================
 
 function renderizarHorarios() {
 
-    const container = document.getElementById("horarios");
-    container.innerHTML = "";
-
-    HORARIOS.forEach(horario => {
-
-        const ocupado =
-            horariosOcupados.includes(horario);
-
-        const div = document.createElement("div");
-        div.className = "horario";
-
-        if (ocupado) {
-
-            div.classList.add("ocupado");
-
-            div.innerHTML = `
-                ${horario}
-                <br>
-                <small>🔴 OCUPADO</small>
-            `;
-
-        } else {
-
-            div.textContent = horario;
-
-            div.onclick = function() {
-                selecionarHorario(horario, div);
-            };
-        }
-
-        container.appendChild(div);
-    });
-}
-
-function selecionarHorario(horario, elemento) {
-
-    document.querySelectorAll(".horario")
-        .forEach(item =>
-            item.classList.remove("selecionado")
+    const container =
+        document.getElementById(
+            "horarios"
         );
 
-    elemento.classList.add("selecionado");
 
-    horarioSelecionado = horario;
+    container.innerHTML = "";
+
+
+    HORARIOS.forEach(
+
+        horario => {
+
+            const ocupado =
+                horariosOcupados.includes(
+                    horario
+                );
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "horario";
+
+
+            if (ocupado) {
+
+                div.classList.add(
+                    "ocupado"
+                );
+
+
+                div.innerHTML = `
+
+                    ${horario}
+
+                    <br>
+
+                    <small>
+                        🔴 OCUPADO
+                    </small>
+
+                `;
+
+            }
+
+            else {
+
+                div.textContent =
+                    horario;
+
+
+                div.onclick =
+                    function() {
+
+                        selecionarHorario(
+                            horario,
+                            div
+                        );
+
+                    };
+
+            }
+
+
+            container.appendChild(
+                div
+            );
+
+        }
+
+    );
+
+}
+
+
+// =====================================================
+// SELECIONAR HORÁRIO
+// =====================================================
+
+function selecionarHorario(
+    horario,
+    elemento
+) {
+
+    document
+        .querySelectorAll(
+            ".horario"
+        )
+        .forEach(
+
+            item =>
+                item.classList.remove(
+                    "selecionado"
+                )
+
+        );
+
+
+    elemento.classList.add(
+        "selecionado"
+    );
+
+
+    horarioSelecionado =
+        horario;
+
 
     atualizarResumo();
+
 }
+
+
+// =====================================================
+// PREÇO
+// =====================================================
 
 function atualizarPreco() {
 
     const servico =
-        document.getElementById("servico").value;
+        document
+            .getElementById(
+                "servico"
+            )
+            .value;
 
-    const preco = PRECOS[servico] || 0;
 
-    document.getElementById("preco").textContent =
-        "$" + preco.toFixed(2);
+    const preco =
+        PRECOS[servico] || 0;
 
-    document.getElementById("finalPreco").textContent =
-        "$" + preco.toFixed(2);
+
+    document.getElementById(
+        "preco"
+    ).textContent =
+
+        "$" +
+        preco.toFixed(2);
+
+
+    document.getElementById(
+        "finalPreco"
+    ).textContent =
+
+        "$" +
+        preco.toFixed(2);
+
 }
+
+
+// =====================================================
+// RESUMO
+// =====================================================
 
 function atualizarResumo() {
 
     const servico =
-        document.getElementById("servico").value;
+        document
+            .getElementById(
+                "servico"
+            )
+            .value;
 
-    const data = campoData.value;
 
-    const preco = PRECOS[servico] || 0;
+    const data =
+        campoData.value;
 
-    document.getElementById("finalServico").textContent =
+
+    const preco =
+        PRECOS[servico] || 0;
+
+
+    document.getElementById(
+        "finalServico"
+    ).textContent =
+
         servico || "—";
 
-    document.getElementById("finalData").textContent =
-        data || "—";
 
-    document.getElementById("finalHorario").textContent =
+    document.getElementById(
+        "finalData"
+    ).textContent =
+
+        formatarData(
+            data
+        );
+
+
+    document.getElementById(
+        "finalHorario"
+    ).textContent =
+
         horarioSelecionado || "—";
 
-    document.getElementById("finalPreco").textContent =
-        "$" + preco.toFixed(2);
+
+    document.getElementById(
+        "finalPreco"
+    ).textContent =
+
+        "$" +
+        preco.toFixed(2);
+
 }
 
-function mostrarPopup(tipo, titulo, mensagem, detalhes = "") {
 
-    const overlay = document.getElementById("popupOverlay");
-    const popup = document.getElementById("popup");
+// =====================================================
+// FORMATAR DATA
+// =====================================================
 
-    popup.className = "popup " + tipo;
+function formatarData(data) {
 
-    document.getElementById("popupTitle").textContent = titulo;
-    document.getElementById("popupMessage").textContent = mensagem;
-    document.getElementById("popupDetails").innerHTML = detalhes;
+    if (!data) {
 
-    document.getElementById("popupIcon").textContent =
-        tipo === "success" ? "✓" : "!";
+        return "—";
 
-    overlay.classList.add("show");
+    }
+
+
+    const partes =
+        data.split("-");
+
+
+    if (
+        partes.length !== 3
+    ) {
+
+        return data;
+
+    }
+
+
+    return (
+
+        partes[2] +
+        "/" +
+        partes[1] +
+        "/" +
+        partes[0]
+
+    );
+
 }
+
+
+// =====================================================
+// POPUP
+// =====================================================
+
+function mostrarPopup(
+
+    tipo,
+    titulo,
+    mensagem,
+    detalhes = ""
+
+) {
+
+    const overlay =
+        document.getElementById(
+            "popupOverlay"
+        );
+
+
+    const popup =
+        document.getElementById(
+            "popup"
+        );
+
+
+    popup.className =
+        "popup " +
+        tipo;
+
+
+    document.getElementById(
+        "popupTitle"
+    ).textContent =
+        titulo;
+
+
+    document.getElementById(
+        "popupMessage"
+    ).textContent =
+        mensagem;
+
+
+    document.getElementById(
+        "popupDetails"
+    ).innerHTML =
+        detalhes;
+
+
+    document.getElementById(
+        "popupIcon"
+    ).textContent =
+
+        tipo === "success"
+            ? "✓"
+            : "!";
+
+
+    overlay.classList.add(
+        "show"
+    );
+
+}
+
+
+// =====================================================
+// FECHAR POPUP
+// =====================================================
 
 function fecharPopup() {
-    document.getElementById("popupOverlay")
-        .classList.remove("show");
+
+    document
+        .getElementById(
+            "popupOverlay"
+        )
+        .classList.remove(
+            "show"
+        );
+
 }
 
-document.getElementById("popupOverlay")
-    .addEventListener("click", function(e) {
-        if (e.target === this) fecharPopup();
-    });
+
+document
+    .getElementById(
+        "popupOverlay"
+    )
+    .addEventListener(
+
+        "click",
+
+        function(e) {
+
+            if (
+                e.target === this
+            ) {
+
+                fecharPopup();
+
+            }
+
+        }
+
+    );
+
+
+// =====================================================
+// AGENDAR
+// =====================================================
 
 async function agendar() {
 
-    const botao = document.getElementById("botao");
-    const status = document.getElementById("status");
+    const botao =
+        document.getElementById(
+            "botao"
+        );
+
+
+    const status =
+        document.getElementById(
+            "status"
+        );
+
+
+    // =================================================
+    // SEGURANÇA DE DATA
+    // =================================================
+
+    atualizarDataMinima();
+
+
+    const hoje =
+        obterHojeISO();
+
+
+    const dataEscolhida =
+        campoData.value;
+
+
+    if (
+        !dataEscolhida
+    ) {
+
+        mostrarPopup(
+
+            "error",
+
+            "Data obrigatória",
+
+            "Escolha uma data para continuar."
+
+        );
+
+        return;
+
+    }
+
+
+    if (
+        dataEscolhida < hoje
+    ) {
+
+        mostrarPopup(
+
+            "error",
+
+            "Data inválida",
+
+            "Não é possível agendar para uma data que já passou."
+
+        );
+
+
+        campoData.value = "";
+
+
+        horarioSelecionado = "";
+
+
+        atualizarResumo();
+
+
+        return;
+
+    }
+
+
+    // =================================================
+    // DADOS
+    // =================================================
 
     const dados = {
 
         nome:
-            document.getElementById("nome").value.trim(),
+            document
+                .getElementById(
+                    "nome"
+                )
+                .value
+                .trim(),
+
 
         telefone:
-            document.getElementById("telefone").value.trim(),
+            document
+                .getElementById(
+                    "telefone"
+                )
+                .value
+                .trim(),
+
 
         email:
-            document.getElementById("email").value.trim(),
+            document
+                .getElementById(
+                    "email"
+                )
+                .value
+                .trim(),
+
 
         data:
-            campoData.value,
+            dataEscolhida,
+
 
         horario:
             horarioSelecionado,
 
+
         servico:
-            document.getElementById("servico").value,
+            document
+                .getElementById(
+                    "servico"
+                )
+                .value,
+
 
         tipo:
-            document.getElementById("tipo").value,
+            document
+                .getElementById(
+                    "tipo"
+                )
+                .value,
+
 
         observacoes:
-            document.getElementById("observacoes").value.trim()
+            document
+                .getElementById(
+                    "observacoes"
+                )
+                .value
+                .trim()
+
     };
 
+
+    // =================================================
+    // CAMPOS OBRIGATÓRIOS
+    // =================================================
+
     if (
+
         !dados.nome ||
+
         !dados.telefone ||
+
         !dados.data ||
+
         !dados.horario ||
+
         !dados.servico ||
+
         !dados.tipo
+
     ) {
 
         mostrarPopup(
+
             "error",
+
             "Campos incompletos",
+
             "Preencha todos os campos obrigatórios antes de continuar."
+
         );
 
         return;
+
     }
 
-    if (horariosOcupados.includes(dados.horario)) {
+
+    // =================================================
+    // HORÁRIO OCUPADO
+    // =================================================
+
+    if (
+        horariosOcupados.includes(
+            dados.horario
+        )
+    ) {
 
         mostrarPopup(
+
             "error",
+
             "Horário ocupado",
+
             "Esse horário acabou de ser reservado. Escolha outro horário."
+
         );
+
 
         await carregarHorarios();
 
+
         return;
+
     }
 
-    const preco = PRECOS[dados.servico];
 
-    botao.disabled = true;
+    const preco =
+        PRECOS[
+            dados.servico
+        ];
 
-    status.textContent = "Confirmando seu agendamento...";
+
+    botao.disabled =
+        true;
+
+
+    status.textContent =
+        "Confirmando seu agendamento...";
+
 
     try {
 
-        const response = await fetch(
-            "/api/submit",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dados)
-            }
-        );
+        const response =
+            await fetch(
 
-        const resultado = await response.json();
+                "/api/submit",
 
-        if (response.ok && resultado.success) {
+                {
 
-            mostrarPopup(
-                "success",
-                "Agendamento confirmado!",
-                "Seu horário foi reservado com sucesso.",
-                `
-                    📅 ${dados.data}<br>
-                    🕐 ${dados.horario}<br>
-                    ✂️ ${dados.servico}<br>
-                    💈 ${dados.tipo}<br>
-                    <strong style="color:#39ff88;font-size:18px;">
-                        Total: $${preco.toFixed(2)}
-                    </strong>
-                `
+                    method:
+                        "POST",
+
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+
+                    body:
+                        JSON.stringify(
+                            dados
+                        )
+
+                }
+
             );
 
-            document.getElementById("nome").value = "";
-            document.getElementById("telefone").value = "";
-            document.getElementById("email").value = "";
-            document.getElementById("data").value = "";
-            document.getElementById("servico").value = "";
-            document.getElementById("tipo").value = "";
-            document.getElementById("observacoes").value = "";
 
-            horarioSelecionado = "";
-            horariosOcupados = [];
+        const resultado =
+            await response.json();
+
+
+        // =================================================
+        // SUCESSO
+        // =================================================
+
+        if (
+            response.ok &&
+            resultado.success
+        ) {
+
+            mostrarPopup(
+
+                "success",
+
+                "Agendamento confirmado!",
+
+                "Seu horário foi reservado com sucesso.",
+
+
+                `
+
+                    📅 ${formatarData(dados.data)}
+
+                    <br>
+
+                    🕐 ${dados.horario}
+
+                    <br>
+
+                    ✂️ ${dados.servico}
+
+                    <br>
+
+                    💈 ${dados.tipo}
+
+                    <br><br>
+
+                    <strong
+                        style="
+                            color:#39ff88;
+                            font-size:18px;
+                        "
+                    >
+
+                        Total:
+                        $${preco.toFixed(2)}
+
+                    </strong>
+
+                `
+
+            );
+
+
+            // Limpar formulário
+
+            document.getElementById(
+                "nome"
+            ).value = "";
+
+
+            document.getElementById(
+                "telefone"
+            ).value = "";
+
+
+            document.getElementById(
+                "email"
+            ).value = "";
+
+
+            document.getElementById(
+                "data"
+            ).value = "";
+
+
+            document.getElementById(
+                "servico"
+            ).value = "";
+
+
+            document.getElementById(
+                "tipo"
+            ).value = "";
+
+
+            document.getElementById(
+                "observacoes"
+            ).value = "";
+
+
+            horarioSelecionado =
+                "";
+
+
+            horariosOcupados =
+                [];
+
 
             atualizarPreco();
+
             atualizarResumo();
 
-            document.getElementById("horarios").innerHTML =
-                '<div class="horario">Escolha uma data</div>';
+
+            document.getElementById(
+                "horarios"
+            ).innerHTML = `
+
+                <div class="horario">
+
+                    Escolha uma data
+
+                </div>
+
+            `;
 
         }
 
-        else if (response.status === 409) {
+
+        // =================================================
+        // HORÁRIO FOI OCUPADO
+        // =================================================
+
+        else if (
+            response.status === 409
+        ) {
 
             mostrarPopup(
+
                 "error",
+
                 "Horário indisponível",
+
                 "Esse horário acabou de ser reservado por outra pessoa. Escolha outro."
+
             );
+
 
             await carregarHorarios();
 
         }
 
+
+        // =================================================
+        // OUTRO ERRO
+        // =================================================
+
         else {
 
             mostrarPopup(
+
                 "error",
+
                 "Não foi possível agendar",
+
                 resultado.message ||
+
                 "Ocorreu um erro ao realizar o agendamento."
+
             );
+
         }
 
-    } catch(error) {
+    }
 
-        console.error(error);
+    catch(error) {
+
+        console.error(
+            error
+        );
+
 
         mostrarPopup(
+
             "error",
+
             "Erro de conexão",
+
             "Não foi possível conectar ao servidor. Tente novamente."
+
         );
 
     }
 
-    botao.disabled = false;
-    status.textContent = "";
+
+    botao.disabled =
+        false;
+
+
+    status.textContent =
+        "";
+
 }
 
+
+// =====================================================
+// INICIAR
+// =====================================================
+
+atualizarDataMinima();
+
 atualizarPreco();
+
 atualizarResumo();
+
 
 </script>
 
 </body>
+
 </html>
