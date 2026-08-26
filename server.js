@@ -1,6 +1,6 @@
 const express = require("express");
 const { Pool } = require("pg");
-const session = require("express-session");
+const crypto = require("crypto");
 
 const app = express();
 
@@ -8,33 +8,15 @@ const PORT = process.env.PORT || 3000;
 
 
 // =====================================================
-// CONFIGURAÇÕES
-// =====================================================
-
-const ADMIN_USER =
-    process.env.ADMIN_USER;
-
-const ADMIN_PASSWORD =
-    process.env.ADMIN_PASSWORD;
-
-const SESSION_SECRET =
-    process.env.SESSION_SECRET ||
-    "samuca-temporary-session-secret";
-
-
-// =====================================================
 // POSTGRESQL
 // =====================================================
 
 const pool = new Pool({
-
-    connectionString:
-        process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
 
     ssl: {
         rejectUnauthorized: false
     }
-
 });
 
 
@@ -52,36 +34,152 @@ app.use(
 
 
 // =====================================================
-// SESSÃO
+// LOGIN
+// =====================================================
+//
+// No Render, crie:
+//
+// ADMIN_USER
+// ADMIN_PASSWORD
+//
+// Exemplo:
+//
+// ADMIN_USER = samuca
+// ADMIN_PASSWORD = sua_senha_aqui
+//
 // =====================================================
 
-app.use(
-    session({
+const ADMIN_USER =
+    process.env.ADMIN_USER || "samuca";
 
-        secret: SESSION_SECRET,
+const ADMIN_PASSWORD =
+    process.env.ADMIN_PASSWORD || "troque_esta_senha";
 
-        resave: false,
 
-        saveUninitialized: false,
+// =====================================================
+// SESSÕES
+// =====================================================
 
-        cookie: {
+const sessoes = new Map();
 
-            httpOnly: true,
 
-            secure: process.env.NODE_ENV === "production",
+// =====================================================
+// CRIAR SESSÃO
+// =====================================================
 
-            sameSite: "lax",
+function criarSessao() {
 
-            maxAge:
-                1000 *
-                60 *
-                60 *
-                12
+    const token =
+        crypto.randomBytes(32).toString("hex");
+
+    sessoes.set(
+        token,
+        {
+            criadoEm: Date.now()
+        }
+    );
+
+    return token;
+
+}
+
+
+// =====================================================
+// LER COOKIE
+// =====================================================
+
+function pegarCookie(
+    req,
+    nome
+) {
+
+    const cookies =
+        req.headers.cookie || "";
+
+    const partes =
+        cookies.split(";");
+
+
+    for (
+        const parte of partes
+    ) {
+
+        const [chave, ...valor] =
+            parte.trim().split("=");
+
+
+        if (
+            chave === nome
+        ) {
+
+            return decodeURIComponent(
+                valor.join("=")
+            );
 
         }
 
-    })
-);
+    }
+
+
+    return null;
+
+}
+
+
+// =====================================================
+// VERIFICAR LOGIN
+// =====================================================
+
+function estaLogado(req) {
+
+    const token =
+        pegarCookie(
+            req,
+            "samuca_session"
+        );
+
+
+    if (!token) {
+
+        return false;
+
+    }
+
+
+    return sessoes.has(token);
+
+}
+
+
+// =====================================================
+// PROTEGER API
+// =====================================================
+
+function exigirLogin(
+    req,
+    res,
+    next
+) {
+
+    if (
+        !estaLogado(req)
+    ) {
+
+        return res.status(401).json({
+
+            success: false,
+
+            message:
+                "Não autorizado."
+
+        });
+
+    }
+
+
+    next();
+
+}
 
 
 // =====================================================
@@ -149,345 +247,7 @@ const STATUS_VALIDOS = [
 
 
 // =====================================================
-// MIDDLEWARE DE AUTENTICAÇÃO
-// =====================================================
-
-function exigirLogin(req, res, next) {
-
-    if (
-        req.session &&
-        req.session.logado === true
-    ) {
-
-        return next();
-
-    }
-
-    return res.status(401).json({
-
-        success: false,
-
-        message:
-            "Você precisa estar logado."
-
-    });
-
-}
-
-
-// =====================================================
-// PROTEGER DASHBOARD
-// =====================================================
-
-app.get(
-    "/dashboard.html",
-    (req, res, next) => {
-
-        if (
-            req.session &&
-            req.session.logado === true
-        ) {
-
-            return res.sendFile(
-                __dirname +
-                "/dashboard.html"
-            );
-
-        }
-
-
-        return res.redirect(
-            "/login.html"
-        );
-
-    }
-);
-
-
-// =====================================================
-// PÁGINAS PÚBLICAS
-// =====================================================
-
-app.get(
-    "/",
-    (req, res) => {
-
-        res.sendFile(
-            __dirname +
-            "/form.html"
-        );
-
-    }
-);
-
-
-app.get(
-    "/form.html",
-    (req, res) => {
-
-        res.sendFile(
-            __dirname +
-            "/form.html"
-        );
-
-    }
-);
-
-
-app.get(
-    "/login.html",
-    (req, res) => {
-
-        if (
-            req.session &&
-            req.session.logado === true
-        ) {
-
-            return res.redirect(
-                "/dashboard.html"
-            );
-
-        }
-
-        res.sendFile(
-            __dirname +
-            "/login.html"
-        );
-
-    }
-);
-
-
-// =====================================================
-// ARQUIVOS ESTÁTICOS
-// =====================================================
-//
-// IMPORTANTE:
-// dashboard.html NÃO fica público porque a rota acima
-// intercepta antes do express.static.
-//
-
-app.use(
-    express.static(__dirname)
-);
-
-
-// =====================================================
-// LOGIN
-// =====================================================
-
-app.post(
-    "/api/login",
-    async (req, res) => {
-
-        try {
-
-            const {
-                usuario,
-                senha
-            } = req.body;
-
-
-            if (
-                !usuario ||
-                !senha
-            ) {
-
-                return res.status(400).json({
-
-                    success: false,
-
-                    message:
-                        "Digite usuário e senha."
-
-                });
-
-            }
-
-
-            if (
-                !ADMIN_USER ||
-                !ADMIN_PASSWORD
-            ) {
-
-                console.error(
-                    "❌ ADMIN_USER ou ADMIN_PASSWORD não configurado no Render."
-                );
-
-
-                return res.status(500).json({
-
-                    success: false,
-
-                    message:
-                        "Login não configurado no servidor."
-
-                });
-
-            }
-
-
-            const usuarioCorreto =
-                usuario === ADMIN_USER;
-
-
-            const senhaCorreta =
-                senha === ADMIN_PASSWORD;
-
-
-            if (
-                !usuarioCorreto ||
-                !senhaCorreta
-            ) {
-
-                return res.status(401).json({
-
-                    success: false,
-
-                    message:
-                        "Usuário ou senha incorretos."
-
-                });
-
-            }
-
-
-            req.session.logado =
-                true;
-
-
-            req.session.usuario =
-                ADMIN_USER;
-
-
-            req.session.loginEm =
-                new Date();
-
-
-            return res.json({
-
-                success: true,
-
-                message:
-                    "Login realizado com sucesso."
-
-            });
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "❌ ERRO LOGIN:",
-                error
-            );
-
-
-            return res.status(500).json({
-
-                success: false,
-
-                message:
-                    "Erro ao realizar login."
-
-            });
-
-        }
-
-    }
-);
-
-
-// =====================================================
-// VERIFICAR LOGIN
-// =====================================================
-
-app.get(
-    "/api/me",
-    (req, res) => {
-
-        if (
-            req.session &&
-            req.session.logado === true
-        ) {
-
-            return res.json({
-
-                success: true,
-
-                logado: true,
-
-                usuario:
-                    req.session.usuario
-
-            });
-
-        }
-
-
-        return res.status(401).json({
-
-            success: false,
-
-            logado: false
-
-        });
-
-    }
-);
-
-
-// =====================================================
-// LOGOUT
-// =====================================================
-
-app.post(
-    "/api/logout",
-    (req, res) => {
-
-        req.session.destroy(
-            error => {
-
-                if (error) {
-
-                    console.error(
-                        "❌ ERRO LOGOUT:",
-                        error
-                    );
-
-
-                    return res.status(500).json({
-
-                        success: false,
-
-                        message:
-                            "Erro ao sair."
-
-                    });
-
-                }
-
-
-                res.clearCookie(
-                    "connect.sid"
-                );
-
-
-                return res.json({
-
-                    success: true
-
-                });
-
-            }
-        );
-
-    }
-);
-
-
-// =====================================================
-// CRIAR / ATUALIZAR BANCO
+// BANCO
 // =====================================================
 
 async function prepararBanco() {
@@ -538,8 +298,8 @@ async function prepararBanco() {
 
             ALTER TABLE appointments
 
-            ADD COLUMN IF NOT EXISTS
-            pago BOOLEAN DEFAULT FALSE
+            ADD COLUMN IF NOT EXISTS pago
+            BOOLEAN DEFAULT FALSE
 
         `);
 
@@ -548,8 +308,8 @@ async function prepararBanco() {
 
             ALTER TABLE appointments
 
-            ADD COLUMN IF NOT EXISTS
-            preco NUMERIC(10,2) DEFAULT 0
+            ADD COLUMN IF NOT EXISTS preco
+            NUMERIC(10,2) DEFAULT 0
 
         `);
 
@@ -558,8 +318,8 @@ async function prepararBanco() {
 
             ALTER TABLE appointments
 
-            ADD COLUMN IF NOT EXISTS
-            status TEXT DEFAULT 'Pendente'
+            ADD COLUMN IF NOT EXISTS status
+            TEXT DEFAULT 'Pendente'
 
         `);
 
@@ -607,7 +367,206 @@ prepararBanco();
 
 
 // =====================================================
-// HORÁRIOS OCUPADOS
+// LOGIN
+// =====================================================
+
+app.post(
+    "/api/login",
+    (req, res) => {
+
+        const {
+            usuario,
+            senha
+        } = req.body;
+
+
+        if (
+            !usuario ||
+            !senha
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "Preencha usuário e senha."
+
+            });
+
+        }
+
+
+        if (
+            usuario !== ADMIN_USER ||
+            senha !== ADMIN_PASSWORD
+        ) {
+
+            return res.status(401).json({
+
+                success: false,
+
+                message:
+                    "Usuário ou senha incorretos."
+
+            });
+
+        }
+
+
+        const token =
+            criarSessao();
+
+
+        const secure =
+            process.env.NODE_ENV === "production"
+                ? " Secure;"
+                : "";
+
+
+        res.setHeader(
+            "Set-Cookie",
+            `samuca_session=${token}; HttpOnly; Path=/; SameSite=Lax;${secure}`
+        );
+
+
+        console.log(
+            "🔐 LOGIN REALIZADO:",
+            usuario
+        );
+
+
+        res.json({
+
+            success: true
+
+        });
+
+    }
+);
+
+
+// =====================================================
+// VERIFICAR SESSÃO
+// =====================================================
+
+app.get(
+    "/api/auth",
+    (req, res) => {
+
+        if (
+            !estaLogado(req)
+        ) {
+
+            return res.status(401).json({
+
+                success: false
+
+            });
+
+        }
+
+
+        res.json({
+
+            success: true
+
+        });
+
+    }
+);
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+app.post(
+    "/api/logout",
+    (req, res) => {
+
+        const token =
+            pegarCookie(
+                req,
+                "samuca_session"
+            );
+
+
+        if (token) {
+
+            sessoes.delete(
+                token
+            );
+
+        }
+
+
+        res.setHeader(
+            "Set-Cookie",
+            "samuca_session=; HttpOnly; Path=/; Max-Age=0; SameSite=Lax"
+        );
+
+
+        res.json({
+
+            success: true
+
+        });
+
+    }
+);
+
+
+// =====================================================
+// DASHBOARD PROTEGIDO
+// =====================================================
+//
+// IMPORTANTE:
+// Este middleware vem ANTES do express.static.
+//
+// Assim ninguém consegue simplesmente abrir:
+//
+// /dashboard.html
+//
+// sem estar logado.
+//
+// =====================================================
+
+app.get(
+    "/dashboard.html",
+    (req, res) => {
+
+        if (
+            !estaLogado(req)
+        ) {
+
+            return res.redirect(
+                "/login.html"
+            );
+
+        }
+
+
+        res.sendFile(
+            __dirname +
+            "/dashboard.html"
+        );
+
+    }
+);
+
+
+// =====================================================
+// ARQUIVOS PÚBLICOS
+// =====================================================
+
+app.use(
+    express.static(__dirname)
+);
+
+
+// =====================================================
+// VER HORÁRIOS OCUPADOS
 // =====================================================
 
 app.get(
@@ -710,12 +669,19 @@ app.post(
             const {
 
                 nome,
+
                 telefone,
+
                 email,
+
                 data,
+
                 horario,
+
                 servico,
+
                 tipo,
+
                 observacoes
 
             } = req.body;
@@ -724,10 +690,15 @@ app.post(
             if (
 
                 !nome ||
+
                 !telefone ||
+
                 !data ||
+
                 !horario ||
+
                 !servico ||
+
                 !tipo
 
             ) {
@@ -839,15 +810,25 @@ app.post(
                     (
 
                         nome,
+
                         telefone,
+
                         email,
+
                         data,
+
                         horario,
+
                         servico,
+
                         tipo,
+
                         observacoes,
+
                         status,
+
                         pago,
+
                         preco
 
                     )
@@ -857,15 +838,25 @@ app.post(
                     (
 
                         $1,
+
                         $2,
+
                         $3,
+
                         $4,
+
                         $5,
+
                         $6,
+
                         $7,
+
                         $8,
+
                         'Pendente',
+
                         FALSE,
+
                         $9
 
                     )
@@ -877,13 +868,21 @@ app.post(
                     [
 
                         nome,
+
                         telefone,
+
                         email || "",
+
                         data,
+
                         horario,
+
                         servico,
+
                         tipo,
+
                         observacoes || "",
+
                         preco
 
                     ]
@@ -955,9 +954,6 @@ app.post(
 // =====================================================
 // LISTAR AGENDAMENTOS
 // =====================================================
-//
-// PROTEGIDO
-//
 
 app.get(
     "/api/submissions",
@@ -972,17 +968,29 @@ app.get(
                     SELECT
 
                         id,
+
                         nome,
+
                         telefone,
+
                         email,
+
                         data,
+
                         horario,
+
                         servico,
+
                         tipo,
+
                         observacoes,
+
                         status,
+
                         pago,
+
                         preco,
+
                         enviado_em AS "enviadoEm"
 
                     FROM appointments
@@ -1024,9 +1032,6 @@ app.get(
 // =====================================================
 // ALTERAR STATUS
 // =====================================================
-//
-// PROTEGIDO
-//
 
 app.post(
     "/api/status",
@@ -1116,9 +1121,6 @@ app.post(
 // =====================================================
 // PAGAMENTO
 // =====================================================
-//
-// PROTEGIDO
-//
 
 app.post(
     "/api/payment",
@@ -1201,9 +1203,6 @@ app.post(
 // =====================================================
 // APAGAR AGENDAMENTO
 // =====================================================
-//
-// PROTEGIDO
-//
 
 app.post(
     "/api/delete",
@@ -1301,11 +1300,8 @@ app.post(
 
 
 // =====================================================
-// HEALTH CHECK
+// HEALTH
 // =====================================================
-//
-// Público para o Render.
-//
 
 app.get(
     "/api/health",
@@ -1338,7 +1334,7 @@ app.listen(
         );
 
         console.log(
-            "🔐 Sistema de login ativado."
+            "🔐 Sistema de login ativo."
         );
 
     }
