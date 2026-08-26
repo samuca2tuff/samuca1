@@ -1,33 +1,25 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SAMUCA • Login</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 * {
     box-sizing: border-box;
-    font-family: Inter, Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
     background:
-        radial-gradient(
-            circle at top,
-            #111d35 0%,
-            #080808 45%,
-            #050505 100%
-        );
-
+        radial-gradient(circle at top, #14294d 0%, transparent 35%),
+        #05070b;
     color: white;
 
     display: flex;
@@ -41,16 +33,17 @@ body {
     width: 100%;
     max-width: 420px;
 
-    background: rgba(17,17,17,.92);
+    background: rgba(15, 18, 25, .92);
 
-    border: 1px solid #292929;
+    border: 1px solid #242b38;
 
     border-radius: 24px;
 
     padding: 40px;
 
     box-shadow:
-        0 25px 80px rgba(0,0,0,.55);
+        0 25px 80px rgba(0,0,0,.55),
+        0 0 40px rgba(52,140,255,.08);
 
     backdrop-filter: blur(15px);
 }
@@ -75,42 +68,43 @@ body {
 .logo p {
     margin-top: 10px;
 
-    color: #777;
+    color: #737b89;
 
     font-size: 11px;
 
     letter-spacing: 2px;
 }
 
-.icon {
-    width: 70px;
-    height: 70px;
+.title {
+    margin-bottom: 25px;
+}
 
-    margin: 0 auto 20px;
+.title h2 {
+    margin: 0 0 8px;
+    font-size: 23px;
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 20px;
-
-    background: #0d0d0d;
-
-    border: 1px solid #292929;
-
-    font-size: 30px;
+.title p {
+    margin: 0;
+    color: #777f8d;
+    font-size: 13px;
 }
 
 label {
     display: block;
 
-    margin-bottom: 8px;
+    margin:
+        18px 0 8px;
 
-    color: #aaa;
+    color: #aab1bd;
 
     font-size: 13px;
 
-    font-weight: 600;
+    font-weight: 500;
+}
+
+.input-box {
+    position: relative;
 }
 
 input {
@@ -118,15 +112,13 @@ input {
 
     padding: 15px 16px;
 
-    margin-bottom: 20px;
+    background: #090c11;
 
-    background: #090909;
-
-    color: white;
-
-    border: 1px solid #292929;
+    border: 1px solid #272e39;
 
     border-radius: 11px;
+
+    color: white;
 
     outline: none;
 
@@ -145,17 +137,20 @@ input:focus {
 button {
     width: 100%;
 
-    padding: 16px;
+    margin-top: 25px;
+
+    padding: 15px;
 
     border: 0;
 
     border-radius: 11px;
 
-    background: linear-gradient(
-        135deg,
-        #287cff,
-        #1764dd
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #287cff,
+            #1761d6
+        );
 
     color: white;
 
@@ -172,17 +167,16 @@ button:hover {
     transform: translateY(-1px);
 
     box-shadow:
-        0 10px 25px rgba(40,124,255,.25);
+        0 8px 25px rgba(40,124,255,.25);
 }
 
 button:disabled {
-    opacity: .55;
-    cursor: not-allowed;
-    transform: none;
+    opacity: .6;
+    cursor: wait;
 }
 
 #status {
-    min-height: 22px;
+    min-height: 20px;
 
     margin-top: 18px;
 
@@ -200,17 +194,15 @@ button:disabled {
 }
 
 .footer {
-    margin-top: 30px;
-
     text-align: center;
 
-    color: #555;
+    margin-top: 25px;
+
+    color: #555d69;
 
     font-size: 11px;
 }
-
 </style>
-
 </head>
 
 <body>
@@ -219,16 +211,25 @@ button:disabled {
 
     <div class="logo">
 
-        <div class="icon">
-            ✂️
-        </div>
-
         <h1>
             SAM<span>UCA</span>
         </h1>
 
         <p>
-            ÁREA DO CABELEIREIRO
+            BARBERSHOP
+        </p>
+
+    </div>
+
+
+    <div class="title">
+
+        <h2>
+            Área do profissional
+        </h2>
+
+        <p>
+            Entre para acessar o painel de agendamentos.
         </p>
 
     </div>
@@ -243,8 +244,8 @@ button:disabled {
         <input
             id="usuario"
             type="text"
-            autocomplete="username"
             placeholder="Digite seu usuário"
+            autocomplete="username"
             required
         >
 
@@ -256,8 +257,8 @@ button:disabled {
         <input
             id="senha"
             type="password"
-            autocomplete="current-password"
             placeholder="Digite sua senha"
+            autocomplete="current-password"
             required
         >
 
@@ -276,7 +277,7 @@ button:disabled {
 
 
     <div class="footer">
-        SAMUCA BARBERSHOP • Área restrita
+        SAMUCA BARBERSHOP • Área exclusiva
     </div>
 
 </div>
@@ -300,12 +301,26 @@ form.addEventListener(
 
         event.preventDefault();
 
-        botao.disabled = true;
+
+        const usuario =
+            document
+                .getElementById("usuario")
+                .value
+                .trim();
+
+
+        const senha =
+            document
+                .getElementById("senha")
+                .value;
+
 
         status.className = "";
 
         status.textContent =
             "⏳ Verificando acesso...";
+
+        botao.disabled = true;
 
 
         try {
@@ -314,6 +329,7 @@ form.addEventListener(
                 await fetch(
                     "/api/login",
                     {
+
                         method: "POST",
 
                         headers: {
@@ -321,27 +337,12 @@ form.addEventListener(
                                 "application/json"
                         },
 
-                        credentials: "same-origin",
-
                         body:
                             JSON.stringify({
-
-                                usuario:
-                                    document
-                                        .getElementById(
-                                            "usuario"
-                                        )
-                                        .value
-                                        .trim(),
-
-                                senha:
-                                    document
-                                        .getElementById(
-                                            "senha"
-                                        )
-                                        .value
-
+                                usuario,
+                                senha
                             })
+
                     }
                 );
 
@@ -363,7 +364,7 @@ form.addEventListener(
 
 
                 setTimeout(
-                    () => {
+                    function() {
 
                         window.location.href =
                             "/dashboard.html";
@@ -392,7 +393,7 @@ form.addEventListener(
 
         }
 
-        catch (error) {
+        catch(error) {
 
             console.error(error);
 
@@ -413,4 +414,3 @@ form.addEventListener(
 
 </body>
 </html>
-```
