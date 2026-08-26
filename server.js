@@ -1,88 +1,208 @@
 const express = require("express");
-const multer = require("multer");
+const { Pool } = require("pg");
 const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 
-const storage = multer.diskStorage({
-    destination: "uploads/",
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
+async function initDatabase() {
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS appointments (
+            id BIGSERIAL PRIMARY KEY,
+            nome TEXT NOT NULL,
+            telefone TEXT NOT NULL,
+            email TEXT,
+            data TEXT NOT NULL,
+            horario TEXT NOT NULL,
+            servico TEXT NOT NULL,
+            tipo TEXT NOT NULL,
+            observacoes TEXT,
+            status TEXT DEFAULT 'Pendente',
+            enviado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
+
+    console.log("Banco de dados conectado.");
+}
+
+initDatabase().catch(error => {
+    console.error("Erro ao conectar ao banco:", error);
 });
 
-const upload = multer({ storage });
 
-let submissions = [];
+// RECEBER AGENDAMENTO
+app.post("/api/submit", async (req, res) => {
 
-app.post("/api/submit", upload.none(), (req, res) => {
+    try {
 
-    const {
-        nome,
-        telefone,
-        email,
-        data,
-        horario,
-        servico,
-        tipo,
-        observacoes
-    } = req.body;
+        const {
+            nome,
+            telefone,
+            email,
+            data,
+            horario,
+            servico,
+            tipo,
+            observacoes
+        } = req.body;
 
-    if (!nome || !telefone || !data || !horario || !servico || !tipo) {
-        return res.status(400).json({
+        if (
+            !nome ||
+            !telefone ||
+            !data ||
+            !horario ||
+            !servico ||
+            !tipo
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Preencha os campos obrigatórios."
+            });
+        }
+
+        const result = await pool.query(
+            `
+            INSERT INTO appointments
+            (
+                nome,
+                telefone,
+                email,
+                data,
+                horario,
+                servico,
+                tipo,
+                observacoes
+            )
+            VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+            RETURNING *
+            `,
+            [
+                nome,
+                telefone,
+                email || "",
+                data,
+                horario,
+                servico,
+                tipo,
+                observacoes || ""
+            ]
+        );
+
+        res.json({
+            success: true,
+            appointment: result.rows[0]
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
             success: false,
-            message: "Preencha os campos obrigatórios."
+            message: "Erro ao salvar agendamento."
         });
     }
-
-    const agendamento = {
-        id: Date.now(),
-        nome,
-        telefone,
-        email,
-        data,
-        horario,
-        servico,
-        tipo,
-        observacoes,
-        status: "Pendente",
-        enviadoEm: new Date().toLocaleString("pt-BR")
-    };
-
-    submissions.push(agendamento);
-
-    res.json({
-        success: true
-    });
 });
 
-app.get("/api/submissions", (req, res) => {
-    res.json(submissions);
+
+// PEGAR AGENDAMENTOS
+app.get("/api/submissions", async (req, res) => {
+
+    try {
+
+        const result = await pool.query(`
+            SELECT
+                id,
+                nome,
+                telefone,
+                email,
+                data,
+                horario,
+                servico,
+                tipo,
+                observacoes,
+                status,
+                enviado_em AS "enviadoEm"
+            FROM appointments
+            ORDER BY id DESC
+        `);
+
+        res.json(result.rows);
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            message: "Erro ao buscar agendamentos."
+        });
+    }
 });
 
-app.post("/api/status", (req, res) => {
 
-    const { id, status } = req.body;
+// ALTERAR STATUS
+app.post("/api/status", async (req, res) => {
 
-    const agendamento =
-        submissions.find(item => item.id == id);
+    try {
 
-    if (!agendamento) {
-        return res.status(404).json({
+        const { id, status } = req.body;
+
+        const permitidos = [
+            "Pendente",
+            "Confirmado",
+            "Cancelado"
+        ];
+
+        if (!permitidos.includes(status)) {
+            return res.status(400).json({
+                success: false,
+                message: "Status inválido."
+            });
+        }
+
+        const result = await pool.query(
+            `
+            UPDATE appointments
+            SET status = $1
+            WHERE id = $2
+            RETURNING *
+            `,
+            [status, id]
+        );
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Agendamento não encontrado."
+            });
+        }
+
+        res.json({
+            success: true
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
             success: false
         });
     }
-
-    agendamento.status = status;
-
-    res.json({
-        success: true
-    });
 });
+
 
 app.listen(PORT, () => {
     console.log(`SAMUCA rodando na porta ${PORT}`);
