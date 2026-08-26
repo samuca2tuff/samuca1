@@ -1,1660 +1,768 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SAMUCA • Agendamento</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-
-/* =====================================================
-   BASE
-===================================================== */
-
 * {
     box-sizing: border-box;
-    font-family:
-        Inter,
-        Arial,
-        sans-serif;
+    font-family: "Inter", Arial, sans-serif;
 }
 
 :root {
-
-    --bg: #070707;
-    --card: #101010;
-    --card2: #151515;
-    --border: #292929;
-
     --blue: #348cff;
     --blue2: #287cff;
-
     --green: #39ff88;
-    --red: #ff5555;
-
-    --text: #ffffff;
-    --muted: #858585;
-
+    --red: #ff5252;
+    --bg: #050609;
+    --card: rgba(17, 18, 23, .88);
+    --border: rgba(255,255,255,.09);
 }
 
 body {
-
     margin: 0;
-
     min-height: 100vh;
-
     background:
-        radial-gradient(
-            circle at 50% -10%,
-            rgba(52,140,255,.15),
-            transparent 38%
-        ),
+        radial-gradient(circle at 15% 10%, rgba(52,140,255,.13), transparent 30%),
+        radial-gradient(circle at 85% 90%, rgba(57,255,136,.07), transparent 30%),
         var(--bg);
-
-    color: var(--text);
-
+    color: white;
     display: flex;
-
     justify-content: center;
-
-    padding: 40px 20px;
-
+    align-items: center;
+    padding: 35px 15px;
 }
-
-
-/* =====================================================
-   CONTAINER
-===================================================== */
 
 .form {
-
-    width: 100%;
-
-    max-width: 650px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.035),
-            rgba(255,255,255,.01)
-        ),
-        var(--card);
-
+    width: 560px;
+    background: var(--card);
+    backdrop-filter: blur(20px);
     border: 1px solid var(--border);
-
     border-radius: 24px;
-
-    padding: 42px;
-
-    box-shadow:
-        0 25px 80px rgba(0,0,0,.55),
-        0 0 50px rgba(52,140,255,.035);
-
+    padding: 38px;
+    box-shadow: 0 25px 80px rgba(0,0,0,.5);
+    animation: aparecer .5s ease;
 }
 
-
-/* =====================================================
-   HEADER
-===================================================== */
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
 .logo {
-
     text-align: center;
-
-    padding-bottom: 30px;
-
-    margin-bottom: 10px;
-
-    border-bottom: 1px solid #222;
-
-}
-
-.logo-badge {
-
-    width: 58px;
-
-    height: 58px;
-
-    margin: 0 auto 16px;
-
-    border-radius: 16px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 28px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #348cff,
-            #1453ad
-        );
-
-    box-shadow:
-        0 10px 30px rgba(52,140,255,.25);
-
+    margin-bottom: 32px;
 }
 
 .logo h1 {
-
     margin: 0;
-
-    font-size: 38px;
-
-    letter-spacing: 7px;
-
+    font-size: 42px;
     font-weight: 800;
-
+    letter-spacing: 5px;
 }
 
-.logo h1 span {
-
+.logo span {
     color: var(--blue);
-
 }
 
 .logo p {
-
-    margin:
-
-        10px
-
-        0
-
-        0;
-
-    color: var(--muted);
-
+    margin-top: 8px;
+    color: #777;
     font-size: 11px;
-
+    font-weight: 600;
     letter-spacing: 3px;
-
 }
-
-
-/* =====================================================
-   SECTION
-===================================================== */
-
-.section {
-
-    margin-top: 28px;
-
-}
-
-.section-title {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    margin-bottom: 12px;
-
-    font-size: 14px;
-
-    font-weight: 700;
-
-}
-
-.section-number {
-
-    width: 25px;
-
-    height: 25px;
-
-    border-radius: 8px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: rgba(52,140,255,.12);
-
-    color: var(--blue);
-
-    font-size: 12px;
-
-}
-
-
-/* =====================================================
-   LABEL
-===================================================== */
 
 label {
-
     display: block;
-
-    margin:
-
-        18px
-
-        0
-
-        8px;
-
-    color: #bdbdbd;
-
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: #a7a7ad;
     font-size: 12px;
-
     font-weight: 600;
-
 }
-
-
-/* =====================================================
-   INPUTS
-===================================================== */
 
 input,
 select,
 textarea {
-
     width: 100%;
-
-    padding: 15px 16px;
-
-    background: #090909;
-
-    border: 1px solid #292929;
-
+    padding: 15px;
+    background: rgba(5,6,9,.9);
+    border: 1px solid var(--border);
     border-radius: 11px;
-
     color: white;
-
     outline: none;
-
+    transition: .2s;
     font-size: 14px;
-
-    transition:
-
-        border .2s,
-
-        box-shadow .2s,
-
-        background .2s;
-
 }
 
-input:hover,
-select:hover,
-textarea:hover {
-
-    border-color: #3a3a3a;
-
+input::placeholder,
+textarea::placeholder {
+    color: #555;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-
     border-color: var(--blue);
-
-    background: #0b0b0b;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(52,140,255,.08);
-
+    box-shadow: 0 0 0 3px rgba(52,140,255,.1);
 }
 
 textarea {
-
-    height: 110px;
-
+    height: 100px;
     resize: vertical;
-
 }
 
-select {
-
-    cursor: pointer;
-
-}
-
-
-/* =====================================================
-   DATA
-===================================================== */
-
-input[type="date"] {
-
-    color-scheme: dark;
-
-}
-
-
-/* =====================================================
-   HORÁRIOS
-===================================================== */
+/* HORÁRIOS */
 
 .horarios {
-
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 10px;
-
-    margin-top: 10px;
-
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
 }
 
 .horario {
-
-    min-height: 52px;
-
-    padding: 10px;
-
-    border-radius: 11px;
-
-    border: 1px solid #292929;
-
-    background: #090909;
-
-    color: #eee;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
+    padding: 13px 5px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: rgba(5,6,9,.9);
+    color: white;
     text-align: center;
-
     cursor: pointer;
-
+    transition: .2s;
     font-size: 13px;
-
     font-weight: 700;
-
-    transition:
-
-        transform .15s,
-
-        border .15s,
-
-        background .15s;
-
 }
 
 .horario:hover {
-
     transform: translateY(-2px);
-
     border-color: var(--blue);
-
-    background: #0d1118;
-
+    background: rgba(52,140,255,.08);
 }
 
 .horario.selecionado {
-
-    background:
-        linear-gradient(
-            135deg,
-            #348cff,
-            #2169c7
-        );
-
-    border-color: var(--blue);
-
-    box-shadow:
-        0 8px 25px
-        rgba(52,140,255,.2);
-
+    background: linear-gradient(135deg, #287cff, #348cff);
+    border-color: #348cff;
+    box-shadow: 0 5px 20px rgba(52,140,255,.25);
 }
 
 .horario.ocupado {
-
-    background: #211010;
-
-    border-color: #482222;
-
-    color: #ff6565;
-
+    background: rgba(255,70,70,.07);
+    border-color: rgba(255,70,70,.25);
+    color: #ff6666;
     cursor: not-allowed;
-
     text-decoration: line-through;
-
-}
-
-.horario.ocupado:hover {
-
-    transform: none;
-
-    border-color: #482222;
-
-    background: #211010;
-
 }
 
 .horario.loading {
-
     opacity: .5;
-
     cursor: wait;
-
 }
 
-
-/* =====================================================
-   LEGENDA
-===================================================== */
-
 .legenda {
-
     display: flex;
-
     gap: 18px;
-
     margin-top: 12px;
-
-    color: #777;
-
     font-size: 11px;
-
+    color: #777;
 }
 
 .legenda span {
-
     display: flex;
-
     align-items: center;
-
     gap: 6px;
-
 }
 
 .dot {
-
     width: 8px;
-
     height: 8px;
-
     border-radius: 50%;
-
-    display: inline-block;
-
 }
 
 .dot.disponivel {
-
     background: var(--green);
-
-    box-shadow:
-        0 0 8px
-        rgba(57,255,136,.4);
-
+    box-shadow: 0 0 8px rgba(57,255,136,.5);
 }
 
 .dot.ocupado {
-
     background: var(--red);
-
 }
 
-
-/* =====================================================
-   PREÇO
-===================================================== */
+/* PREÇO */
 
 .preco-box {
-
-    margin-top: 28px;
-
+    margin-top: 25px;
     padding: 22px;
-
+    background: linear-gradient(
+        135deg,
+        rgba(52,140,255,.08),
+        rgba(57,255,136,.04)
+    );
+    border: 1px solid var(--border);
     border-radius: 15px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(57,255,136,.06),
-            rgba(57,255,136,.015)
-        );
-
-    border: 1px solid
-        rgba(57,255,136,.15);
-
 }
 
 .preco-titulo {
-
     color: #777;
-
     font-size: 10px;
-
     font-weight: 700;
-
-    letter-spacing: 2px;
-
+    letter-spacing: 1.5px;
 }
 
 .preco {
-
     margin-top: 5px;
-
-    font-size: 34px;
-
+    font-size: 32px;
     font-weight: 800;
-
     color: var(--green);
-
 }
 
-
-/* =====================================================
-   RESUMO
-===================================================== */
+/* RESUMO */
 
 .resumo-final {
-
-    margin-top: 16px;
-
-    padding: 24px;
-
-    background: #0b0b0b;
-
-    border: 1px solid
-        rgba(52,140,255,.4);
-
-    border-radius: 16px;
-
-    box-shadow:
-        inset 0 0 30px
-        rgba(52,140,255,.025);
-
+    margin-top: 18px;
+    padding: 21px;
+    background: rgba(5,6,9,.8);
+    border: 1px solid rgba(52,140,255,.3);
+    border-radius: 15px;
 }
 
 .resumo-titulo {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
     color: var(--blue);
-
     font-size: 11px;
-
     font-weight: 800;
-
     letter-spacing: 1.5px;
-
-    margin-bottom: 15px;
-
+    margin-bottom: 14px;
 }
 
 .resumo-item {
-
     display: flex;
-
     justify-content: space-between;
-
-    align-items: center;
-
     gap: 15px;
-
-    padding: 8px 0;
-
+    padding: 7px 0;
     color: #777;
-
     font-size: 13px;
-
 }
 
 .resumo-item strong {
-
-    color: #eee;
-
+    color: white;
     text-align: right;
-
-    font-size: 13px;
-
 }
 
 .linha {
-
     height: 1px;
-
-    background: #292929;
-
-    margin: 13px 0;
-
+    background: var(--border);
+    margin: 12px 0;
 }
 
 .total-final {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
 }
 
 .total-final span {
-
-    color: white;
-
-    font-size: 14px;
-
+    font-size: 13px;
     font-weight: 800;
-
-    letter-spacing: 1px;
-
 }
 
 .total-final strong {
-
-    font-size: 30px;
-
-    font-weight: 800;
-
+    font-size: 28px;
     color: var(--green);
-
 }
 
-
-/* =====================================================
-   BOTÃO
-===================================================== */
+/* BOTÃO */
 
 button.agendar {
-
     width: 100%;
-
-    margin-top: 20px;
-
+    margin-top: 22px;
     padding: 17px;
-
-    border: 0;
-
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #348cff,
-            #2169c7
-        );
-
+    background: linear-gradient(135deg, #287cff, #348cff);
+    border: none;
+    border-radius: 11px;
     color: white;
-
-    font-size: 14px;
-
     font-weight: 800;
-
-    letter-spacing: .5px;
-
     cursor: pointer;
-
-    box-shadow:
-        0 10px 30px
-        rgba(52,140,255,.18);
-
-    transition:
-
-        transform .15s,
-
-        box-shadow .15s,
-
-        opacity .15s;
-
+    font-size: 14px;
+    transition: .2s;
+    box-shadow: 0 8px 25px rgba(40,124,255,.2);
 }
 
 button.agendar:hover {
-
     transform: translateY(-2px);
-
-    box-shadow:
-        0 14px 35px
-        rgba(52,140,255,.28);
-
+    box-shadow: 0 12px 30px rgba(40,124,255,.3);
 }
 
 button.agendar:active {
-
-    transform: translateY(0);
-
+    transform: scale(.98);
 }
 
 button.agendar:disabled {
-
     opacity: .5;
-
     cursor: not-allowed;
-
     transform: none;
-
 }
 
+/* POPUP */
 
-/* =====================================================
-   STATUS
-===================================================== */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: .25s;
+}
 
-#status {
+.popup-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
 
+.popup {
+    width: 100%;
+    max-width: 400px;
+    background: #111318;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 30px;
     text-align: center;
+    box-shadow: 0 30px 90px rgba(0,0,0,.7);
+    transform: scale(.9) translateY(20px);
+    transition: .25s;
+}
 
-    margin-top: 18px;
+.popup-overlay.show .popup {
+    transform: scale(1) translateY(0);
+}
 
+.popup-icon {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.popup.success .popup-icon {
+    background: rgba(57,255,136,.1);
+    color: var(--green);
+}
+
+.popup.error .popup-icon {
+    background: rgba(255,82,82,.1);
+    color: var(--red);
+}
+
+.popup h2 {
+    margin: 0 0 10px;
+    font-size: 21px;
+}
+
+.popup p {
     color: #888;
-
-    font-size: 13px;
-
     line-height: 1.6;
-
+    margin: 0;
 }
 
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.footer {
-
-    text-align: center;
-
-    margin-top: 28px;
-
-    padding-top: 20px;
-
-    border-top: 1px solid #222;
-
-    color: #555;
-
-    font-size: 10px;
-
-    letter-spacing: 1px;
-
+.popup-details {
+    margin-top: 18px;
+    padding: 15px;
+    background: #090a0d;
+    border-radius: 12px;
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.8;
 }
 
+.popup button {
+    width: 100%;
+    border: 0;
+    padding: 13px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background: var(--blue2);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* MOBILE */
 
-@media(max-width: 600px) {
-
+@media(max-width: 560px) {
     body {
-
-        padding: 15px 10px;
-
+        padding: 12px;
+        align-items: flex-start;
     }
 
     .form {
-
-        padding: 28px 20px;
-
+        margin-top: 10px;
+        padding: 25px 18px;
         border-radius: 20px;
-
     }
 
     .logo h1 {
-
-        font-size: 32px;
-
+        font-size: 34px;
     }
 
     .horarios {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
+        grid-template-columns: repeat(2, 1fr);
     }
-
-    .resumo-item {
-
-        font-size: 12px;
-
-    }
-
 }
-
 </style>
 
 </head>
 
-
 <body>
-
 
 <div class="form">
 
-
-<!-- HEADER -->
-
 <div class="logo">
-
-    <div class="logo-badge">
-        ✂
-    </div>
-
-    <h1>
-        SAM<span>UCA</span>
-    </h1>
-
-    <p>
-        BARBERSHOP • AGENDAMENTO ONLINE
-    </p>
-
+    <h1>SAM<span>UCA</span></h1>
+    <p>BARBERSHOP • AGENDAMENTO</p>
 </div>
 
+<label>Nome completo *</label> <input id="nome" type="text" placeholder="Digite seu nome">
 
-<!-- DADOS -->
+<label>Telefone *</label> <input id="telefone" type="tel" placeholder="(00) 00000-0000">
 
-<div class="section">
+<label>E-mail</label> <input id="email" type="email" placeholder="seuemail@email.com">
 
-    <div class="section-title">
+<label>📅 Escolha a data *</label> <input id="data" type="date">
 
-        <div class="section-number">
-            01
-        </div>
+<label>🕐 Escolha o horário *</label>
 
-        Seus dados
-
-    </div>
-
-
-    <label>
-        Nome completo *
-    </label>
-
-    <input
-        id="nome"
-        type="text"
-        placeholder="Digite seu nome"
-    >
-
-
-    <label>
-        Telefone *
-    </label>
-
-    <input
-        id="telefone"
-        type="tel"
-        placeholder="(00) 00000-0000"
-    >
-
-
-    <label>
-        E-mail
-    </label>
-
-    <input
-        id="email"
-        type="email"
-        placeholder="seuemail@email.com"
-    >
-
+<div id="horarios" class="horarios">
+    <div class="horario">Escolha uma data</div>
 </div>
 
-
-<!-- DATA E HORÁRIO -->
-
-<div class="section">
-
-    <div class="section-title">
-
-        <div class="section-number">
-            02
-        </div>
-
-        Data e horário
-
-    </div>
-
-
-    <label>
-        📅 Escolha a data *
-    </label>
-
-    <input
-        id="data"
-        type="date"
-    >
-
-
-    <label>
-        🕐 Escolha o horário *
-    </label>
-
-    <div
-        id="horarios"
-        class="horarios"
-    >
-
-        <div class="horario">
-            Escolha uma data
-        </div>
-
-    </div>
-
-
-    <div class="legenda">
-
-        <span>
-            <span class="dot disponivel"></span>
-            Disponível
-        </span>
-
-        <span>
-            <span class="dot ocupado"></span>
-            Ocupado
-        </span>
-
-    </div>
-
+<div class="legenda">
+    <span><span class="dot disponivel"></span> Disponível</span>
+    <span><span class="dot ocupado"></span> Ocupado</span>
 </div>
 
+<label>✂️ Serviço *</label>
 
-<!-- SERVIÇO -->
+<select id="servico">
+    <option value="">Selecione o serviço</option>
+    <option value="Corte masculino">Corte masculino — $25.00</option>
+    <option value="Corte + barba">Corte + barba — $35.00</option>
+    <option value="Barba">Barba — $15.00</option>
+    <option value="Corte infantil">Corte infantil — $20.00</option>
+</select>
 
-<div class="section">
+<label>💈 Tipo de corte *</label>
 
-    <div class="section-title">
+<select id="tipo">
+    <option value="">Selecione o corte</option>
+    <option>Degradê / Fade</option>
+    <option>Taper Fade</option>
+    <option>Social</option>
+    <option>Buzz Cut</option>
+    <option>Undercut</option>
+    <option>Outro</option>
+</select>
 
-        <div class="section-number">
-            03
-        </div>
+<label>📝 Observações</label>
 
-        Seu corte
-
-    </div>
-
-
-    <label>
-        ✂️ Serviço *
-    </label>
-
-    <select id="servico">
-
-        <option value="">
-            Selecione o serviço
-        </option>
-
-        <option value="Corte masculino">
-            Corte masculino — $25.00
-        </option>
-
-        <option value="Corte + barba">
-            Corte + barba — $35.00
-        </option>
-
-        <option value="Barba">
-            Barba — $15.00
-        </option>
-
-        <option value="Corte infantil">
-            Corte infantil — $20.00
-        </option>
-
-    </select>
-
-
-    <label>
-        💈 Tipo de corte *
-    </label>
-
-    <select id="tipo">
-
-        <option value="">
-            Selecione o corte
-        </option>
-
-        <option>
-            Degradê / Fade
-        </option>
-
-        <option>
-            Taper Fade
-        </option>
-
-        <option>
-            Social
-        </option>
-
-        <option>
-            Buzz Cut
-        </option>
-
-        <option>
-            Undercut
-        </option>
-
-        <option>
-            Outro
-        </option>
-
-    </select>
-
-
-    <label>
-        📝 Observações
-    </label>
-
-    <textarea
-        id="observacoes"
-        placeholder="Ex: Não subir muito o degradê..."
-    ></textarea>
-
-</div>
-
-
-<!-- PREÇO -->
+<textarea id="observacoes" placeholder="Ex: Não subir muito o degradê..."></textarea>
 
 <div class="preco-box">
-
-    <div class="preco-titulo">
-        VALOR DO SERVIÇO
-    </div>
-
-    <div
-        class="preco"
-        id="preco"
-    >
-        $0.00
-    </div>
-
+    <div class="preco-titulo">VALOR DO SERVIÇO</div>
+    <div class="preco" id="preco">$0.00</div>
 </div>
-
-
-<!-- RESUMO -->
 
 <div class="resumo-final">
 
-    <div class="resumo-titulo">
+```
+<div class="resumo-titulo">🧾 RESUMO DO AGENDAMENTO</div>
 
-        🧾 RESUMO DO AGENDAMENTO
+<div class="resumo-item">
+    <span>Serviço</span>
+    <strong id="finalServico">—</strong>
+</div>
 
-    </div>
+<div class="resumo-item">
+    <span>Data</span>
+    <strong id="finalData">—</strong>
+</div>
 
+<div class="resumo-item">
+    <span>Horário</span>
+    <strong id="finalHorario">—</strong>
+</div>
 
-    <div class="resumo-item">
+<div class="linha"></div>
 
-        <span>
-            Serviço
-        </span>
-
-        <strong id="finalServico">
-            —
-        </strong>
-
-    </div>
-
-
-    <div class="resumo-item">
-
-        <span>
-            Data
-        </span>
-
-        <strong id="finalData">
-            —
-        </strong>
-
-    </div>
-
-
-    <div class="resumo-item">
-
-        <span>
-            Horário
-        </span>
-
-        <strong id="finalHorario">
-            —
-        </strong>
-
-    </div>
-
-
-    <div class="linha"></div>
-
-
-    <div class="total-final">
-
-        <span>
-            TOTAL
-        </span>
-
-        <strong id="finalPreco">
-            $0.00
-        </strong>
-
-    </div>
+<div class="total-final">
+    <span>TOTAL</span>
+    <strong id="finalPreco">$0.00</strong>
+</div>
+```
 
 </div>
 
-
-<!-- BOTÃO -->
-
-<button
-    id="botao"
-    class="agendar"
-    onclick="agendar()"
->
-
-    ✂️ CONFIRMAR AGENDAMENTO
-
+<button id="botao" class="agendar" onclick="agendar()">
+    ✂️ AGENDAR CORTE
 </button>
-
 
 <div id="status"></div>
 
-
-<div class="footer">
-
-    SAMUCA BARBERSHOP • AGENDAMENTO ONLINE
-
 </div>
 
+<!-- POPUP -->
+
+<div id="popupOverlay" class="popup-overlay">
+
+```
+<div id="popup" class="popup">
+
+    <div id="popupIcon" class="popup-icon">✓</div>
+
+    <h2 id="popupTitle">Agendamento</h2>
+
+    <p id="popupMessage"></p>
+
+    <div id="popupDetails" class="popup-details"></div>
+
+    <button onclick="fecharPopup()">FECHAR</button>
 
 </div>
+```
 
+</div>
 
 <script>
 
-
-/* =====================================================
-   PREÇOS
-===================================================== */
-
 const PRECOS = {
-
     "Corte masculino": 25,
-
     "Corte + barba": 35,
-
     "Barba": 15,
-
     "Corte infantil": 20
-
 };
 
-
-/* =====================================================
-   HORÁRIOS
-===================================================== */
-
 const HORARIOS = [
-
-    "09:00",
-    "09:30",
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
-
-    "13:00",
-    "13:30",
-    "14:00",
-    "14:30",
-    "15:00",
-    "15:30",
-
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30"
-
+    "09:00","09:30","10:00","10:30","11:00","11:30",
+    "13:00","13:30","14:00","14:30","15:00","15:30",
+    "16:00","16:30","17:00","17:30","18:00","18:30"
 ];
 
-
 let horarioSelecionado = "";
-
 let horariosOcupados = [];
 
+const campoData = document.getElementById("data");
 
-/* =====================================================
-   DATA
-===================================================== */
-
-const campoData =
-    document.getElementById("data");
-
-
-const hoje =
-    new Date();
-
-
-const ano =
-    hoje.getFullYear();
-
-
-const mes =
-    String(
-        hoje.getMonth() + 1
-    ).padStart(2, "0");
-
-
-const dia =
-    String(
-        hoje.getDate()
-    ).padStart(2, "0");
-
+const hoje = new Date();
 
 campoData.min =
-    `${ano}-${mes}-${dia}`;
+    hoje.getFullYear() + "-" +
+    String(hoje.getMonth() + 1).padStart(2,"0") + "-" +
+    String(hoje.getDate()).padStart(2,"0");
 
+campoData.addEventListener("change", async function() {
+    horarioSelecionado = "";
+    atualizarResumo();
+    await carregarHorarios();
+});
 
-/* =====================================================
-   DATA ALTERADA
-===================================================== */
-
-campoData.addEventListener(
-    "change",
-    async function() {
-
-        horarioSelecionado = "";
-
-        atualizarResumo();
-
-        await carregarHorarios();
-
-    }
-);
-
-
-/* =====================================================
-   SERVIÇO ALTERADO
-===================================================== */
-
-document
-    .getElementById("servico")
-    .addEventListener(
-        "change",
-        function() {
-
-            atualizarPreco();
-
-            atualizarResumo();
-
-        }
-    );
-
-
-/* =====================================================
-   CARREGAR HORÁRIOS
-===================================================== */
+document.getElementById("servico").addEventListener("change", function() {
+    atualizarPreco();
+    atualizarResumo();
+});
 
 async function carregarHorarios() {
 
-    const data =
-        campoData.value;
-
-    const container =
-        document.getElementById(
-            "horarios"
-        );
-
+    const data = campoData.value;
+    const container = document.getElementById("horarios");
 
     if (!data) {
-
-        container.innerHTML = `
-
-            <div class="horario">
-
-                Escolha uma data
-
-            </div>
-
-        `;
-
+        container.innerHTML =
+            '<div class="horario">Escolha uma data</div>';
         return;
-
     }
-
 
     container.innerHTML = "";
 
-    HORARIOS.forEach(
-        horario => {
-
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-            div.className =
-                "horario loading";
-
-            div.textContent =
-                "⏳";
-
-            container.appendChild(
-                div
-            );
-
-        }
-    );
-
+    HORARIOS.forEach(() => {
+        const div = document.createElement("div");
+        div.className = "horario loading";
+        div.textContent = "⏳";
+        container.appendChild(div);
+    });
 
     try {
 
-        const response =
-            await fetch(
-                "/api/horarios?data=" +
-                encodeURIComponent(data)
-            );
+        const response = await fetch(
+            "/api/horarios?data=" + encodeURIComponent(data)
+        );
 
+        const resultado = await response.json();
 
-        const resultado =
-            await response.json();
-
-
-        if (
-            !resultado.success
-        ) {
-
-            throw new Error(
-                "Erro ao consultar horários"
-            );
-
+        if (!resultado.success) {
+            throw new Error("Erro ao consultar horários");
         }
 
-
-        horariosOcupados =
-            resultado.ocupados || [];
-
+        horariosOcupados = resultado.ocupados || [];
 
         renderizarHorarios();
 
-    }
-
-    catch(error) {
+    } catch(error) {
 
         console.error(error);
 
-
         container.innerHTML = `
-
-            <div
-                class="horario"
-                style="
-                    grid-column:1/-1;
-                    color:#ff6b6b;
-                "
-            >
-
-                ❌ Não foi possível
-                carregar os horários.
-
-                <br>
-
-                Tente novamente.
-
+            <div class="horario"
+                style="grid-column:1/-1;color:#ff6b6b;">
+                ❌ Não foi possível carregar os horários.
+                <br>Tente novamente.
             </div>
-
         `;
-
     }
-
 }
-
-
-/* =====================================================
-   RENDERIZAR HORÁRIOS
-===================================================== */
 
 function renderizarHorarios() {
 
-    const container =
-        document.getElementById(
-            "horarios"
-        );
-
-
+    const container = document.getElementById("horarios");
     container.innerHTML = "";
 
+    HORARIOS.forEach(horario => {
 
-    HORARIOS.forEach(
-        horario => {
+        const ocupado =
+            horariosOcupados.includes(horario);
 
-            const ocupado =
-                horariosOcupados.includes(
-                    horario
-                );
+        const div = document.createElement("div");
+        div.className = "horario";
 
+        if (ocupado) {
 
-            const div =
-                document.createElement(
-                    "div"
-                );
+            div.classList.add("ocupado");
 
+            div.innerHTML = `
+                ${horario}
+                <br>
+                <small>🔴 OCUPADO</small>
+            `;
 
-            div.className =
-                "horario";
+        } else {
 
+            div.textContent = horario;
 
-            if (ocupado) {
-
-                div.classList.add(
-                    "ocupado"
-                );
-
-
-                div.innerHTML = `
-
-                    ${horario}
-
-                    <br>
-
-                    <small>
-                        🔴 OCUPADO
-                    </small>
-
-                `;
-
-            }
-
-            else {
-
-                div.textContent =
-                    horario;
-
-
-                div.onclick =
-                    function() {
-
-                        selecionarHorario(
-                            horario,
-                            div
-                        );
-
-                    };
-
-            }
-
-
-            container.appendChild(
-                div
-            );
-
+            div.onclick = function() {
+                selecionarHorario(horario, div);
+            };
         }
-    );
 
+        container.appendChild(div);
+    });
 }
 
+function selecionarHorario(horario, elemento) {
 
-/* =====================================================
-   SELECIONAR HORÁRIO
-===================================================== */
-
-function selecionarHorario(
-    horario,
-    elemento
-) {
-
-    document
-        .querySelectorAll(
-            ".horario"
-        )
-        .forEach(
-            item => {
-
-                item.classList.remove(
-                    "selecionado"
-                );
-
-            }
+    document.querySelectorAll(".horario")
+        .forEach(item =>
+            item.classList.remove("selecionado")
         );
 
+    elemento.classList.add("selecionado");
 
-    elemento.classList.add(
-        "selecionado"
-    );
-
-
-    horarioSelecionado =
-        horario;
-
+    horarioSelecionado = horario;
 
     atualizarResumo();
-
 }
-
-
-/* =====================================================
-   PREÇO
-===================================================== */
 
 function atualizarPreco() {
 
     const servico =
-        document.getElementById(
-            "servico"
-        ).value;
+        document.getElementById("servico").value;
 
+    const preco = PRECOS[servico] || 0;
 
-    const preco =
-        PRECOS[servico] || 0;
+    document.getElementById("preco").textContent =
+        "$" + preco.toFixed(2);
 
-
-    document.getElementById(
-        "preco"
-    ).textContent =
-
-        "$" +
-        preco.toFixed(2);
-
-
-    document.getElementById(
-        "finalPreco"
-    ).textContent =
-
-        "$" +
-        preco.toFixed(2);
-
+    document.getElementById("finalPreco").textContent =
+        "$" + preco.toFixed(2);
 }
-
-
-/* =====================================================
-   RESUMO
-===================================================== */
 
 function atualizarResumo() {
 
     const servico =
-        document.getElementById(
-            "servico"
-        ).value;
+        document.getElementById("servico").value;
 
+    const data = campoData.value;
 
-    const data =
-        campoData.value;
+    const preco = PRECOS[servico] || 0;
 
-
-    const preco =
-        PRECOS[servico] || 0;
-
-
-    document.getElementById(
-        "finalServico"
-    ).textContent =
-
+    document.getElementById("finalServico").textContent =
         servico || "—";
 
-
-    document.getElementById(
-        "finalData"
-    ).textContent =
-
+    document.getElementById("finalData").textContent =
         data || "—";
 
-
-    document.getElementById(
-        "finalHorario"
-    ).textContent =
-
+    document.getElementById("finalHorario").textContent =
         horarioSelecionado || "—";
 
-
-    document.getElementById(
-        "finalPreco"
-    ).textContent =
-
-        "$" +
-        preco.toFixed(2);
-
+    document.getElementById("finalPreco").textContent =
+        "$" + preco.toFixed(2);
 }
 
+function mostrarPopup(tipo, titulo, mensagem, detalhes = "") {
 
-/* =====================================================
-   AGENDAR
-===================================================== */
+    const overlay = document.getElementById("popupOverlay");
+    const popup = document.getElementById("popup");
+
+    popup.className = "popup " + tipo;
+
+    document.getElementById("popupTitle").textContent = titulo;
+    document.getElementById("popupMessage").textContent = mensagem;
+    document.getElementById("popupDetails").innerHTML = detalhes;
+
+    document.getElementById("popupIcon").textContent =
+        tipo === "success" ? "✓" : "!";
+
+    overlay.classList.add("show");
+}
+
+function fecharPopup() {
+    document.getElementById("popupOverlay")
+        .classList.remove("show");
+}
+
+document.getElementById("popupOverlay")
+    .addEventListener("click", function(e) {
+        if (e.target === this) fecharPopup();
+    });
 
 async function agendar() {
 
-    const botao =
-        document.getElementById(
-            "botao"
-        );
-
-
-    const status =
-        document.getElementById(
-            "status"
-        );
-
+    const botao = document.getElementById("botao");
+    const status = document.getElementById("status");
 
     const dados = {
 
         nome:
-            document.getElementById(
-                "nome"
-            ).value.trim(),
+            document.getElementById("nome").value.trim(),
 
         telefone:
-            document.getElementById(
-                "telefone"
-            ).value.trim(),
+            document.getElementById("telefone").value.trim(),
 
         email:
-            document.getElementById(
-                "email"
-            ).value.trim(),
+            document.getElementById("email").value.trim(),
 
         data:
             campoData.value,
@@ -1663,239 +771,110 @@ async function agendar() {
             horarioSelecionado,
 
         servico:
-            document.getElementById(
-                "servico"
-            ).value,
+            document.getElementById("servico").value,
 
         tipo:
-            document.getElementById(
-                "tipo"
-            ).value,
+            document.getElementById("tipo").value,
 
         observacoes:
-            document.getElementById(
-                "observacoes"
-            ).value.trim()
-
+            document.getElementById("observacoes").value.trim()
     };
 
-
     if (
-
         !dados.nome ||
-
         !dados.telefone ||
-
         !dados.data ||
-
         !dados.horario ||
-
         !dados.servico ||
-
         !dados.tipo
-
     ) {
 
-        status.style.color =
-            "#ff6b6b";
-
-        status.textContent =
-            "❌ Preencha todos os campos obrigatórios.";
+        mostrarPopup(
+            "error",
+            "Campos incompletos",
+            "Preencha todos os campos obrigatórios antes de continuar."
+        );
 
         return;
-
     }
 
+    if (horariosOcupados.includes(dados.horario)) {
 
-    if (
-        horariosOcupados.includes(
-            dados.horario
-        )
-    ) {
-
-        status.style.color =
-            "#ff6b6b";
-
-        status.textContent =
-            "❌ Esse horário está ocupado. Escolha outro.";
+        mostrarPopup(
+            "error",
+            "Horário ocupado",
+            "Esse horário acabou de ser reservado. Escolha outro horário."
+        );
 
         await carregarHorarios();
 
         return;
-
     }
 
+    const preco = PRECOS[dados.servico];
 
-    const preco =
-        PRECOS[dados.servico];
+    botao.disabled = true;
 
-
-    botao.disabled =
-        true;
-
-
-    status.style.color =
-        "#aaa";
-
-
-    status.textContent =
-        "⏳ Confirmando seu agendamento...";
-
+    status.textContent = "Confirmando seu agendamento...";
 
     try {
 
-        const response =
-            await fetch(
-                "/api/submit",
-                {
+        const response = await fetch(
+            "/api/submit",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dados)
+            }
+        );
 
-                    method:
-                        "POST",
+        const resultado = await response.json();
 
-                    headers: {
+        if (response.ok && resultado.success) {
 
-                        "Content-Type":
-                            "application/json"
-
-                    },
-
-                    body:
-                        JSON.stringify(
-                            dados
-                        )
-
-                }
+            mostrarPopup(
+                "success",
+                "Agendamento confirmado!",
+                "Seu horário foi reservado com sucesso.",
+                `
+                    📅 ${dados.data}<br>
+                    🕐 ${dados.horario}<br>
+                    ✂️ ${dados.servico}<br>
+                    💈 ${dados.tipo}<br>
+                    <strong style="color:#39ff88;font-size:18px;">
+                        Total: $${preco.toFixed(2)}
+                    </strong>
+                `
             );
 
+            document.getElementById("nome").value = "";
+            document.getElementById("telefone").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("data").value = "";
+            document.getElementById("servico").value = "";
+            document.getElementById("tipo").value = "";
+            document.getElementById("observacoes").value = "";
 
-        const resultado =
-            await response.json();
-
-
-        if (
-            response.ok &&
-            resultado.success
-        ) {
-
-            status.style.color =
-                "#39ff88";
-
-
-            status.innerHTML = `
-
-                ✅ <strong>
-                Agendamento enviado com sucesso!
-                </strong>
-
-                <br><br>
-
-                📅 ${dados.data}
-
-                <br>
-
-                🕐 ${dados.horario}
-
-                <br>
-
-                ✂️ ${dados.servico}
-
-                <br>
-
-                💵 Total:
-                <strong>
-                $${preco.toFixed(2)}
-                </strong>
-
-            `;
-
-
-            document.getElementById(
-                "nome"
-            ).value = "";
-
-
-            document.getElementById(
-                "telefone"
-            ).value = "";
-
-
-            document.getElementById(
-                "email"
-            ).value = "";
-
-
-            document.getElementById(
-                "data"
-            ).value = "";
-
-
-            document.getElementById(
-                "servico"
-            ).value = "";
-
-
-            document.getElementById(
-                "tipo"
-            ).value = "";
-
-
-            document.getElementById(
-                "observacoes"
-            ).value = "";
-
-
-            horarioSelecionado =
-                "";
-
-
-            horariosOcupados =
-                [];
-
+            horarioSelecionado = "";
+            horariosOcupados = [];
 
             atualizarPreco();
-
             atualizarResumo();
 
-
-            document.getElementById(
-                "horarios"
-            ).innerHTML = `
-
-                <div class="horario">
-
-                    Escolha uma data
-
-                </div>
-
-            `;
+            document.getElementById("horarios").innerHTML =
+                '<div class="horario">Escolha uma data</div>';
 
         }
 
-        else if (
-            response.status === 409
-        ) {
+        else if (response.status === 409) {
 
-            status.style.color =
-                "#ff6b6b";
-
-
-            status.innerHTML = `
-
-                ❌ <strong>
-                Horário indisponível
-                </strong>
-
-                <br>
-
-                Esse horário acabou
-                de ser reservado.
-
-                <br>
-
-                Escolha outro horário.
-
-            `;
-
+            mostrarPopup(
+                "error",
+                "Horário indisponível",
+                "Esse horário acabou de ser reservado por outra pessoa. Escolha outro."
+            );
 
             await carregarHorarios();
 
@@ -1903,45 +882,34 @@ async function agendar() {
 
         else {
 
-            status.style.color =
-                "#ff6b6b";
-
-
-            status.textContent =
-
-                "❌ " +
-
-                (
-                    resultado.message ||
-                    "Erro ao realizar agendamento."
-                );
-
+            mostrarPopup(
+                "error",
+                "Não foi possível agendar",
+                resultado.message ||
+                "Ocorreu um erro ao realizar o agendamento."
+            );
         }
 
-    }
-
-    catch(error) {
+    } catch(error) {
 
         console.error(error);
 
-
-        status.style.color =
-            "#ff6b6b";
-
-
-        status.textContent =
-            "❌ Servidor offline. Tente novamente.";
+        mostrarPopup(
+            "error",
+            "Erro de conexão",
+            "Não foi possível conectar ao servidor. Tente novamente."
+        );
 
     }
 
-
-    botao.disabled =
-        false;
-
+    botao.disabled = false;
+    status.textContent = "";
 }
+
+atualizarPreco();
+atualizarResumo();
 
 </script>
 
 </body>
-
 </html>
