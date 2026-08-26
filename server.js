@@ -36,18 +36,6 @@ app.use(
 // =====================================================
 // LOGIN
 // =====================================================
-//
-// No Render, crie:
-//
-// ADMIN_USER
-// ADMIN_PASSWORD
-//
-// Exemplo:
-//
-// ADMIN_USER = samuca
-// ADMIN_PASSWORD = sua_senha_aqui
-//
-// =====================================================
 
 const ADMIN_USER =
     process.env.ADMIN_USER || "samuca";
@@ -80,7 +68,6 @@ function criarSessao() {
     );
 
     return token;
-
 }
 
 
@@ -88,10 +75,7 @@ function criarSessao() {
 // LER COOKIE
 // =====================================================
 
-function pegarCookie(
-    req,
-    nome
-) {
+function pegarCookie(req, nome) {
 
     const cookies =
         req.headers.cookie || "";
@@ -99,30 +83,21 @@ function pegarCookie(
     const partes =
         cookies.split(";");
 
-
-    for (
-        const parte of partes
-    ) {
+    for (const parte of partes) {
 
         const [chave, ...valor] =
             parte.trim().split("=");
 
-
-        if (
-            chave === nome
-        ) {
+        if (chave === nome) {
 
             return decodeURIComponent(
                 valor.join("=")
             );
 
         }
-
     }
 
-
     return null;
-
 }
 
 
@@ -138,16 +113,11 @@ function estaLogado(req) {
             "samuca_session"
         );
 
-
     if (!token) {
-
         return false;
-
     }
 
-
     return sessoes.has(token);
-
 }
 
 
@@ -155,15 +125,9 @@ function estaLogado(req) {
 // PROTEGER API
 // =====================================================
 
-function exigirLogin(
-    req,
-    res,
-    next
-) {
+function exigirLogin(req, res, next) {
 
-    if (
-        !estaLogado(req)
-    ) {
+    if (!estaLogado(req)) {
 
         return res.status(401).json({
 
@@ -173,17 +137,14 @@ function exigirLogin(
                 "Não autorizado."
 
         });
-
     }
 
-
     next();
-
 }
 
 
 // =====================================================
-// PREÇOS OFICIAIS
+// PREÇOS
 // =====================================================
 
 const PRECOS = {
@@ -239,6 +200,8 @@ const STATUS_VALIDOS = [
 
     "Confirmado",
 
+    "Em andamento",
+
     "Cancelado",
 
     "Finalizado"
@@ -257,7 +220,6 @@ async function prepararBanco() {
         console.log(
             "🔄 Preparando banco..."
         );
-
 
         await pool.query(`
 
@@ -359,7 +321,6 @@ async function prepararBanco() {
         );
 
     }
-
 }
 
 
@@ -380,10 +341,7 @@ app.post(
         } = req.body;
 
 
-        if (
-            !usuario ||
-            !senha
-        ) {
+        if (!usuario || !senha) {
 
             return res.status(400).json({
 
@@ -393,7 +351,6 @@ app.post(
                     "Preencha usuário e senha."
 
             });
-
         }
 
 
@@ -410,7 +367,6 @@ app.post(
                     "Usuário ou senha incorretos."
 
             });
-
         }
 
 
@@ -454,16 +410,13 @@ app.get(
     "/api/auth",
     (req, res) => {
 
-        if (
-            !estaLogado(req)
-        ) {
+        if (!estaLogado(req)) {
 
             return res.status(401).json({
 
                 success: false
 
             });
-
         }
 
 
@@ -520,25 +473,12 @@ app.post(
 // =====================================================
 // DASHBOARD PROTEGIDO
 // =====================================================
-//
-// IMPORTANTE:
-// Este middleware vem ANTES do express.static.
-//
-// Assim ninguém consegue simplesmente abrir:
-//
-// /dashboard.html
-//
-// sem estar logado.
-//
-// =====================================================
 
 app.get(
     "/dashboard.html",
     (req, res) => {
 
-        if (
-            !estaLogado(req)
-        ) {
+        if (!estaLogado(req)) {
 
             return res.redirect(
                 "/login.html"
@@ -1335,6 +1275,10 @@ app.listen(
 
         console.log(
             "🔐 Sistema de login ativo."
+        );
+
+        console.log(
+            "💈 Status 'Em andamento' ativo."
         );
 
     }
