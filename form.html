@@ -5,8 +5,10 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>SAMUCA • Agendamento</title>
 
@@ -294,43 +296,91 @@ textarea {
 
 
 /* ================================
-   RESUMO
+   RESUMO FINAL
 ================================ */
 
-.resumo {
+.resumo-final {
 
-    margin-top: 15px;
+    margin-top: 20px;
 
-    padding: 15px;
+    padding: 20px;
 
-    background: #0c0c0c;
+    background: #0b0b0b;
 
-    border: 1px solid #292929;
+    border: 1px solid #348cff;
 
-    border-radius: 10px;
+    border-radius: 14px;
 
-    display: none;
+    box-shadow:
+        0 0 20px rgba(52,140,255,.08);
+
 }
 
-.resumo.mostrar {
+.resumo-titulo {
 
-    display: block;
+    color: #348cff;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 15px;
+
 }
 
-.resumo-linha {
+.resumo-item {
 
     display: flex;
 
     justify-content: space-between;
 
-    padding: 5px 0;
+    gap: 15px;
 
-    color: #aaa;
+    padding: 7px 0;
+
+    color: #888;
+
 }
 
-.resumo-linha strong {
+.resumo-item strong {
 
     color: white;
+
+    text-align: right;
+}
+
+.linha {
+
+    height: 1px;
+
+    background: #292929;
+
+    margin: 12px 0;
+}
+
+.total-final {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.total-final span {
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+.total-final strong {
+
+    font-size: 30px;
+
+    color: #39ff88;
 }
 
 
@@ -421,11 +471,16 @@ button.agendar:disabled {
 
 </head>
 
+
 <body>
 
 
 <div class="form">
 
+
+<!-- ================================
+     LOGO
+================================ -->
 
 <div class="logo">
 
@@ -449,9 +504,9 @@ Nome completo *
 </label>
 
 <input
-id="nome"
-type="text"
-placeholder="Digite seu nome"
+    id="nome"
+    type="text"
+    placeholder="Digite seu nome"
 >
 
 
@@ -464,9 +519,9 @@ Telefone *
 </label>
 
 <input
-id="telefone"
-type="tel"
-placeholder="(00) 00000-0000"
+    id="telefone"
+    type="tel"
+    placeholder="(00) 00000-0000"
 >
 
 
@@ -479,9 +534,9 @@ E-mail
 </label>
 
 <input
-id="email"
-type="email"
-placeholder="seuemail@email.com"
+    id="email"
+    type="email"
+    placeholder="seuemail@email.com"
 >
 
 
@@ -494,13 +549,13 @@ placeholder="seuemail@email.com"
 </label>
 
 <input
-id="data"
-type="date"
+    id="data"
+    type="date"
 >
 
 
 <!-- ================================
-     HORÁRIOS
+     HORÁRIO
 ================================ -->
 
 <label>
@@ -522,13 +577,20 @@ type="date"
 <div class="legenda">
 
     <span>
+
         <span class="dot disponivel"></span>
+
         Disponível
+
     </span>
 
+
     <span>
+
         <span class="dot ocupado"></span>
+
         Ocupado
+
     </span>
 
 </div>
@@ -617,8 +679,8 @@ Outro
 </label>
 
 <textarea
-id="observacoes"
-placeholder="Ex: Não subir muito o degradê..."
+    id="observacoes"
+    placeholder="Ex: Não subir muito o degradê..."
 ></textarea>
 
 
@@ -643,63 +705,67 @@ placeholder="Ex: Não subir muito o degradê..."
 
 
 <!-- ================================
-     RESUMO
+     RESUMO FINAL
 ================================ -->
 
-<div
-    id="resumo"
-    class="resumo"
->
+<div class="resumo-final">
 
-    <div class="resumo-linha">
+    <div class="resumo-titulo">
+
+        🧾 RESUMO DO AGENDAMENTO
+
+    </div>
+
+
+    <div class="resumo-item">
 
         <span>
             Serviço
         </span>
 
-        <strong id="resumoServico">
+        <strong id="finalServico">
             —
         </strong>
 
     </div>
 
 
-    <div class="resumo-linha">
+    <div class="resumo-item">
 
         <span>
             Data
         </span>
 
-        <strong id="resumoData">
+        <strong id="finalData">
             —
         </strong>
 
     </div>
 
 
-    <div class="resumo-linha">
+    <div class="resumo-item">
 
         <span>
             Horário
         </span>
 
-        <strong id="resumoHorario">
+        <strong id="finalHorario">
             —
         </strong>
 
     </div>
 
 
-    <div class="resumo-linha">
+    <div class="linha"></div>
+
+
+    <div class="total-final">
 
         <span>
-            Total
+            TOTAL
         </span>
 
-        <strong
-            id="resumoPreco"
-            style="color:#39ff88"
-        >
+        <strong id="finalPreco">
             $0.00
         </strong>
 
@@ -785,14 +851,12 @@ let horariosOcupados = [];
 
 
 // =====================================================
-// DATA MÍNIMA
+// DATA
 // =====================================================
 
 const campoData =
     document.getElementById("data");
 
-
-// Impede escolher datas passadas
 
 const hoje =
     new Date();
@@ -801,10 +865,12 @@ const hoje =
 const ano =
     hoje.getFullYear();
 
+
 const mes =
     String(
         hoje.getMonth() + 1
     ).padStart(2, "0");
+
 
 const dia =
     String(
@@ -817,15 +883,14 @@ campoData.min =
 
 
 // =====================================================
-// QUANDO ESCOLHER DATA
+// MUDOU DATA
 // =====================================================
 
 campoData.addEventListener(
     "change",
     async function() {
 
-        horarioSelecionado =
-            "";
+        horarioSelecionado = "";
 
         atualizarResumo();
 
@@ -836,7 +901,7 @@ campoData.addEventListener(
 
 
 // =====================================================
-// QUANDO ESCOLHER SERVIÇO
+// MUDOU SERVIÇO
 // =====================================================
 
 document
@@ -886,10 +951,6 @@ async function carregarHorarios() {
 
     }
 
-
-    // ---------------------------------------------
-    // LOADING
-    // ---------------------------------------------
 
     container.innerHTML = "";
 
@@ -944,7 +1005,6 @@ async function carregarHorarios() {
 
 
         renderizarHorarios();
-
 
     }
 
@@ -1015,30 +1075,26 @@ function renderizarHorarios() {
                 "horario";
 
 
-            // -----------------------------------------
-            // OCUPADO
-            // -----------------------------------------
-
             if (ocupado) {
 
                 div.classList.add(
                     "ocupado"
                 );
 
+
                 div.innerHTML = `
+
                     ${horario}
+
                     <br>
+
                     <small>
-                        OCUPADO
+                        🔴 OCUPADO
                     </small>
+
                 `;
 
             }
-
-
-            // -----------------------------------------
-            // DISPONÍVEL
-            // -----------------------------------------
 
             else {
 
@@ -1134,7 +1190,7 @@ function atualizarPreco() {
 
 
     document.getElementById(
-        "resumoPreco"
+        "finalPreco"
     ).textContent =
 
         "$" +
@@ -1160,59 +1216,37 @@ function atualizarResumo() {
         campoData.value;
 
 
-    const resumo =
-        document.getElementById(
-            "resumo"
-        );
-
-
-    document.getElementById(
-        "resumoServico"
-    ).textContent =
-
-        servico ||
-        "—";
-
-
-    document.getElementById(
-        "resumoData"
-    ).textContent =
-
-        data ||
-        "—";
-
-
-    document.getElementById(
-        "resumoHorario"
-    ).textContent =
-
-        horarioSelecionado ||
-        "—";
-
-
     const preco =
         PRECOS[servico] || 0;
 
 
     document.getElementById(
-        "resumoPreco"
+        "finalServico"
+    ).textContent =
+
+        servico || "—";
+
+
+    document.getElementById(
+        "finalData"
+    ).textContent =
+
+        data || "—";
+
+
+    document.getElementById(
+        "finalHorario"
+    ).textContent =
+
+        horarioSelecionado || "—";
+
+
+    document.getElementById(
+        "finalPreco"
     ).textContent =
 
         "$" +
         preco.toFixed(2);
-
-
-    if (
-        servico ||
-        data ||
-        horarioSelecionado
-    ) {
-
-        resumo.classList.add(
-            "mostrar"
-        );
-
-    }
 
 }
 
@@ -1238,44 +1272,36 @@ async function agendar() {
 
     const dados = {
 
-
         nome:
             document.getElementById(
                 "nome"
             ).value.trim(),
-
 
         telefone:
             document.getElementById(
                 "telefone"
             ).value.trim(),
 
-
         email:
             document.getElementById(
                 "email"
             ).value.trim(),
 
-
         data:
             campoData.value,
 
-
         horario:
             horarioSelecionado,
-
 
         servico:
             document.getElementById(
                 "servico"
             ).value,
 
-
         tipo:
             document.getElementById(
                 "tipo"
             ).value,
-
 
         observacoes:
             document.getElementById(
@@ -1317,7 +1343,7 @@ async function agendar() {
 
 
     // =================================================
-    // VERIFICAÇÃO LOCAL
+    // VERIFICAR HORÁRIO
     // =================================================
 
     if (
@@ -1330,7 +1356,7 @@ async function agendar() {
             "#ff6b6b";
 
         status.textContent =
-            "❌ Esse horário acabou de ser ocupado. Escolha outro.";
+            "❌ Esse horário está ocupado. Escolha outro.";
 
         await carregarHorarios();
 
@@ -1339,17 +1365,9 @@ async function agendar() {
     }
 
 
-    // =================================================
-    // PREÇO
-    // =================================================
-
     const preco =
         PRECOS[dados.servico];
 
-
-    // =================================================
-    // BOTÃO
-    // =================================================
 
     botao.disabled =
         true;
@@ -1364,7 +1382,6 @@ async function agendar() {
 
 
     try {
-
 
         const response =
             await fetch(
@@ -1411,19 +1428,27 @@ async function agendar() {
             status.innerHTML = `
 
                 ✅ <strong>
-                Agendamento confirmado!
+                Agendamento enviado com sucesso!
                 </strong>
 
-                <br>
+                <br><br>
 
                 📅 ${dados.data}
 
-                • 🕐 ${dados.horario}
+                <br>
+
+                🕐 ${dados.horario}
+
+                <br>
+
+                ✂️ ${dados.servico}
 
                 <br>
 
                 💵 Total:
+                <strong>
                 $${preco.toFixed(2)}
+                </strong>
 
             `;
 
@@ -1469,14 +1494,14 @@ async function agendar() {
                 "";
 
 
+            horariosOcupados =
+                [];
+
+
             atualizarPreco();
 
 
-            document.getElementById(
-                "resumo"
-            ).classList.remove(
-                "mostrar"
-            );
+            atualizarResumo();
 
 
             document.getElementById(
@@ -1499,8 +1524,7 @@ async function agendar() {
         // =================================================
 
         else if (
-            response.status ===
-            409
+            response.status === 409
         ) {
 
 
@@ -1532,7 +1556,7 @@ async function agendar() {
 
 
         // =================================================
-        // OUTRO ERRO
+        // ERRO
         // =================================================
 
         else {
@@ -1555,13 +1579,9 @@ async function agendar() {
 
     }
 
-
     catch(error) {
 
-
-        console.error(
-            error
-        );
+        console.error(error);
 
 
         status.style.color =
