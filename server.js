@@ -5,6 +5,7 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// PostgreSQL
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
@@ -12,36 +13,44 @@ const pool = new Pool({
     }
 });
 
+// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 
-async function initDatabase() {
-    await pool.query(`
-        CREATE TABLE IF NOT EXISTS appointments (
-            id BIGSERIAL PRIMARY KEY,
-            nome TEXT NOT NULL,
-            telefone TEXT NOT NULL,
-            email TEXT,
-            data TEXT NOT NULL,
-            horario TEXT NOT NULL,
-            servico TEXT NOT NULL,
-            tipo TEXT NOT NULL,
-            observacoes TEXT,
-            status TEXT DEFAULT 'Pendente',
-            enviado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    `);
+// Criar tabela automaticamente
+async function criarTabela() {
+    try {
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS appointments (
+                id BIGSERIAL PRIMARY KEY,
+                nome TEXT NOT NULL,
+                telefone TEXT NOT NULL,
+                email TEXT,
+                data TEXT NOT NULL,
+                horario TEXT NOT NULL,
+                servico TEXT NOT NULL,
+                tipo TEXT NOT NULL,
+                observacoes TEXT,
+                status TEXT DEFAULT 'Pendente',
+                enviado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
 
-    console.log("Banco de dados conectado.");
+        console.log("✅ Banco conectado e tabela pronta.");
+
+    } catch (error) {
+        console.error("❌ Erro no banco:", error.message);
+    }
 }
 
-initDatabase().catch(error => {
-    console.error("Erro ao conectar ao banco:", error);
-});
+criarTabela();
 
 
+// ===============================
 // RECEBER AGENDAMENTO
+// ===============================
+
 app.post("/api/submit", async (req, res) => {
 
     try {
@@ -67,7 +76,7 @@ app.post("/api/submit", async (req, res) => {
         ) {
             return res.status(400).json({
                 success: false,
-                message: "Preencha os campos obrigatórios."
+                message: "Preencha todos os campos obrigatórios."
             });
         }
 
@@ -99,6 +108,8 @@ app.post("/api/submit", async (req, res) => {
             ]
         );
 
+        console.log("✅ Novo agendamento:", nome);
+
         res.json({
             success: true,
             appointment: result.rows[0]
@@ -106,7 +117,7 @@ app.post("/api/submit", async (req, res) => {
 
     } catch (error) {
 
-        console.error(error);
+        console.error("❌ ERRO DATABASE:", error);
 
         res.status(500).json({
             success: false,
@@ -116,7 +127,10 @@ app.post("/api/submit", async (req, res) => {
 });
 
 
-// PEGAR AGENDAMENTOS
+// ===============================
+// BUSCAR AGENDAMENTOS
+// ===============================
+
 app.get("/api/submissions", async (req, res) => {
 
     try {
@@ -142,7 +156,7 @@ app.get("/api/submissions", async (req, res) => {
 
     } catch (error) {
 
-        console.error(error);
+        console.error("❌ ERRO AO BUSCAR:", error);
 
         res.status(500).json({
             success: false,
@@ -152,24 +166,29 @@ app.get("/api/submissions", async (req, res) => {
 });
 
 
+// ===============================
 // ALTERAR STATUS
+// ===============================
+
 app.post("/api/status", async (req, res) => {
 
     try {
 
         const { id, status } = req.body;
 
-        const permitidos = [
+        const statusPermitidos = [
             "Pendente",
             "Confirmado",
             "Cancelado"
         ];
 
-        if (!permitidos.includes(status)) {
+        if (!statusPermitidos.includes(status)) {
+
             return res.status(400).json({
                 success: false,
                 message: "Status inválido."
             });
+
         }
 
         const result = await pool.query(
@@ -177,16 +196,17 @@ app.post("/api/status", async (req, res) => {
             UPDATE appointments
             SET status = $1
             WHERE id = $2
-            RETURNING *
             `,
             [status, id]
         );
 
         if (result.rowCount === 0) {
+
             return res.status(404).json({
                 success: false,
                 message: "Agendamento não encontrado."
             });
+
         }
 
         res.json({
@@ -195,7 +215,7 @@ app.post("/api/status", async (req, res) => {
 
     } catch (error) {
 
-        console.error(error);
+        console.error("❌ ERRO STATUS:", error);
 
         res.status(500).json({
             success: false
@@ -204,6 +224,14 @@ app.post("/api/status", async (req, res) => {
 });
 
 
+// ===============================
+// SERVIDOR
+// ===============================
+
 app.listen(PORT, () => {
-    console.log(`SAMUCA rodando na porta ${PORT}`);
+
+    console.log(
+        `🚀 SAMUCA rodando na porta ${PORT}`
+    );
+
 });
