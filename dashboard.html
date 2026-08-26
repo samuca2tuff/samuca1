@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -26,14 +25,12 @@ body {
     color: white;
 }
 
-
 /* =========================================
    HEADER
 ========================================= */
 
 header {
     min-height: 75px;
-
     background: #111;
     border-bottom: 1px solid #292929;
 
@@ -42,7 +39,6 @@ header {
     justify-content: space-between;
 
     padding: 15px 35px;
-
     gap: 15px;
 }
 
@@ -87,7 +83,6 @@ header {
     border-color: #ff6b6b;
 }
 
-
 /* =========================================
    CONTAINER
 ========================================= */
@@ -97,7 +92,6 @@ header {
     max-width: 1500px;
     margin: auto;
 }
-
 
 /* =========================================
    TÍTULO
@@ -109,7 +103,6 @@ header {
     align-items: center;
 
     gap: 15px;
-
     margin-bottom: 25px;
 }
 
@@ -130,7 +123,6 @@ header {
     font-weight: bold;
 }
 
-
 /* =========================================
    ESTATÍSTICAS
 ========================================= */
@@ -142,7 +134,6 @@ header {
         repeat(auto-fit, minmax(190px, 1fr));
 
     gap: 15px;
-
     margin-bottom: 30px;
 }
 
@@ -165,7 +156,6 @@ header {
     margin: 10px 0 0;
     color: #348cff;
 }
-
 
 /* =========================================
    RELATÓRIO
@@ -209,9 +199,107 @@ header {
     margin: 10px 0 0;
 }
 
+/* =========================================
+   BUSCA INTELIGENTE
+========================================= */
+
+.smart-search {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.smart-search input {
+    width: 100%;
+
+    padding: 17px 50px 17px 50px;
+
+    border-radius: 12px;
+
+    border: 1px solid #292929;
+
+    background: #111;
+
+    color: white;
+
+    outline: none;
+
+    font-size: 15px;
+
+    transition: .2s;
+}
+
+.smart-search input:focus {
+    border-color: #348cff;
+
+    box-shadow:
+        0 0 0 3px rgba(52, 140, 255, .10);
+}
+
+.search-icon {
+    position: absolute;
+
+    left: 18px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 19px;
+    opacity: .8;
+
+    pointer-events: none;
+}
+
+.search-clear {
+    position: absolute;
+
+    right: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 30px;
+    height: 30px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: #292929;
+    color: #aaa;
+
+    cursor: pointer;
+
+    display: none;
+
+    font-size: 15px;
+}
+
+.search-clear:hover {
+    background: #3a3a3a;
+    color: white;
+}
+
+.search-help {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 0 2px 18px;
+
+    color: #666;
+
+    font-size: 12px;
+}
+
+.search-count {
+    color: #348cff;
+    font-weight: bold;
+}
 
 /* =========================================
-   BUSCA E FILTRO
+   BUSCA E DATA
 ========================================= */
 
 .filters {
@@ -225,7 +313,7 @@ header {
     margin-bottom: 25px;
 }
 
-.filters input {
+.filters input[type="date"] {
     width: 100%;
 
     padding: 13px 15px;
@@ -241,7 +329,7 @@ header {
     outline: none;
 }
 
-.filters input:focus {
+.filters input[type="date"]:focus {
     border-color: #348cff;
 }
 
@@ -258,6 +346,9 @@ header {
     cursor: pointer;
 }
 
+.clear-filter:hover {
+    background: #292929;
+}
 
 /* =========================================
    ABAS
@@ -298,7 +389,6 @@ header {
     color: white;
 }
 
-
 /* =========================================
    AGENDAMENTOS
 ========================================= */
@@ -311,7 +401,6 @@ header {
 
     gap: 20px;
 }
-
 
 /* =========================================
    CARD
@@ -342,7 +431,6 @@ header {
     align-items: center;
 
     gap: 10px;
-
     margin-bottom: 20px;
 }
 
@@ -387,7 +475,6 @@ header {
     color: #6fb4ff;
 }
 
-
 /* =========================================
    INFO
 ========================================= */
@@ -430,7 +517,6 @@ header {
     color: #ffd83d;
     font-weight: bold;
 }
-
 
 /* =========================================
    AÇÕES
@@ -491,7 +577,6 @@ header {
     opacity: .85;
 }
 
-
 /* =========================================
    VAZIO
 ========================================= */
@@ -509,7 +594,6 @@ header {
     border: 1px solid #292929;
     border-radius: 15px;
 }
-
 
 /* =========================================
    MOBILE
@@ -558,22 +642,24 @@ header {
         grid-template-columns: 1fr;
     }
 
+    .search-help {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
 }
 
 </style>
 
 </head>
 
-
 <body>
-
 
 <header>
 
     <div class="logo">
         SAM<span>UCA</span> BARBERSHOP
     </div>
-
 
     <div class="header-right">
 
@@ -594,7 +680,6 @@ header {
 
 
 <div class="container">
-
 
     <div class="title">
 
@@ -662,51 +747,21 @@ header {
             📊 Relatório de ganhos
         </h2>
 
-
         <div class="report-grid">
 
             <div class="report-card">
-
-                <p>
-                    HOJE
-                </p>
-
-                <h2
-                    id="ganhoHoje"
-                >
-                    $0.00
-                </h2>
-
+                <p>HOJE</p>
+                <h2 id="ganhoHoje">$0.00</h2>
             </div>
 
-
             <div class="report-card">
-
-                <p>
-                    ESTA SEMANA
-                </p>
-
-                <h2
-                    id="ganhoSemana"
-                >
-                    $0.00
-                </h2>
-
+                <p>ESTA SEMANA</p>
+                <h2 id="ganhoSemana">$0.00</h2>
             </div>
 
-
             <div class="report-card">
-
-                <p>
-                    ESTE MÊS
-                </p>
-
-                <h2
-                    id="ganhoMes"
-                >
-                    $0.00
-                </h2>
-
+                <p>ESTE MÊS</p>
+                <h2 id="ganhoMes">$0.00</h2>
             </div>
 
         </div>
@@ -714,17 +769,54 @@ header {
     </div>
 
 
-    <!-- BUSCA E FILTRO -->
+    <!-- BUSCA INTELIGENTE -->
 
-    <div class="filters">
+    <div class="smart-search">
+
+        <span class="search-icon">
+            🔎
+        </span>
 
         <input
             type="text"
             id="busca"
-            placeholder="🔎 Buscar por nome ou telefone..."
-            oninput="renderizar()"
+            autocomplete="off"
+            placeholder="Buscar cliente, telefone, serviço, horário, status..."
+            oninput="buscarInteligente()"
         >
 
+        <button
+            id="searchClear"
+            class="search-clear"
+            onclick="limparBusca()"
+            title="Limpar busca"
+        >
+            ✕
+        </button>
+
+    </div>
+
+
+    <div class="search-help">
+
+        <span>
+            💡 Você pode pesquisar vários termos ao mesmo tempo.
+            Ex: <b>joao fade</b> ou <b>508 15:30</b>
+        </span>
+
+        <span
+            id="searchCount"
+            class="search-count"
+        >
+            0 resultados
+        </span>
+
+    </div>
+
+
+    <!-- DATA -->
+
+    <div class="filters">
 
         <input
             type="date"
@@ -732,12 +824,11 @@ header {
             onchange="renderizar()"
         >
 
-
         <button
             class="clear-filter"
             onclick="limparFiltros()"
         >
-            Limpar filtros
+            🧹 Limpar filtros
         </button>
 
     </div>
@@ -801,12 +892,10 @@ header {
 
     <div id="appointments"></div>
 
-
 </div>
 
 
 <script>
-
 
 let dados = [];
 
@@ -824,7 +913,6 @@ async function verificarLogin() {
         const response =
             await fetch("/api/auth");
 
-
         if (!response.ok) {
 
             window.location.href =
@@ -833,7 +921,6 @@ async function verificarLogin() {
             return false;
 
         }
-
 
         return true;
 
@@ -862,7 +949,6 @@ async function carregar() {
         const response =
             await fetch("/api/submissions");
 
-
         if (response.status === 401) {
 
             window.location.href =
@@ -872,7 +958,6 @@ async function carregar() {
 
         }
 
-
         if (!response.ok) {
 
             throw new Error(
@@ -881,10 +966,8 @@ async function carregar() {
 
         }
 
-
         dados =
             await response.json();
-
 
         atualizarEstatisticas();
 
@@ -897,7 +980,6 @@ async function carregar() {
     catch (error) {
 
         console.error(error);
-
 
         document.getElementById(
             "appointments"
@@ -931,7 +1013,6 @@ function atualizarEstatisticas() {
     ).textContent =
         dados.length;
 
-
     document.getElementById(
         "pendentes"
     ).textContent =
@@ -939,14 +1020,12 @@ function atualizarEstatisticas() {
             x => x.status === "Pendente"
         ).length;
 
-
     document.getElementById(
         "confirmados"
     ).textContent =
         dados.filter(
             x => x.status === "Confirmado"
         ).length;
-
 
     document.getElementById(
         "andamento"
@@ -957,14 +1036,12 @@ function atualizarEstatisticas() {
                 "Em andamento"
         ).length;
 
-
     document.getElementById(
         "pagos"
     ).textContent =
         dados.filter(
             x => x.pago === true
         ).length;
-
 
     document.getElementById(
         "finalizados"
@@ -974,7 +1051,6 @@ function atualizarEstatisticas() {
                 x.status ===
                 "Finalizado"
         ).length;
-
 
     const totalRecebido =
 
@@ -997,7 +1073,6 @@ function atualizarEstatisticas() {
 
             );
 
-
     document.getElementById(
         "recebido"
     ).textContent =
@@ -1017,34 +1092,28 @@ function atualizarRelatorio() {
     const hoje =
         new Date();
 
-
     const hojeTexto =
         formatarDataISO(
             hoje
         );
-
 
     const inicioSemana =
         new Date(
             hoje
         );
 
-
     const diaSemana =
         hoje.getDay();
-
 
     const diferenca =
         diaSemana === 0
             ? 6
             : diaSemana - 1;
 
-
     inicioSemana.setDate(
         hoje.getDate() -
         diferenca
     );
-
 
     inicioSemana.setHours(
         0,
@@ -1053,7 +1122,6 @@ function atualizarRelatorio() {
         0
     );
 
-
     const inicioMes =
         new Date(
             hoje.getFullYear(),
@@ -1061,13 +1129,9 @@ function atualizarRelatorio() {
             1
         );
 
-
     let ganhoHoje = 0;
-
     let ganhoSemana = 0;
-
     let ganhoMes = 0;
-
 
     dados.forEach(
         item => {
@@ -1080,18 +1144,15 @@ function atualizarRelatorio() {
 
             }
 
-
             const valor =
                 Number(
                     item.preco || 0
                 );
 
-
             const dataItem =
                 criarDataLocal(
                     item.data
                 );
-
 
             if (
                 item.data ===
@@ -1103,7 +1164,6 @@ function atualizarRelatorio() {
 
             }
 
-
             if (
                 dataItem >=
                 inicioSemana
@@ -1113,7 +1173,6 @@ function atualizarRelatorio() {
                     valor;
 
             }
-
 
             if (
                 dataItem >=
@@ -1129,14 +1188,12 @@ function atualizarRelatorio() {
 
     );
 
-
     document.getElementById(
         "ganhoHoje"
     ).textContent =
         formatarPreco(
             ganhoHoje
         );
-
 
     document.getElementById(
         "ganhoSemana"
@@ -1145,13 +1202,331 @@ function atualizarRelatorio() {
             ganhoSemana
         );
 
-
     document.getElementById(
         "ganhoMes"
     ).textContent =
         formatarPreco(
             ganhoMes
         );
+
+}
+
+
+// ================================================
+// BUSCA INTELIGENTE
+// ================================================
+
+function normalizarTexto(texto) {
+
+    return String(
+        texto ?? ""
+    )
+    .normalize("NFD")
+    .replace(
+        /[\u0300-\u036f]/g,
+        ""
+    )
+    .toLowerCase()
+    .trim();
+
+}
+
+
+function normalizarTelefone(texto) {
+
+    return String(
+        texto ?? ""
+    )
+    .replace(
+        /\D/g,
+        ""
+    );
+
+}
+
+
+function obterTextoBusca(item) {
+
+    const telefone =
+        normalizarTelefone(
+            item.telefone
+        );
+
+    const telefoneOriginal =
+        normalizarTexto(
+            item.telefone
+        );
+
+    const nome =
+        normalizarTexto(
+            item.nome
+        );
+
+    const email =
+        normalizarTexto(
+            item.email
+        );
+
+    const servico =
+        normalizarTexto(
+            item.servico
+        );
+
+    const tipo =
+        normalizarTexto(
+            item.tipo
+        );
+
+    const observacoes =
+        normalizarTexto(
+            item.observacoes
+        );
+
+    const status =
+        normalizarTexto(
+            item.status
+        );
+
+    const data =
+        normalizarTexto(
+            item.data
+        );
+
+    const dataFormatada =
+        normalizarTexto(
+            formatarData(
+                item.data
+            )
+        );
+
+    const horario =
+        normalizarTexto(
+            item.horario
+        );
+
+    const preco =
+        normalizarTexto(
+            item.preco
+        );
+
+    const precoFormatado =
+        normalizarTexto(
+            formatarPreco(
+                item.preco
+            )
+        );
+
+    const pagamento =
+        item.pago
+            ? "pago"
+            : "nao pago";
+
+    return {
+
+        texto: [
+
+            nome,
+            email,
+            servico,
+            tipo,
+            observacoes,
+            status,
+            data,
+            dataFormatada,
+            horario,
+            preco,
+            precoFormatado,
+            pagamento,
+            telefoneOriginal
+
+        ].join(" "),
+
+        telefone
+
+    };
+
+}
+
+
+function termoCombina(
+    termo,
+    item
+) {
+
+    const dadosBusca =
+        obterTextoBusca(
+            item
+        );
+
+    const termoNormalizado =
+        normalizarTexto(
+            termo
+        );
+
+    if (!termoNormalizado) {
+
+        return true;
+
+    }
+
+
+    /*
+       Se o termo tiver números,
+       também procuramos somente
+       pelos números do telefone.
+    */
+
+    const numeros =
+        termoNormalizado.replace(
+            /\D/g,
+            ""
+        );
+
+
+    if (
+        numeros.length >= 3 &&
+        dadosBusca.telefone.includes(
+            numeros
+        )
+    ) {
+
+        return true;
+
+    }
+
+
+    /*
+       Procura normal.
+    */
+
+    if (
+        dadosBusca.texto.includes(
+            termoNormalizado
+        )
+    ) {
+
+        return true;
+
+    }
+
+
+    /*
+       Atalhos inteligentes.
+    */
+
+    const atalhos = {
+
+        "pagos": item.pago === true,
+
+        "pago": item.pago === true,
+
+        "nao pago":
+            item.pago !== true,
+
+        "nao pagos":
+            item.pago !== true,
+
+        "pendentes":
+            item.status === "Pendente",
+
+        "pendente":
+            item.status === "Pendente",
+
+        "confirmados":
+            item.status === "Confirmado",
+
+        "confirmado":
+            item.status === "Confirmado",
+
+        "andamento":
+            item.status === "Em andamento",
+
+        "em andamento":
+            item.status === "Em andamento",
+
+        "finalizados":
+            item.status === "Finalizado",
+
+        "finalizado":
+            item.status === "Finalizado",
+
+        "cancelados":
+            item.status === "Cancelado",
+
+        "cancelado":
+            item.status === "Cancelado"
+
+    };
+
+
+    if (
+        Object.prototype.hasOwnProperty.call(
+            atalhos,
+            termoNormalizado
+        )
+    ) {
+
+        return atalhos[
+            termoNormalizado
+        ];
+
+    }
+
+
+    return false;
+
+}
+
+
+function buscarInteligente() {
+
+    atualizarBotaoBusca();
+
+    renderizar();
+
+}
+
+
+function atualizarBotaoBusca() {
+
+    const input =
+        document.getElementById(
+            "busca"
+        );
+
+    const botao =
+        document.getElementById(
+            "searchClear"
+        );
+
+    if (
+        input.value.trim()
+    ) {
+
+        botao.style.display =
+            "block";
+
+    }
+
+    else {
+
+        botao.style.display =
+            "none";
+
+    }
+
+}
+
+
+function limparBusca() {
+
+    document.getElementById(
+        "busca"
+    ).value = "";
+
+    atualizarBotaoBusca();
+
+    renderizar();
 
 }
 
@@ -1168,7 +1543,6 @@ function mudarAba(
     filtroAtual =
         filtro;
 
-
     document
         .querySelectorAll(".tab")
         .forEach(
@@ -1183,11 +1557,9 @@ function mudarAba(
 
         );
 
-
     botao.classList.add(
         "active"
     );
-
 
     renderizar();
 
@@ -1204,11 +1576,11 @@ function limparFiltros() {
         "busca"
     ).value = "";
 
-
     document.getElementById(
         "filtroData"
     ).value = "";
 
+    atualizarBotaoBusca();
 
     renderizar();
 
@@ -1233,8 +1605,7 @@ function renderizar() {
                 "busca"
             )
             .value
-            .trim()
-            .toLowerCase();
+            .trim();
 
 
     const dataFiltro =
@@ -1282,46 +1653,42 @@ function renderizar() {
 
 
     // --------------------------------------------
-    // BUSCA
+    // BUSCA INTELIGENTE
     // --------------------------------------------
 
     if (
         busca
     ) {
 
+        const termos =
+            busca
+                .split(/\s+/)
+                .filter(Boolean);
+
+
+        /*
+           TODOS os termos precisam
+           combinar com o mesmo agendamento.
+
+           Ex:
+           "joao fade"
+
+           precisa encontrar um
+           agendamento que tenha
+           JOAO + FADE.
+        */
+
         lista =
             lista.filter(
-                item => {
+                item =>
 
-                    const nome =
-                        String(
-                            item.nome || ""
-                        )
-                        .toLowerCase();
-
-
-                    const telefone =
-                        String(
-                            item.telefone || ""
-                        )
-                        .toLowerCase();
-
-
-                    return (
-
-                        nome.includes(
-                            busca
-                        )
-
-                        ||
-
-                        telefone.includes(
-                            busca
-                        )
-
-                    );
-
-                }
+                    termos.every(
+                        termo =>
+                            termoCombina(
+                                termo,
+                                item
+                            )
+                    )
 
             );
 
@@ -1347,6 +1714,31 @@ function renderizar() {
 
 
     // --------------------------------------------
+    // CONTADOR
+    // --------------------------------------------
+
+    const contador =
+        document.getElementById(
+            "searchCount"
+        );
+
+
+    if (
+        contador
+    ) {
+
+        contador.textContent =
+            lista.length +
+            (
+                lista.length === 1
+                    ? " resultado"
+                    : " resultados"
+            );
+
+    }
+
+
+    // --------------------------------------------
     // VAZIO
     // --------------------------------------------
 
@@ -1358,7 +1750,18 @@ function renderizar() {
 
             <div class="empty">
 
+                🔎
+
+                <br><br>
+
                 Nenhum agendamento encontrado.
+
+                <br><br>
+
+                <small>
+                    Tente pesquisar por outro nome,
+                    telefone, serviço ou horário.
+                </small>
 
             </div>
 
@@ -1384,7 +1787,6 @@ function renderizar() {
                 document.createElement(
                     "div"
                 );
-
 
             card.className =
                 "appointment";
@@ -1829,7 +2231,6 @@ async function mudarStatus(
             confirm(
                 "Tem certeza que deseja cancelar este agendamento?"
             );
-
 
         if (
             !confirmar
@@ -2459,4 +2860,3 @@ function formatarData(data) {
 </body>
 
 </html>
-```
