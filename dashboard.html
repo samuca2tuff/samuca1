@@ -25,10 +25,6 @@ body {
     color: white;
 }
 
-/* =========================================
-   HEADER
-========================================= */
-
 header {
     min-height: 75px;
     background: #111;
@@ -65,17 +61,12 @@ header {
 
 .logout {
     padding: 9px 16px;
-
     border: 1px solid #3a3a3a;
     border-radius: 8px;
-
     background: #191919;
     color: #ff6b6b;
-
     font-weight: bold;
     cursor: pointer;
-
-    transition: .2s;
 }
 
 .logout:hover {
@@ -83,25 +74,16 @@ header {
     border-color: #ff6b6b;
 }
 
-/* =========================================
-   CONTAINER
-========================================= */
-
 .container {
     padding: 35px;
     max-width: 1500px;
     margin: auto;
 }
 
-/* =========================================
-   TÍTULO
-========================================= */
-
 .title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     gap: 15px;
     margin-bottom: 25px;
 }
@@ -112,37 +94,26 @@ header {
 
 .refresh {
     padding: 12px 20px;
-
     border: 0;
     border-radius: 8px;
-
     background: #287cff;
     color: white;
-
     cursor: pointer;
     font-weight: bold;
 }
 
-/* =========================================
-   ESTATÍSTICAS
-========================================= */
-
 .stats {
     display: grid;
-
     grid-template-columns:
         repeat(auto-fit, minmax(190px, 1fr));
-
     gap: 15px;
     margin-bottom: 30px;
 }
 
 .stat {
     background: #111;
-
     border: 1px solid #292929;
     border-radius: 12px;
-
     padding: 20px;
 }
 
@@ -157,10 +128,6 @@ header {
     color: #348cff;
 }
 
-/* =========================================
-   RELATÓRIO
-========================================= */
-
 .report {
     margin-bottom: 30px;
 }
@@ -172,19 +139,15 @@ header {
 
 .report-grid {
     display: grid;
-
     grid-template-columns:
         repeat(auto-fit, minmax(220px, 1fr));
-
     gap: 15px;
 }
 
 .report-card {
     background: #111;
-
     border: 1px solid #292929;
     border-radius: 12px;
-
     padding: 20px;
 }
 
@@ -199,167 +162,47 @@ header {
     margin: 10px 0 0;
 }
 
-/* =========================================
-   BUSCA INTELIGENTE
-========================================= */
-
-.smart-search {
-    position: relative;
-    margin-bottom: 12px;
-}
-
-.smart-search input {
-    width: 100%;
-
-    padding: 17px 50px 17px 50px;
-
-    border-radius: 12px;
-
-    border: 1px solid #292929;
-
-    background: #111;
-
-    color: white;
-
-    outline: none;
-
-    font-size: 15px;
-
-    transition: .2s;
-}
-
-.smart-search input:focus {
-    border-color: #348cff;
-
-    box-shadow:
-        0 0 0 3px rgba(52, 140, 255, .10);
-}
-
-.search-icon {
-    position: absolute;
-
-    left: 18px;
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    font-size: 19px;
-    opacity: .8;
-
-    pointer-events: none;
-}
-
-.search-clear {
-    position: absolute;
-
-    right: 14px;
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    width: 30px;
-    height: 30px;
-
-    border: 0;
-    border-radius: 50%;
-
-    background: #292929;
-    color: #aaa;
-
-    cursor: pointer;
-
-    display: none;
-
-    font-size: 15px;
-}
-
-.search-clear:hover {
-    background: #3a3a3a;
-    color: white;
-}
-
-.search-help {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    gap: 10px;
-
-    margin: 0 2px 18px;
-
-    color: #666;
-
-    font-size: 12px;
-}
-
-.search-count {
-    color: #348cff;
-    font-weight: bold;
-}
-
-/* =========================================
-   BUSCA E DATA
-========================================= */
-
 .filters {
     display: grid;
-
-    grid-template-columns:
-        1fr 220px auto;
-
+    grid-template-columns: 1fr 220px auto;
     gap: 12px;
-
     margin-bottom: 25px;
 }
 
-.filters input[type="date"] {
+.filters input {
     width: 100%;
-
     padding: 13px 15px;
 
     border-radius: 8px;
-
     border: 1px solid #292929;
 
     background: #111;
-
     color: white;
 
     outline: none;
 }
 
-.filters input[type="date"]:focus {
+.filters input:focus {
     border-color: #348cff;
+}
+
+.filters input[type="date"] {
+    color-scheme: dark;
 }
 
 .clear-filter {
     padding: 12px 18px;
-
     border: 1px solid #292929;
     border-radius: 8px;
-
     background: #191919;
-
     color: white;
-
     cursor: pointer;
 }
-
-.clear-filter:hover {
-    background: #292929;
-}
-
-/* =========================================
-   ABAS
-========================================= */
 
 .tabs {
     display: flex;
     gap: 8px;
-
     overflow-x: auto;
-
     margin-bottom: 25px;
     padding-bottom: 5px;
 }
@@ -389,29 +232,17 @@ header {
     color: white;
 }
 
-/* =========================================
-   AGENDAMENTOS
-========================================= */
-
 #appointments {
     display: grid;
-
     grid-template-columns:
         repeat(auto-fill, minmax(350px, 1fr));
-
     gap: 20px;
 }
 
-/* =========================================
-   CARD
-========================================= */
-
 .appointment {
     background: #111;
-
     border: 1px solid #292929;
     border-radius: 15px;
-
     padding: 22px;
 
     transition:
@@ -426,10 +257,8 @@ header {
 
 .appointment-header {
     display: flex;
-
     justify-content: space-between;
     align-items: center;
-
     gap: 10px;
     margin-bottom: 20px;
 }
@@ -441,12 +270,9 @@ header {
 
 .status {
     padding: 6px 10px;
-
     border-radius: 20px;
-
     font-size: 11px;
     font-weight: bold;
-
     white-space: nowrap;
 }
 
@@ -475,9 +301,10 @@ header {
     color: #6fb4ff;
 }
 
-/* =========================================
-   INFO
-========================================= */
+.status-pago {
+    background: #073d25;
+    color: #39ff88;
+}
 
 .info {
     margin: 10px 0;
@@ -518,27 +345,19 @@ header {
     font-weight: bold;
 }
 
-/* =========================================
-   AÇÕES
-========================================= */
-
 .actions {
     display: grid;
-
     grid-template-columns:
         repeat(2, 1fr);
 
     gap: 8px;
-
     margin-top: 20px;
 }
 
 .actions button {
     padding: 11px;
-
     border: 0;
     border-radius: 7px;
-
     cursor: pointer;
 
     color: white;
@@ -577,10 +396,6 @@ header {
     opacity: .85;
 }
 
-/* =========================================
-   VAZIO
-========================================= */
-
 .empty {
     grid-column: 1 / -1;
 
@@ -590,14 +405,21 @@ header {
     padding: 70px 20px;
 
     background: #111;
-
     border: 1px solid #292929;
     border-radius: 15px;
 }
 
-/* =========================================
-   MOBILE
-========================================= */
+.history-info {
+    margin-bottom: 20px;
+    padding: 15px 18px;
+
+    background: #0d2419;
+    border: 1px solid #164d31;
+
+    border-radius: 10px;
+
+    color: #39ff88;
+}
 
 @media(max-width: 700px) {
 
@@ -642,18 +464,15 @@ header {
         grid-template-columns: 1fr;
     }
 
-    .search-help {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -680,6 +499,7 @@ header {
 
 
 <div class="container">
+
 
     <div class="title">
 
@@ -750,18 +570,33 @@ header {
         <div class="report-grid">
 
             <div class="report-card">
+
                 <p>HOJE</p>
-                <h2 id="ganhoHoje">$0.00</h2>
+
+                <h2 id="ganhoHoje">
+                    $0.00
+                </h2>
+
             </div>
 
             <div class="report-card">
+
                 <p>ESTA SEMANA</p>
-                <h2 id="ganhoSemana">$0.00</h2>
+
+                <h2 id="ganhoSemana">
+                    $0.00
+                </h2>
+
             </div>
 
             <div class="report-card">
+
                 <p>ESTE MÊS</p>
-                <h2 id="ganhoMes">$0.00</h2>
+
+                <h2 id="ganhoMes">
+                    $0.00
+                </h2>
+
             </div>
 
         </div>
@@ -769,54 +604,16 @@ header {
     </div>
 
 
-    <!-- BUSCA INTELIGENTE -->
+    <!-- BUSCA -->
 
-    <div class="smart-search">
-
-        <span class="search-icon">
-            🔎
-        </span>
+    <div class="filters">
 
         <input
             type="text"
             id="busca"
-            autocomplete="off"
-            placeholder="Buscar cliente, telefone, serviço, horário, status..."
-            oninput="buscarInteligente()"
+            placeholder="🔎 Buscar por nome ou telefone..."
+            oninput="renderizar()"
         >
-
-        <button
-            id="searchClear"
-            class="search-clear"
-            onclick="limparBusca()"
-            title="Limpar busca"
-        >
-            ✕
-        </button>
-
-    </div>
-
-
-    <div class="search-help">
-
-        <span>
-            💡 Você pode pesquisar vários termos ao mesmo tempo.
-            Ex: <b>joao fade</b> ou <b>508 15:30</b>
-        </span>
-
-        <span
-            id="searchCount"
-            class="search-count"
-        >
-            0 resultados
-        </span>
-
-    </div>
-
-
-    <!-- DATA -->
-
-    <div class="filters">
 
         <input
             type="date"
@@ -828,7 +625,7 @@ header {
             class="clear-filter"
             onclick="limparFiltros()"
         >
-            🧹 Limpar filtros
+            Limpar filtros
         </button>
 
     </div>
@@ -875,6 +672,13 @@ header {
 
         <button
             class="tab"
+            onclick="mudarAba('historico', this)"
+        >
+            📚 Histórico pago
+        </button>
+
+        <button
+            class="tab"
             onclick="mudarAba('Finalizado', this)"
         >
             ✂️ Finalizados
@@ -892,19 +696,79 @@ header {
 
     <div id="appointments"></div>
 
+
 </div>
 
 
 <script>
+
 
 let dados = [];
 
 let filtroAtual = "todos";
 
 
-// ================================================
+// =====================================================
+// DATA DE HOJE
+// =====================================================
+
+function obterHoje() {
+
+    const hoje = new Date();
+
+    const ano =
+        hoje.getFullYear();
+
+    const mes =
+        String(
+            hoje.getMonth() + 1
+        ).padStart(2, "0");
+
+    const dia =
+        String(
+            hoje.getDate()
+        ).padStart(2, "0");
+
+    return `${ano}-${mes}-${dia}`;
+
+}
+
+
+// =====================================================
+// CONFIGURAR DATA INTELIGENTE
+// =====================================================
+
+function configurarData() {
+
+    const campo =
+        document.getElementById(
+            "filtroData"
+        );
+
+    const hoje =
+        obterHoje();
+
+
+    // Nunca permitir datas anteriores
+
+    campo.min = hoje;
+
+
+    // Se não tiver data selecionada,
+    // começa automaticamente em hoje
+
+    if (!campo.value) {
+
+        campo.value = hoje;
+
+    }
+
+}
+
+
+// =====================================================
 // VERIFICAR LOGIN
-// ================================================
+// =====================================================
 
 async function verificarLogin() {
 
@@ -912,6 +776,7 @@ async function verificarLogin() {
 
         const response =
             await fetch("/api/auth");
+
 
         if (!response.ok) {
 
@@ -921,6 +786,7 @@ async function verificarLogin() {
             return false;
 
         }
+
 
         return true;
 
@@ -938,18 +804,26 @@ async function verificarLogin() {
 }
 
 
-// ================================================
+// =====================================================
 // CARREGAR
-// ================================================
+// =====================================================
 
 async function carregar() {
 
     try {
 
-        const response =
-            await fetch("/api/submissions");
+        configurarData();
 
-        if (response.status === 401) {
+
+        const response =
+            await fetch(
+                "/api/submissions"
+            );
+
+
+        if (
+            response.status === 401
+        ) {
 
             window.location.href =
                 "/login.html";
@@ -957,6 +831,7 @@ async function carregar() {
             return;
 
         }
+
 
         if (!response.ok) {
 
@@ -966,8 +841,10 @@ async function carregar() {
 
         }
 
+
         dados =
             await response.json();
+
 
         atualizarEstatisticas();
 
@@ -980,6 +857,7 @@ async function carregar() {
     catch (error) {
 
         console.error(error);
+
 
         document.getElementById(
             "appointments"
@@ -1002,9 +880,9 @@ async function carregar() {
 }
 
 
-// ================================================
+// =====================================================
 // ESTATÍSTICAS
-// ================================================
+// =====================================================
 
 function atualizarEstatisticas() {
 
@@ -1013,51 +891,59 @@ function atualizarEstatisticas() {
     ).textContent =
         dados.length;
 
+
     document.getElementById(
         "pendentes"
     ).textContent =
         dados.filter(
-            x => x.status === "Pendente"
+            x =>
+                x.status === "Pendente"
         ).length;
+
 
     document.getElementById(
         "confirmados"
     ).textContent =
         dados.filter(
-            x => x.status === "Confirmado"
+            x =>
+                x.status === "Confirmado"
         ).length;
+
 
     document.getElementById(
         "andamento"
     ).textContent =
         dados.filter(
             x =>
-                x.status ===
-                "Em andamento"
+                x.status === "Em andamento"
         ).length;
+
 
     document.getElementById(
         "pagos"
     ).textContent =
         dados.filter(
-            x => x.pago === true
+            x =>
+                x.pago === true
         ).length;
+
 
     document.getElementById(
         "finalizados"
     ).textContent =
         dados.filter(
             x =>
-                x.status ===
-                "Finalizado"
+                x.status === "Finalizado"
         ).length;
+
 
     const totalRecebido =
 
         dados
 
             .filter(
-                x => x.pago === true
+                x =>
+                    x.pago === true
             )
 
             .reduce(
@@ -1073,6 +959,7 @@ function atualizarEstatisticas() {
 
             );
 
+
     document.getElementById(
         "recebido"
     ).textContent =
@@ -1083,37 +970,43 @@ function atualizarEstatisticas() {
 }
 
 
-// ================================================
+// =====================================================
 // RELATÓRIO
-// ================================================
+// =====================================================
 
 function atualizarRelatorio() {
 
     const hoje =
         new Date();
 
+
     const hojeTexto =
         formatarDataISO(
             hoje
         );
+
 
     const inicioSemana =
         new Date(
             hoje
         );
 
+
     const diaSemana =
         hoje.getDay();
+
 
     const diferenca =
         diaSemana === 0
             ? 6
             : diaSemana - 1;
 
+
     inicioSemana.setDate(
         hoje.getDate() -
         diferenca
     );
+
 
     inicioSemana.setHours(
         0,
@@ -1122,6 +1015,7 @@ function atualizarRelatorio() {
         0
     );
 
+
     const inicioMes =
         new Date(
             hoje.getFullYear(),
@@ -1129,30 +1023,31 @@ function atualizarRelatorio() {
             1
         );
 
+
     let ganhoHoje = 0;
     let ganhoSemana = 0;
     let ganhoMes = 0;
 
+
     dados.forEach(
         item => {
 
-            if (
-                !item.pago
-            ) {
-
+            if (!item.pago) {
                 return;
-
             }
+
 
             const valor =
                 Number(
                     item.preco || 0
                 );
 
+
             const dataItem =
                 criarDataLocal(
                     item.data
                 );
+
 
             if (
                 item.data ===
@@ -1164,6 +1059,7 @@ function atualizarRelatorio() {
 
             }
 
+
             if (
                 dataItem >=
                 inicioSemana
@@ -1173,6 +1069,7 @@ function atualizarRelatorio() {
                     valor;
 
             }
+
 
             if (
                 dataItem >=
@@ -1185,8 +1082,8 @@ function atualizarRelatorio() {
             }
 
         }
-
     );
+
 
     document.getElementById(
         "ganhoHoje"
@@ -1195,12 +1092,14 @@ function atualizarRelatorio() {
             ganhoHoje
         );
 
+
     document.getElementById(
         "ganhoSemana"
     ).textContent =
         formatarPreco(
             ganhoSemana
         );
+
 
     document.getElementById(
         "ganhoMes"
@@ -1212,328 +1111,9 @@ function atualizarRelatorio() {
 }
 
 
-// ================================================
-// BUSCA INTELIGENTE
-// ================================================
-
-function normalizarTexto(texto) {
-
-    return String(
-        texto ?? ""
-    )
-    .normalize("NFD")
-    .replace(
-        /[\u0300-\u036f]/g,
-        ""
-    )
-    .toLowerCase()
-    .trim();
-
-}
-
-
-function normalizarTelefone(texto) {
-
-    return String(
-        texto ?? ""
-    )
-    .replace(
-        /\D/g,
-        ""
-    );
-
-}
-
-
-function obterTextoBusca(item) {
-
-    const telefone =
-        normalizarTelefone(
-            item.telefone
-        );
-
-    const telefoneOriginal =
-        normalizarTexto(
-            item.telefone
-        );
-
-    const nome =
-        normalizarTexto(
-            item.nome
-        );
-
-    const email =
-        normalizarTexto(
-            item.email
-        );
-
-    const servico =
-        normalizarTexto(
-            item.servico
-        );
-
-    const tipo =
-        normalizarTexto(
-            item.tipo
-        );
-
-    const observacoes =
-        normalizarTexto(
-            item.observacoes
-        );
-
-    const status =
-        normalizarTexto(
-            item.status
-        );
-
-    const data =
-        normalizarTexto(
-            item.data
-        );
-
-    const dataFormatada =
-        normalizarTexto(
-            formatarData(
-                item.data
-            )
-        );
-
-    const horario =
-        normalizarTexto(
-            item.horario
-        );
-
-    const preco =
-        normalizarTexto(
-            item.preco
-        );
-
-    const precoFormatado =
-        normalizarTexto(
-            formatarPreco(
-                item.preco
-            )
-        );
-
-    const pagamento =
-        item.pago
-            ? "pago"
-            : "nao pago";
-
-    return {
-
-        texto: [
-
-            nome,
-            email,
-            servico,
-            tipo,
-            observacoes,
-            status,
-            data,
-            dataFormatada,
-            horario,
-            preco,
-            precoFormatado,
-            pagamento,
-            telefoneOriginal
-
-        ].join(" "),
-
-        telefone
-
-    };
-
-}
-
-
-function termoCombina(
-    termo,
-    item
-) {
-
-    const dadosBusca =
-        obterTextoBusca(
-            item
-        );
-
-    const termoNormalizado =
-        normalizarTexto(
-            termo
-        );
-
-    if (!termoNormalizado) {
-
-        return true;
-
-    }
-
-
-    /*
-       Se o termo tiver números,
-       também procuramos somente
-       pelos números do telefone.
-    */
-
-    const numeros =
-        termoNormalizado.replace(
-            /\D/g,
-            ""
-        );
-
-
-    if (
-        numeros.length >= 3 &&
-        dadosBusca.telefone.includes(
-            numeros
-        )
-    ) {
-
-        return true;
-
-    }
-
-
-    /*
-       Procura normal.
-    */
-
-    if (
-        dadosBusca.texto.includes(
-            termoNormalizado
-        )
-    ) {
-
-        return true;
-
-    }
-
-
-    /*
-       Atalhos inteligentes.
-    */
-
-    const atalhos = {
-
-        "pagos": item.pago === true,
-
-        "pago": item.pago === true,
-
-        "nao pago":
-            item.pago !== true,
-
-        "nao pagos":
-            item.pago !== true,
-
-        "pendentes":
-            item.status === "Pendente",
-
-        "pendente":
-            item.status === "Pendente",
-
-        "confirmados":
-            item.status === "Confirmado",
-
-        "confirmado":
-            item.status === "Confirmado",
-
-        "andamento":
-            item.status === "Em andamento",
-
-        "em andamento":
-            item.status === "Em andamento",
-
-        "finalizados":
-            item.status === "Finalizado",
-
-        "finalizado":
-            item.status === "Finalizado",
-
-        "cancelados":
-            item.status === "Cancelado",
-
-        "cancelado":
-            item.status === "Cancelado"
-
-    };
-
-
-    if (
-        Object.prototype.hasOwnProperty.call(
-            atalhos,
-            termoNormalizado
-        )
-    ) {
-
-        return atalhos[
-            termoNormalizado
-        ];
-
-    }
-
-
-    return false;
-
-}
-
-
-function buscarInteligente() {
-
-    atualizarBotaoBusca();
-
-    renderizar();
-
-}
-
-
-function atualizarBotaoBusca() {
-
-    const input =
-        document.getElementById(
-            "busca"
-        );
-
-    const botao =
-        document.getElementById(
-            "searchClear"
-        );
-
-    if (
-        input.value.trim()
-    ) {
-
-        botao.style.display =
-            "block";
-
-    }
-
-    else {
-
-        botao.style.display =
-            "none";
-
-    }
-
-}
-
-
-function limparBusca() {
-
-    document.getElementById(
-        "busca"
-    ).value = "";
-
-    atualizarBotaoBusca();
-
-    renderizar();
-
-}
-
-
-// ================================================
+// =====================================================
 // ABAS
-// ================================================
+// =====================================================
 
 function mudarAba(
     filtro,
@@ -1543,10 +1123,10 @@ function mudarAba(
     filtroAtual =
         filtro;
 
+
     document
         .querySelectorAll(".tab")
         .forEach(
-
             item => {
 
                 item.classList.remove(
@@ -1554,21 +1134,22 @@ function mudarAba(
                 );
 
             }
-
         );
+
 
     botao.classList.add(
         "active"
     );
+
 
     renderizar();
 
 }
 
 
-// ================================================
+// =====================================================
 // LIMPAR FILTROS
-// ================================================
+// =====================================================
 
 function limparFiltros() {
 
@@ -1576,20 +1157,23 @@ function limparFiltros() {
         "busca"
     ).value = "";
 
+
+    // Voltar para HOJE
+
     document.getElementById(
         "filtroData"
-    ).value = "";
+    ).value =
+        obterHoje();
 
-    atualizarBotaoBusca();
 
     renderizar();
 
 }
 
 
-// ================================================
+// =====================================================
 // RENDERIZAR
-// ================================================
+// =====================================================
 
 function renderizar() {
 
@@ -1605,7 +1189,8 @@ function renderizar() {
                 "busca"
             )
             .value
-            .trim();
+            .trim()
+            .toLowerCase();
 
 
     const dataFiltro =
@@ -1618,13 +1203,15 @@ function renderizar() {
         dados.slice();
 
 
-    // --------------------------------------------
-    // FILTRO POR ABA
-    // --------------------------------------------
+    // =================================================
+    // ABA
+    // =================================================
 
     if (
         filtroAtual !== "todos"
     ) {
+
+        // PAGOS
 
         if (
             filtroAtual === "pago"
@@ -1637,6 +1224,31 @@ function renderizar() {
                 );
 
         }
+
+
+        // HISTÓRICO PAGO
+
+        else if (
+            filtroAtual === "historico"
+        ) {
+
+            lista =
+                lista.filter(
+                    item =>
+                        item.pago === true &&
+                        (
+                            item.status ===
+                            "Finalizado"
+                            ||
+                            item.status ===
+                            "Cancelado"
+                        )
+                );
+
+        }
+
+
+        // STATUS NORMAL
 
         else {
 
@@ -1652,56 +1264,89 @@ function renderizar() {
     }
 
 
-    // --------------------------------------------
+    // =================================================
     // BUSCA INTELIGENTE
-    // --------------------------------------------
+    // =================================================
 
-    if (
-        busca
-    ) {
-
-        const termos =
-            busca
-                .split(/\s+/)
-                .filter(Boolean);
-
-
-        /*
-           TODOS os termos precisam
-           combinar com o mesmo agendamento.
-
-           Ex:
-           "joao fade"
-
-           precisa encontrar um
-           agendamento que tenha
-           JOAO + FADE.
-        */
+    if (busca) {
 
         lista =
             lista.filter(
-                item =>
+                item => {
 
-                    termos.every(
-                        termo =>
-                            termoCombina(
-                                termo,
-                                item
-                            )
-                    )
+                    const nome =
+                        normalizar(
+                            item.nome
+                        );
 
+
+                    const telefone =
+                        normalizar(
+                            item.telefone
+                        );
+
+
+                    const email =
+                        normalizar(
+                            item.email
+                        );
+
+
+                    const servico =
+                        normalizar(
+                            item.servico
+                        );
+
+
+                    const horario =
+                        normalizar(
+                            item.horario
+                        );
+
+
+                    return (
+
+                        nome.includes(
+                            busca
+                        )
+
+                        ||
+
+                        telefone.includes(
+                            busca
+                        )
+
+                        ||
+
+                        email.includes(
+                            busca
+                        )
+
+                        ||
+
+                        servico.includes(
+                            busca
+                        )
+
+                        ||
+
+                        horario.includes(
+                            busca
+                        )
+
+                    );
+
+                }
             );
 
     }
 
 
-    // --------------------------------------------
-    // FILTRO POR DATA
-    // --------------------------------------------
+    // =================================================
+    // DATA
+    // =================================================
 
-    if (
-        dataFiltro
-    ) {
+    if (dataFiltro) {
 
         lista =
             lista.filter(
@@ -1713,55 +1358,34 @@ function renderizar() {
     }
 
 
-    // --------------------------------------------
-    // CONTADOR
-    // --------------------------------------------
-
-    const contador =
-        document.getElementById(
-            "searchCount"
-        );
-
-
-    if (
-        contador
-    ) {
-
-        contador.textContent =
-            lista.length +
-            (
-                lista.length === 1
-                    ? " resultado"
-                    : " resultados"
-            );
-
-    }
-
-
-    // --------------------------------------------
+    // =================================================
     // VAZIO
-    // --------------------------------------------
+    // =================================================
 
     if (
         lista.length === 0
     ) {
 
+        let mensagem =
+            "Nenhum agendamento encontrado.";
+
+
+        if (
+            filtroAtual ===
+            "historico"
+        ) {
+
+            mensagem =
+                "📚 Nenhum corte pago no histórico.";
+
+        }
+
+
         container.innerHTML = `
 
             <div class="empty">
 
-                🔎
-
-                <br><br>
-
-                Nenhum agendamento encontrado.
-
-                <br><br>
-
-                <small>
-                    Tente pesquisar por outro nome,
-                    telefone, serviço ou horário.
-                </small>
+                ${mensagem}
 
             </div>
 
@@ -1772,13 +1396,55 @@ function renderizar() {
     }
 
 
+    // =================================================
+    // AVISO HISTÓRICO
+    // =================================================
+
     container.innerHTML =
         "";
 
 
-    // --------------------------------------------
+    if (
+        filtroAtual ===
+        "historico"
+    ) {
+
+        const aviso =
+            document.createElement(
+                "div"
+            );
+
+
+        aviso.className =
+            "history-info";
+
+
+        aviso.style.gridColumn =
+            "1 / -1";
+
+
+        aviso.innerHTML = `
+
+            💰 <strong>Histórico de cortes pagos</strong>
+
+            <br>
+
+            Aqui aparecem os cortes que já foram pagos
+            e finalizados/cancelados.
+
+        `;
+
+
+        container.appendChild(
+            aviso
+        );
+
+    }
+
+
+    // =================================================
     // CARDS
-    // --------------------------------------------
+    // =================================================
 
     lista.forEach(
         item => {
@@ -1787,6 +1453,7 @@ function renderizar() {
                 document.createElement(
                     "div"
                 );
+
 
             card.className =
                 "appointment";
@@ -1821,7 +1488,9 @@ function renderizar() {
                 <div class="appointment-header">
 
                     <h2>
-                        ${escapeHTML(item.nome)}
+                        ${escapeHTML(
+                            item.nome
+                        )}
                     </h2>
 
                     <span
@@ -1830,7 +1499,9 @@ function renderizar() {
                             ${statusClass}
                         "
                     >
-                        ${escapeHTML(item.status)}
+                        ${escapeHTML(
+                            item.status
+                        )}
                     </span>
 
                 </div>
@@ -1843,7 +1514,9 @@ function renderizar() {
                         Telefone:
                     </strong>
 
-                    ${escapeHTML(item.telefone)}
+                    ${escapeHTML(
+                        item.telefone
+                    )}
 
                 </div>
 
@@ -2207,15 +1880,37 @@ function renderizar() {
             );
 
         }
-
     );
 
 }
 
 
-// ================================================
+// =====================================================
+// NORMALIZAR BUSCA
+// =====================================================
+
+function normalizar(valor) {
+
+    return String(
+        valor || ""
+    )
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(
+        /[\u0300-\u036f]/g,
+        ""
+    )
+    .replace(
+        /[^a-z0-9]/g,
+        ""
+    );
+
+}
+
+
+// =====================================================
 // STATUS
-// ================================================
+// =====================================================
 
 async function mudarStatus(
     id,
@@ -2232,9 +1927,8 @@ async function mudarStatus(
                 "Tem certeza que deseja cancelar este agendamento?"
             );
 
-        if (
-            !confirmar
-        ) {
+
+        if (!confirmar) {
 
             return;
 
@@ -2307,9 +2001,7 @@ async function mudarStatus(
 
     catch (error) {
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         alert(
             "Erro de conexão."
@@ -2320,9 +2012,9 @@ async function mudarStatus(
 }
 
 
-// ================================================
+// =====================================================
 // FINALIZAR
-// ================================================
+// =====================================================
 
 async function finalizar(id) {
 
@@ -2338,9 +2030,7 @@ async function finalizar(id) {
         );
 
 
-    if (
-        !confirmar
-    ) {
+    if (!confirmar) {
 
         return;
 
@@ -2355,9 +2045,9 @@ async function finalizar(id) {
 }
 
 
-// ================================================
+// =====================================================
 // PAGAMENTO
-// ================================================
+// =====================================================
 
 async function mudarPagamento(
     id,
@@ -2427,9 +2117,7 @@ async function mudarPagamento(
 
     catch (error) {
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         alert(
             "Erro de conexão."
@@ -2440,9 +2128,9 @@ async function mudarPagamento(
 }
 
 
-// ================================================
+// =====================================================
 // APAGAR
-// ================================================
+// =====================================================
 
 async function apagar(id) {
 
@@ -2456,9 +2144,7 @@ async function apagar(id) {
         );
 
 
-    if (
-        !confirmar
-    ) {
+    if (!confirmar) {
 
         return;
 
@@ -2528,9 +2214,7 @@ async function apagar(id) {
 
     catch (error) {
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         alert(
             "Erro de conexão."
@@ -2541,9 +2225,9 @@ async function apagar(id) {
 }
 
 
-// ================================================
+// =====================================================
 // SAIR
-// ================================================
+// =====================================================
 
 async function sair() {
 
@@ -2553,9 +2237,7 @@ async function sair() {
         );
 
 
-    if (
-        !confirmar
-    ) {
+    if (!confirmar) {
 
         return;
 
@@ -2599,9 +2281,7 @@ async function sair() {
 
     catch (error) {
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         alert(
             "Erro de conexão."
@@ -2612,11 +2292,13 @@ async function sair() {
 }
 
 
-// ================================================
+// =====================================================
 // CLASSE STATUS
-// ================================================
+// =====================================================
 
-function getStatusClass(status) {
+function getStatusClass(
+    status
+) {
 
     if (
         status ===
@@ -2673,11 +2355,13 @@ function getStatusClass(status) {
 }
 
 
-// ================================================
+// =====================================================
 // ESCAPAR HTML
-// ================================================
+// =====================================================
 
-function escapeHTML(texto) {
+function escapeHTML(
+    texto
+) {
 
     const div =
         document.createElement(
@@ -2694,11 +2378,13 @@ function escapeHTML(texto) {
 }
 
 
-// ================================================
-// FORMATAR PREÇO
-// ================================================
+// =====================================================
+// PREÇO
+// =====================================================
 
-function formatarPreco(valor) {
+function formatarPreco(
+    valor
+) {
 
     return "$" +
 
@@ -2709,11 +2395,13 @@ function formatarPreco(valor) {
 }
 
 
-// ================================================
-// CRIAR DATA LOCAL
-// ================================================
+// =====================================================
+// DATA LOCAL
+// =====================================================
 
-function criarDataLocal(data) {
+function criarDataLocal(
+    data
+) {
 
     if (!data) {
 
@@ -2747,11 +2435,13 @@ function criarDataLocal(data) {
 }
 
 
-// ================================================
+// =====================================================
 // DATA ISO
-// ================================================
+// =====================================================
 
-function formatarDataISO(data) {
+function formatarDataISO(
+    data
+) {
 
     const ano =
         data.getFullYear();
@@ -2788,15 +2478,15 @@ function formatarDataISO(data) {
 }
 
 
-// ================================================
+// =====================================================
 // DATA VISÍVEL
-// ================================================
+// =====================================================
 
-function formatarData(data) {
+function formatarData(
+    data
+) {
 
-    if (
-        !data
-    ) {
+    if (!data) {
 
         return "";
 
@@ -2804,9 +2494,7 @@ function formatarData(data) {
 
 
     const partes =
-        data.split(
-            "-"
-        );
+        data.split("-");
 
 
     if (
@@ -2829,19 +2517,20 @@ function formatarData(data) {
 }
 
 
-// ================================================
+// =====================================================
 // INICIAR
-// ================================================
+// =====================================================
 
 (async function iniciar() {
+
+    configurarData();
+
 
     const logado =
         await verificarLogin();
 
 
-    if (
-        logado
-    ) {
+    if (logado) {
 
         carregar();
 
