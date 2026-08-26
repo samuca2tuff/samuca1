@@ -1,60 +1,25 @@
 const express = require("express");
-const { Pool } = require("pg");
 const multer = require("multer");
 const path = require("path");
 
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
-});
-
 const app = express();
-const PORT = 3000;
-
-async function criarTabela() {
-    await pool.query(`
-        CREATE TABLE IF NOT EXISTS appointments (
-            id BIGSERIAL PRIMARY KEY,
-            nome TEXT NOT NULL,
-            telefone TEXT NOT NULL,
-            email TEXT,
-            data TEXT NOT NULL,
-            horario TEXT NOT NULL,
-            servico TEXT NOT NULL,
-            tipo TEXT NOT NULL,
-            observacoes TEXT,
-            status TEXT DEFAULT 'Pendente',
-            enviado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    `);
-
-    console.log("Tabela criada/verificada.");
-}
-
-criarTabela().catch(console.error);
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static(__dirname));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "uploads/");
-    },
-
+    destination: "uploads/",
     filename: (req, file, cb) => {
-        const name = Date.now() + path.extname(file.originalname);
-        cb(null, name);
+        cb(null, Date.now() + path.extname(file.originalname));
     }
 });
 
-const upload = multer({     storage: storage,     limits: {         fileSize: 5 * 1024 * 1024     },     fileFilter: (req, file, cb) => {          if (file.mimetype.startsWith("image/")) {             cb(null, true);         } else {             cb(new Error("Somente imagens são permitidas."));         }      } });
+const upload = multer({ storage });
 
 let submissions = [];
 
-app.post("/api/submit", upload.single("foto"), (req, res) => {
+app.post("/api/submit", upload.none(), (req, res) => {
 
     const {
         nome,
@@ -67,14 +32,7 @@ app.post("/api/submit", upload.single("foto"), (req, res) => {
         observacoes
     } = req.body;
 
-    if (
-        !nome ||
-        !telefone ||
-        !data ||
-        !horario ||
-        !servico ||
-        !tipo
-    ) {
+    if (!nome || !telefone || !data || !horario || !servico || !tipo) {
         return res.status(400).json({
             success: false,
             message: "Preencha os campos obrigatórios."
@@ -91,9 +49,6 @@ app.post("/api/submit", upload.single("foto"), (req, res) => {
         servico,
         tipo,
         observacoes,
-        foto: req.file
-            ? "/uploads/" + req.file.filename
-            : null,
         status: "Pendente",
         enviadoEm: new Date().toLocaleString("pt-BR")
     };
@@ -130,5 +85,5 @@ app.post("/api/status", (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`SAMUCA rodando em http://localhost:${PORT}`);
+    console.log(`SAMUCA rodando na porta ${PORT}`);
 });
