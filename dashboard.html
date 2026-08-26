@@ -25,9 +25,11 @@ header {
     height: 75px;
     background: #111;
     border-bottom: 1px solid #292929;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     padding: 0 35px;
 }
 
@@ -56,7 +58,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .title h1 {
@@ -70,7 +72,39 @@ header {
     background: #287cff;
     color: white;
     cursor: pointer;
+    font-weight: bold;
 }
+
+/* ABAS */
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.tab {
+    border: 1px solid #292929;
+    background: #111;
+    color: #aaa;
+    padding: 12px 18px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.tab:hover {
+    background: #1b1b1b;
+}
+
+.tab.active {
+    background: #287cff;
+    color: white;
+    border-color: #287cff;
+}
+
+/* ESTATÍSTICAS */
 
 .stats {
     display: flex;
@@ -98,9 +132,14 @@ header {
     color: #348cff;
 }
 
+/* AGENDAMENTOS */
+
 #appointments {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(350px, 1fr)
+    );
     gap: 20px;
 }
 
@@ -132,6 +171,21 @@ header {
     color: #ffd83d;
 }
 
+.status.confirmado {
+    background: #073b24;
+    color: #39ff88;
+}
+
+.status.cancelado {
+    background: #451414;
+    color: #ff6b6b;
+}
+
+.status.pago {
+    background: #073b24;
+    color: #39ff88;
+}
+
 .info {
     margin: 10px 0;
     color: #bbb;
@@ -140,6 +194,8 @@ header {
 .info strong {
     color: white;
 }
+
+/* BOTÕES */
 
 .actions {
     display: flex;
@@ -150,7 +206,7 @@ header {
 
 .actions button {
     flex: 1;
-    min-width: 100px;
+    min-width: 110px;
     padding: 10px;
     border: 0;
     border-radius: 7px;
@@ -171,6 +227,14 @@ header {
     background: #8b2424;
 }
 
+.payment {
+    background: #168b4d;
+}
+
+.payment.off {
+    background: #555;
+}
+
 .delete {
     background: #b32626;
 }
@@ -181,11 +245,39 @@ header {
     padding: 60px;
 }
 
+/* CELULAR */
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 0 15px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .container {
+        padding: 20px 15px;
+    }
+
+    #appointments {
+        grid-template-columns: 1fr;
+    }
+
+    .appointment {
+        padding: 18px;
+    }
+
+}
+
 </style>
 
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -202,6 +294,7 @@ header {
 
 <div class="container">
 
+
     <div class="title">
 
         <h1>Agendamentos</h1>
@@ -215,6 +308,43 @@ header {
 
     </div>
 
+
+    <!-- ABAS -->
+
+    <div class="tabs">
+
+        <button
+            class="tab active"
+            onclick="mudarAba('todos', this)"
+        >
+            📋 Todos
+        </button>
+
+        <button
+            class="tab"
+            onclick="mudarAba('pendentes', this)"
+        >
+            ⏳ Pendentes
+        </button>
+
+        <button
+            class="tab"
+            onclick="mudarAba('confirmados', this)"
+        >
+            ✅ Confirmados
+        </button>
+
+        <button
+            class="tab"
+            onclick="mudarAba('pagos', this)"
+        >
+            💰 Pagos
+        </button>
+
+    </div>
+
+
+    <!-- ESTATÍSTICAS -->
 
     <div class="stats">
 
@@ -244,15 +374,35 @@ header {
 
         </div>
 
+
+        <div class="stat">
+
+            <p>PAGOS</p>
+
+            <h2 id="pagos">0</h2>
+
+        </div>
+
     </div>
 
 
     <div id="appointments"></div>
 
+
 </div>
 
 
 <script>
+
+
+let todosAgendamentos = [];
+
+let abaAtual = "todos";
+
+
+// ==============================
+// CARREGAR
+// ==============================
 
 async function carregar() {
 
@@ -264,6 +414,7 @@ async function carregar() {
         const dados =
             await response.json();
 
+
         if (!Array.isArray(dados)) {
 
             throw new Error(
@@ -272,169 +423,13 @@ async function carregar() {
 
         }
 
-        document.getElementById("total").textContent =
-            dados.length;
 
-        document.getElementById("pendentes").textContent =
-            dados.filter(
-                x => x.status === "Pendente"
-            ).length;
-
-        document.getElementById("confirmados").textContent =
-            dados.filter(
-                x => x.status === "Confirmado"
-            ).length;
+        todosAgendamentos = dados;
 
 
-        const container =
-            document.getElementById("appointments");
+        atualizarNumeros();
 
-        container.innerHTML = "";
-
-
-        if (dados.length === 0) {
-
-            container.innerHTML =
-                '<div class="empty">Nenhum agendamento recebido.</div>';
-
-            return;
-
-        }
-
-
-        dados.forEach(item => {
-
-            const card =
-                document.createElement("div");
-
-            card.className =
-                "appointment";
-
-
-            card.innerHTML = `
-
-                <div class="appointment-header">
-
-                    <h2>
-                        ${escapeHTML(item.nome)}
-                    </h2>
-
-                    <span class="status">
-                        ${escapeHTML(item.status)}
-                    </span>
-
-                </div>
-
-
-                <div class="info">
-                    📞 <strong>Telefone:</strong>
-                    ${escapeHTML(item.telefone)}
-                </div>
-
-
-                <div class="info">
-                    📧 <strong>E-mail:</strong>
-                    ${escapeHTML(
-                        item.email || "Não informado"
-                    )}
-                </div>
-
-
-                <div class="info">
-                    📅 <strong>Data:</strong>
-                    ${escapeHTML(item.data)}
-                </div>
-
-
-                <div class="info">
-                    🕐 <strong>Horário:</strong>
-                    ${escapeHTML(item.horario)}
-                </div>
-
-
-                <div class="info">
-                    ✂️ <strong>Serviço:</strong>
-                    ${escapeHTML(item.servico)}
-                </div>
-
-
-                <div class="info">
-                    💈 <strong>Corte:</strong>
-                    ${escapeHTML(item.tipo)}
-                </div>
-
-
-                <div class="info">
-                    📝 <strong>Observações:</strong>
-                    ${escapeHTML(
-                        item.observacoes || "Nenhuma"
-                    )}
-                </div>
-
-
-                <div class="info">
-
-                    <small>
-                        Recebido:
-                        ${escapeHTML(
-                            item.enviadoEm || ""
-                        )}
-                    </small>
-
-                </div>
-
-
-                <div class="actions">
-
-                    <button
-                        class="confirm"
-                        onclick="mudarStatus(
-                            ${item.id},
-                            'Confirmado'
-                        )"
-                    >
-                        ✓ Confirmar
-                    </button>
-
-
-                    <button
-                        class="pending"
-                        onclick="mudarStatus(
-                            ${item.id},
-                            'Pendente'
-                        )"
-                    >
-                        Pendente
-                    </button>
-
-
-                    <button
-                        class="cancel"
-                        onclick="mudarStatus(
-                            ${item.id},
-                            'Cancelado'
-                        )"
-                    >
-                        ✕ Cancelar
-                    </button>
-
-
-                    <button
-                        class="delete"
-                        onclick="apagarAgendamento(
-                            ${item.id}
-                        )"
-                    >
-                        🗑️ Apagar
-                    </button>
-
-                </div>
-
-            `;
-
-            container.appendChild(card);
-
-        });
+        mostrarAgendamentos();
 
 
     } catch (error) {
@@ -451,30 +446,362 @@ async function carregar() {
 }
 
 
-// ==========================
-// MUDAR STATUS
-// ==========================
+// ==============================
+// NÚMEROS
+// ==============================
 
-async function mudarStatus(id, status) {
+function atualizarNumeros() {
+
+    document.getElementById(
+        "total"
+    ).textContent =
+        todosAgendamentos.length;
+
+
+    document.getElementById(
+        "pendentes"
+    ).textContent =
+        todosAgendamentos.filter(
+            x => x.status === "Pendente"
+        ).length;
+
+
+    document.getElementById(
+        "confirmados"
+    ).textContent =
+        todosAgendamentos.filter(
+            x => x.status === "Confirmado"
+        ).length;
+
+
+    document.getElementById(
+        "pagos"
+    ).textContent =
+        todosAgendamentos.filter(
+            x => x.pago === true
+        ).length;
+
+}
+
+
+// ==============================
+// MUDAR ABA
+// ==============================
+
+function mudarAba(aba, botao) {
+
+    abaAtual = aba;
+
+
+    document
+        .querySelectorAll(".tab")
+        .forEach(
+            x => x.classList.remove("active")
+        );
+
+
+    botao.classList.add("active");
+
+
+    mostrarAgendamentos();
+
+}
+
+
+// ==============================
+// FILTRAR
+// ==============================
+
+function mostrarAgendamentos() {
+
+    const container =
+        document.getElementById(
+            "appointments"
+        );
+
+
+    let dados = [];
+
+
+    if (abaAtual === "todos") {
+
+        dados =
+            todosAgendamentos;
+
+    }
+
+
+    if (abaAtual === "pendentes") {
+
+        dados =
+            todosAgendamentos.filter(
+                x => x.status === "Pendente"
+            );
+
+    }
+
+
+    if (abaAtual === "confirmados") {
+
+        dados =
+            todosAgendamentos.filter(
+                x => x.status === "Confirmado"
+            );
+
+    }
+
+
+    if (abaAtual === "pagos") {
+
+        dados =
+            todosAgendamentos.filter(
+                x => x.pago === true
+            );
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (dados.length === 0) {
+
+        container.innerHTML =
+            '<div class="empty">Nenhum agendamento nesta categoria.</div>';
+
+        return;
+
+    }
+
+
+    dados.forEach(item => {
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className =
+            "appointment";
+
+
+        let statusClass = "";
+
+
+        if (item.status === "Confirmado") {
+
+            statusClass =
+                "confirmado";
+
+        }
+
+
+        if (item.status === "Cancelado") {
+
+            statusClass =
+                "cancelado";
+
+        }
+
+
+        card.innerHTML = `
+
+            <div class="appointment-header">
+
+                <h2>
+                    ${escapeHTML(item.nome)}
+                </h2>
+
+                <span
+                    class="status ${statusClass}"
+                >
+                    ${escapeHTML(item.status)}
+                </span>
+
+            </div>
+
+
+            <div class="info">
+                📞 <strong>Telefone:</strong>
+                ${escapeHTML(item.telefone)}
+            </div>
+
+
+            <div class="info">
+                📧 <strong>E-mail:</strong>
+                ${escapeHTML(
+                    item.email ||
+                    "Não informado"
+                )}
+            </div>
+
+
+            <div class="info">
+                📅 <strong>Data:</strong>
+                ${escapeHTML(item.data)}
+            </div>
+
+
+            <div class="info">
+                🕐 <strong>Horário:</strong>
+                ${escapeHTML(item.horario)}
+            </div>
+
+
+            <div class="info">
+                ✂️ <strong>Serviço:</strong>
+                ${escapeHTML(item.servico)}
+            </div>
+
+
+            <div class="info">
+                💈 <strong>Corte:</strong>
+                ${escapeHTML(item.tipo)}
+            </div>
+
+
+            <div class="info">
+                📝 <strong>Observações:</strong>
+                ${escapeHTML(
+                    item.observacoes ||
+                    "Nenhuma"
+                )}
+            </div>
+
+
+            <div class="info">
+
+                💰 <strong>Pagamento:</strong>
+
+                ${
+                    item.pago
+                    ? "✅ Pago"
+                    : "⏳ Não pago"
+                }
+
+            </div>
+
+
+            <div class="info">
+
+                <small>
+                    Recebido:
+                    ${escapeHTML(
+                        item.enviadoEm || ""
+                    )}
+                </small>
+
+            </div>
+
+
+            <div class="actions">
+
+
+                <button
+                    class="confirm"
+                    onclick="mudarStatus(
+                        ${item.id},
+                        'Confirmado'
+                    )"
+                >
+                    ✓ Confirmar
+                </button>
+
+
+                <button
+                    class="pending"
+                    onclick="mudarStatus(
+                        ${item.id},
+                        'Pendente'
+                    )"
+                >
+                    Pendente
+                </button>
+
+
+                <button
+                    class="cancel"
+                    onclick="mudarStatus(
+                        ${item.id},
+                        'Cancelado'
+                    )"
+                >
+                    ✕ Cancelar
+                </button>
+
+
+                <button
+                    class="${
+                        item.pago
+                        ? "payment off"
+                        : "payment"
+                    }"
+                    onclick="mudarPagamento(
+                        ${item.id},
+                        ${!item.pago}
+                    )"
+                >
+                    ${
+                        item.pago
+                        ? "↩️ Desmarcar pago"
+                        : "💰 Marcar pago"
+                    }
+                </button>
+
+
+                <button
+                    class="delete"
+                    onclick="apagarAgendamento(
+                        ${item.id}
+                    )"
+                >
+                    🗑️ Apagar
+                </button>
+
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+// ==============================
+// STATUS
+// ==============================
+
+async function mudarStatus(
+    id,
+    status
+) {
 
     try {
 
         const response =
-            await fetch("/api/status", {
+            await fetch(
+                "/api/status",
+                {
 
-                method: "POST",
+                    method: "POST",
 
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
 
-                body: JSON.stringify({
-                    id,
-                    status
-                })
+                    body: JSON.stringify({
+                        id,
+                        status
+                    })
 
-            });
+                }
+            );
 
 
         const resultado =
@@ -493,7 +820,7 @@ async function mudarStatus(id, status) {
         }
 
 
-        carregar();
+        await carregar();
 
 
     } catch (error) {
@@ -507,11 +834,75 @@ async function mudarStatus(id, status) {
 }
 
 
-// ==========================
-// APAGAR
-// ==========================
+// ==============================
+// PAGAMENTO
+// ==============================
 
-async function apagarAgendamento(id) {
+async function mudarPagamento(
+    id,
+    pago
+) {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/payment",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        id,
+                        pago
+                    })
+
+                }
+            );
+
+
+        const resultado =
+            await response.json();
+
+
+        if (!resultado.success) {
+
+            alert(
+                resultado.message ||
+                "Erro ao atualizar pagamento."
+            );
+
+            return;
+
+        }
+
+
+        await carregar();
+
+
+    } catch (error) {
+
+        alert(
+            "Erro ao conectar ao servidor."
+        );
+
+    }
+
+}
+
+
+// ==============================
+// APAGAR
+// ==============================
+
+async function apagarAgendamento(
+    id
+) {
 
     const confirmar =
         confirm(
@@ -521,27 +912,32 @@ async function apagarAgendamento(id) {
 
 
     if (!confirmar) {
+
         return;
+
     }
 
 
     try {
 
         const response =
-            await fetch("/api/delete", {
+            await fetch(
+                "/api/delete",
+                {
 
-                method: "POST",
+                    method: "POST",
 
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
 
-                body: JSON.stringify({
-                    id
-                })
+                    body: JSON.stringify({
+                        id
+                    })
 
-            });
+                }
+            );
 
 
         const resultado =
@@ -560,7 +956,7 @@ async function apagarAgendamento(id) {
         }
 
 
-        carregar();
+        await carregar();
 
 
     } catch (error) {
@@ -574,14 +970,16 @@ async function apagarAgendamento(id) {
 }
 
 
-// ==========================
+// ==============================
 // SEGURANÇA HTML
-// ==========================
+// ==============================
 
 function escapeHTML(text) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     div.textContent =
         text ?? "";
@@ -591,11 +989,12 @@ function escapeHTML(text) {
 }
 
 
-// ==========================
+// ==============================
 // INICIAR
-// ==========================
+// ==============================
 
 carregar();
+
 
 setInterval(
     carregar,
@@ -603,6 +1002,7 @@ setInterval(
 );
 
 </script>
+
 
 </body>
 
