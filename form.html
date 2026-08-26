@@ -1,31 +1,18 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
+
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SAMUCA • Agendamento</title>
 
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
->
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet"
 >
 
 <style>
@@ -41,7 +28,7 @@
     --green: #39ff88;
     --red: #ff5252;
     --bg: #050609;
-    --card: rgba(17, 18, 23, .88);
+    --card: rgba(17,18,23,.88);
     --border: rgba(255,255,255,.09);
 }
 
@@ -72,6 +59,7 @@ body {
 }
 
 .form {
+
     width: 560px;
 
     background: var(--card);
@@ -110,6 +98,7 @@ body {
 }
 
 .logo h1 {
+
     margin: 0;
 
     font-size: 42px;
@@ -124,6 +113,7 @@ body {
 }
 
 .logo p {
+
     margin-top: 8px;
 
     color: #777;
@@ -136,6 +126,7 @@ body {
 }
 
 label {
+
     display: block;
 
     margin-top: 20px;
@@ -193,14 +184,38 @@ textarea {
     resize: vertical;
 }
 
-/* HORÁRIOS */
+
+/* =========================
+   DATA
+========================= */
+
+#data {
+
+    cursor: pointer;
+
+    color: white;
+}
+
+#data::-webkit-calendar-picker-indicator {
+
+    filter: invert(1);
+
+    cursor: pointer;
+
+    opacity: .8;
+}
+
+
+/* =========================
+   HORÁRIOS
+========================= */
 
 .horarios {
 
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
 
     gap: 9px;
 }
@@ -276,6 +291,11 @@ textarea {
     cursor: wait;
 }
 
+
+/* =========================
+   LEGENDA
+========================= */
+
 .legenda {
 
     display: flex;
@@ -301,7 +321,6 @@ textarea {
 .dot {
 
     width: 8px;
-
     height: 8px;
 
     border-radius: 50%;
@@ -321,7 +340,10 @@ textarea {
     background: var(--red);
 }
 
-/* PREÇO */
+
+/* =========================
+   PREÇO
+========================= */
 
 .preco-box {
 
@@ -363,7 +385,10 @@ textarea {
     color: var(--green);
 }
 
-/* RESUMO */
+
+/* =========================
+   RESUMO
+========================= */
 
 .resumo-final {
 
@@ -448,7 +473,10 @@ textarea {
     color: var(--green);
 }
 
-/* BOTÃO */
+
+/* =========================
+   BOTÃO
+========================= */
 
 button.agendar {
 
@@ -507,7 +535,10 @@ button.agendar:disabled {
     transform: none;
 }
 
-/* POPUP */
+
+/* =========================
+   POPUP
+========================= */
 
 .popup-overlay {
 
@@ -553,7 +584,8 @@ button.agendar:disabled {
     background: #111318;
 
     border:
-        1px solid var(--border);
+        1px solid
+        var(--border);
 
     border-radius: 22px;
 
@@ -582,7 +614,6 @@ button.agendar:disabled {
 .popup-icon {
 
     width: 65px;
-
     height: 65px;
 
     border-radius: 50%;
@@ -604,7 +635,8 @@ button.agendar:disabled {
     background:
         rgba(57,255,136,.1);
 
-    color: var(--green);
+    color:
+        var(--green);
 }
 
 .popup.error .popup-icon {
@@ -612,7 +644,8 @@ button.agendar:disabled {
     background:
         rgba(255,82,82,.1);
 
-    color: var(--red);
+    color:
+        var(--red);
 }
 
 .popup h2 {
@@ -661,7 +694,8 @@ button.agendar:disabled {
 
     border-radius: 10px;
 
-    background: var(--blue2);
+    background:
+        var(--blue2);
 
     color: white;
 
@@ -670,9 +704,12 @@ button.agendar:disabled {
     cursor: pointer;
 }
 
-/* MOBILE */
 
-@media(max-width: 560px) {
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:560px) {
 
     body {
 
@@ -699,9 +736,8 @@ button.agendar:disabled {
     .horarios {
 
         grid-template-columns:
-            repeat(2, 1fr);
+            repeat(2,1fr);
     }
-
 }
 
 </style>
@@ -712,265 +748,252 @@ button.agendar:disabled {
 
 <div class="form">
 
-    <div class="logo">
+<div class="logo">
 
-        <h1>
-            SAM<span>UCA</span>
-        </h1>
+    <h1>SAM<span>UCA</span></h1>
 
-        <p>
-            BARBERSHOP • AGENDAMENTO
-        </p>
+    <p>
+        BARBERSHOP • AGENDAMENTO
+    </p>
 
+</div>
+
+
+<label>
+    Nome completo *
+</label>
+
+<input
+    id="nome"
+    type="text"
+    placeholder="Digite seu nome"
+>
+
+
+<label>
+    Telefone *
+</label>
+
+<input
+    id="telefone"
+    type="tel"
+    placeholder="(00) 00000-0000"
+>
+
+
+<label>
+    E-mail
+</label>
+
+<input
+    id="email"
+    type="email"
+    placeholder="seuemail@email.com"
+>
+
+
+<label>
+    📅 Escolha a data *
+</label>
+
+<input
+    id="data"
+    type="date"
+>
+
+
+<label>
+    🕐 Escolha o horário *
+</label>
+
+<div
+    id="horarios"
+    class="horarios"
+>
+
+    <div class="horario">
+        Escolha uma data
     </div>
 
-
-    <label>
-        Nome completo *
-    </label>
-
-    <input
-        id="nome"
-        type="text"
-        placeholder="Digite seu nome"
-    >
+</div>
 
 
-    <label>
-        Telefone *
-    </label>
+<div class="legenda">
 
-    <input
-        id="telefone"
-        type="tel"
-        placeholder="(00) 00000-0000"
-    >
+    <span>
+        <span class="dot disponivel"></span>
+        Disponível
+    </span>
 
+    <span>
+        <span class="dot ocupado"></span>
+        Ocupado
+    </span>
 
-    <label>
-        E-mail
-    </label>
-
-    <input
-        id="email"
-        type="email"
-        placeholder="seuemail@email.com"
-    >
+</div>
 
 
-    <label>
-        📅 Escolha a data *
-    </label>
+<label>
+    ✂️ Serviço *
+</label>
 
-    <input
-        id="data"
-        type="date"
-    >
+<select id="servico">
+
+    <option value="">
+        Selecione o serviço
+    </option>
+
+    <option value="Corte masculino">
+        Corte masculino — $25.00
+    </option>
+
+    <option value="Corte + barba">
+        Corte + barba — $35.00
+    </option>
+
+    <option value="Barba">
+        Barba — $15.00
+    </option>
+
+    <option value="Corte infantil">
+        Corte infantil — $20.00
+    </option>
+
+</select>
 
 
-    <label>
-        🕐 Escolha o horário *
-    </label>
+<label>
+    💈 Tipo de corte *
+</label>
+
+<select id="tipo">
+
+    <option value="">
+        Selecione o corte
+    </option>
+
+    <option>
+        Degradê / Fade
+    </option>
+
+    <option>
+        Taper Fade
+    </option>
+
+    <option>
+        Social
+    </option>
+
+    <option>
+        Buzz Cut
+    </option>
+
+    <option>
+        Undercut
+    </option>
+
+    <option>
+        Outro
+    </option>
+
+</select>
+
+
+<label>
+    📝 Observações
+</label>
+
+<textarea
+    id="observacoes"
+    placeholder="Ex: Não subir muito o degradê..."
+></textarea>
+
+
+<div class="preco-box">
+
+    <div class="preco-titulo">
+        VALOR DO SERVIÇO
+    </div>
 
     <div
-        id="horarios"
-        class="horarios"
+        class="preco"
+        id="preco"
     >
+        $0.00
+    </div>
 
-        <div class="horario">
-            Escolha uma data
-        </div>
+</div>
+
+
+<div class="resumo-final">
+
+    <div class="resumo-titulo">
+        🧾 RESUMO DO AGENDAMENTO
+    </div>
+
+    <div class="resumo-item">
+
+        <span>
+            Serviço
+        </span>
+
+        <strong id="finalServico">
+            —
+        </strong>
 
     </div>
 
-
-    <div class="legenda">
-
-        <span>
-            <span
-                class="dot disponivel"
-            ></span>
-
-            Disponível
-        </span>
+    <div class="resumo-item">
 
         <span>
-            <span
-                class="dot ocupado"
-            ></span>
-
-            Ocupado
+            Data
         </span>
+
+        <strong id="finalData">
+            —
+        </strong>
 
     </div>
 
+    <div class="resumo-item">
 
-    <label>
-        ✂️ Serviço *
-    </label>
+        <span>
+            Horário
+        </span>
 
-    <select id="servico">
+        <strong id="finalHorario">
+            —
+        </strong>
 
-        <option value="">
-            Selecione o serviço
-        </option>
+    </div>
 
-        <option value="Corte masculino">
-            Corte masculino — $25.00
-        </option>
+    <div class="linha"></div>
 
-        <option value="Corte + barba">
-            Corte + barba — $35.00
-        </option>
+    <div class="total-final">
 
-        <option value="Barba">
-            Barba — $15.00
-        </option>
+        <span>
+            TOTAL
+        </span>
 
-        <option value="Corte infantil">
-            Corte infantil — $20.00
-        </option>
-
-    </select>
-
-
-    <label>
-        💈 Tipo de corte *
-    </label>
-
-    <select id="tipo">
-
-        <option value="">
-            Selecione o corte
-        </option>
-
-        <option>
-            Degradê / Fade
-        </option>
-
-        <option>
-            Taper Fade
-        </option>
-
-        <option>
-            Social
-        </option>
-
-        <option>
-            Buzz Cut
-        </option>
-
-        <option>
-            Undercut
-        </option>
-
-        <option>
-            Outro
-        </option>
-
-    </select>
-
-
-    <label>
-        📝 Observações
-    </label>
-
-    <textarea
-        id="observacoes"
-        placeholder="Ex: Não subir muito o degradê..."
-    ></textarea>
-
-
-    <div class="preco-box">
-
-        <div class="preco-titulo">
-            VALOR DO SERVIÇO
-        </div>
-
-        <div
-            class="preco"
-            id="preco"
-        >
+        <strong id="finalPreco">
             $0.00
-        </div>
+        </strong>
 
     </div>
 
-
-    <div class="resumo-final">
-
-        <div class="resumo-titulo">
-            🧾 RESUMO DO AGENDAMENTO
-        </div>
+</div>
 
 
-        <div class="resumo-item">
-
-            <span>
-                Serviço
-            </span>
-
-            <strong id="finalServico">
-                —
-            </strong>
-
-        </div>
+<button
+    id="botao"
+    class="agendar"
+    onclick="agendar()"
+>
+    ✂️ AGENDAR CORTE
+</button>
 
 
-        <div class="resumo-item">
-
-            <span>
-                Data
-            </span>
-
-            <strong id="finalData">
-                —
-            </strong>
-
-        </div>
-
-
-        <div class="resumo-item">
-
-            <span>
-                Horário
-            </span>
-
-            <strong id="finalHorario">
-                —
-            </strong>
-
-        </div>
-
-
-        <div class="linha"></div>
-
-
-        <div class="total-final">
-
-            <span>
-                TOTAL
-            </span>
-
-            <strong id="finalPreco">
-                $0.00
-            </strong>
-
-        </div>
-
-    </div>
-
-
-    <button
-        id="botao"
-        class="agendar"
-        onclick="agendar()"
-    >
-        ✂️ AGENDAR CORTE
-    </button>
-
-
-    <div id="status"></div>
+<div id="status"></div>
 
 </div>
 
@@ -994,24 +1017,18 @@ button.agendar:disabled {
             ✓
         </div>
 
-
         <h2 id="popupTitle">
             Agendamento
         </h2>
 
-
         <p id="popupMessage"></p>
-
 
         <div
             id="popupDetails"
             class="popup-details"
         ></div>
 
-
-        <button
-            onclick="fecharPopup()"
-        >
+        <button onclick="fecharPopup()">
             FECHAR
         </button>
 
@@ -1022,9 +1039,10 @@ button.agendar:disabled {
 
 <script>
 
-/* =====================================================
-   PREÇOS
-===================================================== */
+
+// =====================================================
+// PREÇOS
+// =====================================================
 
 const PRECOS = {
 
@@ -1039,9 +1057,9 @@ const PRECOS = {
 };
 
 
-/* =====================================================
-   HORÁRIOS
-===================================================== */
+// =====================================================
+// HORÁRIOS
+// =====================================================
 
 const HORARIOS = [
 
@@ -1069,10 +1087,6 @@ const HORARIOS = [
 ];
 
 
-/* =====================================================
-   VARIÁVEIS
-===================================================== */
-
 let horarioSelecionado = "";
 
 let horariosOcupados = [];
@@ -1082,9 +1096,28 @@ const campoData =
     document.getElementById("data");
 
 
-/* =====================================================
-   DATA DE HOJE
-===================================================== */
+// =====================================================
+// DATA INTELIGENTE
+// =====================================================
+//
+// Sempre pega a data REAL de hoje.
+//
+// Isso significa:
+//
+// hoje = permitido
+//
+// amanhã = permitido
+//
+// qualquer futuro = permitido
+//
+// ontem = bloqueado
+//
+// anteontem = bloqueado
+//
+// E amanhã o sistema atualiza
+// automaticamente para o novo dia.
+//
+// =====================================================
 
 function obterDataHoje() {
 
@@ -1104,117 +1137,70 @@ function obterDataHoje() {
         ).padStart(2, "0");
 
     return `${ano}-${mes}-${dia}`;
-
 }
 
 
-/* =====================================================
-   CONFIGURAR DATA
-===================================================== */
+// =====================================================
+// CONFIGURAR CALENDÁRIO
+// =====================================================
 
 function configurarData() {
 
-    const dataHoje =
+    const hoje =
         obterDataHoje();
 
-    /*
-     * O calendário NÃO poderá
-     * escolher nada antes de hoje.
-     */
+    // Impede datas anteriores
+    campoData.min = hoje;
 
-    campoData.min = dataHoje;
-
-
-    /*
-     * Se o navegador tiver
-     * colocado uma data antiga,
-     * limpa.
-     */
-
+    // Se por algum motivo tiver
+    // uma data antiga selecionada
     if (
         campoData.value &&
-        campoData.value < dataHoje
+        campoData.value < hoje
     ) {
 
         campoData.value = "";
-
     }
 
 }
 
 
-/*
- * Executa imediatamente.
- */
-
+// Executa imediatamente
 configurarData();
 
 
-/*
- * Atualiza a data mínima
- * novamente quando a página
- * volta a ficar ativa.
- */
-
-document.addEventListener(
-    "visibilitychange",
-    function() {
-
-        if (
-            !document.hidden
-        ) {
-
-            configurarData();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   MUDANÇA DE DATA
-===================================================== */
+// =====================================================
+// VERIFICAÇÃO EXTRA
+// =====================================================
 
 campoData.addEventListener(
     "change",
     async function() {
 
-        const dataHoje =
+        const hoje =
             obterDataHoje();
 
+        const dataEscolhida =
+            campoData.value;
 
-        /*
-         * SEGURANÇA EXTRA:
-         * nunca aceitar data passada.
-         */
+
+        // Segurança extra:
+        // nunca aceita data passada.
 
         if (
-            this.value < dataHoje
+            dataEscolhida &&
+            dataEscolhida < hoje
         ) {
 
-            this.value = "";
-
-            horarioSelecionado = "";
-
-            atualizarResumo();
-
+            campoData.value = "";
 
             mostrarPopup(
                 "error",
                 "Data inválida",
-                "Você só pode escolher hoje ou uma data futura."
+                "Você não pode escolher uma data que já passou."
             );
 
-
-            document
-                .getElementById("horarios")
-                .innerHTML =
-                '<div class="horario">Escolha uma data</div>';
-
-
             return;
-
         }
 
 
@@ -1228,9 +1214,9 @@ campoData.addEventListener(
 );
 
 
-/* =====================================================
-   MUDANÇA DE SERVIÇO
-===================================================== */
+// =====================================================
+// SERVIÇO
+// =====================================================
 
 document
     .getElementById("servico")
@@ -1246,9 +1232,9 @@ document
     );
 
 
-/* =====================================================
-   CARREGAR HORÁRIOS
-===================================================== */
+// =====================================================
+// CARREGAR HORÁRIOS
+// =====================================================
 
 async function carregarHorarios() {
 
@@ -1271,48 +1257,25 @@ async function carregarHorarios() {
     }
 
 
-    /*
-     * Segurança:
-     * não consultar data passada.
-     */
-
-    if (
-        data < obterDataHoje()
-    ) {
-
-        campoData.value = "";
-
-        container.innerHTML =
-            '<div class="horario">Escolha uma data</div>';
-
-        return;
-
-    }
-
-
     container.innerHTML = "";
 
 
-    HORARIOS.forEach(
-        () => {
+    HORARIOS.forEach(() => {
 
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-            div.className =
-                "horario loading";
-
-            div.textContent =
-                "⏳";
-
-            container.appendChild(
-                div
+        const div =
+            document.createElement(
+                "div"
             );
 
-        }
-    );
+        div.className =
+            "horario loading";
+
+        div.textContent =
+            "⏳";
+
+        container.appendChild(div);
+
+    });
 
 
     try {
@@ -1345,9 +1308,8 @@ async function carregarHorarios() {
 
         renderizarHorarios();
 
-    }
 
-    catch(error) {
+    } catch(error) {
 
         console.error(error);
 
@@ -1362,8 +1324,8 @@ async function carregarHorarios() {
                 "
             >
 
-                ❌ Não foi possível carregar
-                os horários.
+                ❌ Não foi possível
+                carregar os horários.
 
                 <br>
 
@@ -1378,9 +1340,9 @@ async function carregarHorarios() {
 }
 
 
-/* =====================================================
-   RENDERIZAR HORÁRIOS
-===================================================== */
+// =====================================================
+// RENDERIZAR HORÁRIOS
+// =====================================================
 
 function renderizarHorarios() {
 
@@ -1397,8 +1359,9 @@ function renderizarHorarios() {
         horario => {
 
             const ocupado =
-                horariosOcupados
-                    .includes(horario);
+                horariosOcupados.includes(
+                    horario
+                );
 
 
             const div =
@@ -1461,9 +1424,9 @@ function renderizarHorarios() {
 }
 
 
-/* =====================================================
-   SELECIONAR HORÁRIO
-===================================================== */
+// =====================================================
+// SELECIONAR HORÁRIO
+// =====================================================
 
 function selecionarHorario(
     horario,
@@ -1471,9 +1434,7 @@ function selecionarHorario(
 ) {
 
     document
-        .querySelectorAll(
-            ".horario"
-        )
+        .querySelectorAll(".horario")
         .forEach(
             item =>
                 item.classList.remove(
@@ -1496,9 +1457,9 @@ function selecionarHorario(
 }
 
 
-/* =====================================================
-   ATUALIZAR PREÇO
-===================================================== */
+// =====================================================
+// PREÇO
+// =====================================================
 
 function atualizarPreco() {
 
@@ -1515,20 +1476,22 @@ function atualizarPreco() {
     document.getElementById(
         "preco"
     ).textContent =
-        "$" + preco.toFixed(2);
+        "$" +
+        preco.toFixed(2);
 
 
     document.getElementById(
         "finalPreco"
     ).textContent =
-        "$" + preco.toFixed(2);
+        "$" +
+        preco.toFixed(2);
 
 }
 
 
-/* =====================================================
-   ATUALIZAR RESUMO
-===================================================== */
+// =====================================================
+// RESUMO
+// =====================================================
 
 function atualizarResumo() {
 
@@ -1555,7 +1518,7 @@ function atualizarResumo() {
     document.getElementById(
         "finalData"
     ).textContent =
-        data || "—";
+        formatarData(data);
 
 
     document.getElementById(
@@ -1567,14 +1530,46 @@ function atualizarResumo() {
     document.getElementById(
         "finalPreco"
     ).textContent =
-        "$" + preco.toFixed(2);
+        "$" +
+        preco.toFixed(2);
 
 }
 
 
-/* =====================================================
-   POPUP
-===================================================== */
+// =====================================================
+// FORMATAR DATA
+// =====================================================
+
+function formatarData(data) {
+
+    if (!data) {
+        return "—";
+    }
+
+
+    const partes =
+        data.split("-");
+
+
+    if (partes.length !== 3) {
+        return data;
+    }
+
+
+    return (
+        partes[2] +
+        "/" +
+        partes[1] +
+        "/" +
+        partes[0]
+    );
+
+}
+
+
+// =====================================================
+// POPUP
+// =====================================================
 
 function mostrarPopup(
     tipo,
@@ -1632,9 +1627,9 @@ function mostrarPopup(
 }
 
 
-/* =====================================================
-   FECHAR POPUP
-===================================================== */
+// =====================================================
+// FECHAR POPUP
+// =====================================================
 
 function fecharPopup() {
 
@@ -1669,11 +1664,15 @@ document
     );
 
 
-/* =====================================================
-   AGENDAR
-===================================================== */
+// =====================================================
+// AGENDAR
+// =====================================================
 
 async function agendar() {
+
+    // Atualiza a data antes de enviar
+    configurarData();
+
 
     const botao =
         document.getElementById(
@@ -1687,22 +1686,29 @@ async function agendar() {
         );
 
 
+    const hoje =
+        obterDataHoje();
+
+
     const dados = {
 
         nome:
-            document.getElementById(
-                "nome"
-            ).value.trim(),
+            document
+                .getElementById("nome")
+                .value
+                .trim(),
 
         telefone:
-            document.getElementById(
-                "telefone"
-            ).value.trim(),
+            document
+                .getElementById("telefone")
+                .value
+                .trim(),
 
         email:
-            document.getElementById(
-                "email"
-            ).value.trim(),
+            document
+                .getElementById("email")
+                .value
+                .trim(),
 
         data:
             campoData.value,
@@ -1711,81 +1717,46 @@ async function agendar() {
             horarioSelecionado,
 
         servico:
-            document.getElementById(
-                "servico"
-            ).value,
+            document
+                .getElementById("servico")
+                .value,
 
         tipo:
-            document.getElementById(
-                "tipo"
-            ).value,
+            document
+                .getElementById("tipo")
+                .value,
 
         observacoes:
-            document.getElementById(
-                "observacoes"
-            ).value.trim()
+            document
+                .getElementById("observacoes")
+                .value
+                .trim()
 
     };
 
 
-    /* =================================================
-       PROTEÇÃO CONTRA DATA PASSADA
-    ================================================= */
-
-    const dataHoje =
-        obterDataHoje();
-
+    // =================================================
+    // SEGURANÇA DA DATA
+    // =================================================
 
     if (
-        !dados.data
-    ) {
-
-        mostrarPopup(
-            "error",
-            "Data não selecionada",
-            "Escolha uma data para continuar."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        dados.data < dataHoje
+        dados.data &&
+        dados.data < hoje
     ) {
 
         mostrarPopup(
             "error",
             "Data inválida",
-            "Você não pode agendar para uma data que já passou."
+            "A data escolhida já passou. Escolha hoje ou uma data futura."
         );
 
-
-        campoData.value = "";
-
-        horarioSelecionado = "";
-
-
-        atualizarResumo();
-
-
-        document
-            .getElementById(
-                "horarios"
-            )
-            .innerHTML =
-            '<div class="horario">Escolha uma data</div>';
-
-
         return;
-
     }
 
 
-    /* =================================================
-       CAMPOS OBRIGATÓRIOS
-    ================================================= */
+    // =================================================
+    // CAMPOS OBRIGATÓRIOS
+    // =================================================
 
     if (
 
@@ -1814,15 +1785,14 @@ async function agendar() {
     }
 
 
-    /* =================================================
-       HORÁRIO OCUPADO
-    ================================================= */
+    // =================================================
+    // HORÁRIO OCUPADO
+    // =================================================
 
     if (
-        horariosOcupados
-            .includes(
-                dados.horario
-            )
+        horariosOcupados.includes(
+            dados.horario
+        )
     ) {
 
         mostrarPopup(
@@ -1834,6 +1804,7 @@ async function agendar() {
 
         await carregarHorarios();
 
+
         return;
 
     }
@@ -1843,7 +1814,8 @@ async function agendar() {
         PRECOS[dados.servico];
 
 
-    botao.disabled = true;
+    botao.disabled =
+        true;
 
 
     status.textContent =
@@ -1894,7 +1866,7 @@ async function agendar() {
 
                 `
 
-                    📅 ${dados.data}
+                    📅 ${formatarData(dados.data)}
 
                     <br>
 
@@ -1926,6 +1898,8 @@ async function agendar() {
 
             );
 
+
+            // Limpar formulário
 
             document.getElementById(
                 "nome"
@@ -1962,10 +1936,12 @@ async function agendar() {
             ).value = "";
 
 
-            horarioSelecionado = "";
+            horarioSelecionado =
+                "";
 
 
-            horariosOcupados = [];
+            horariosOcupados =
+                [];
 
 
             atualizarPreco();
@@ -1978,6 +1954,7 @@ async function agendar() {
             ).innerHTML =
                 '<div class="horario">Escolha uma data</div>';
 
+
         }
 
 
@@ -1986,9 +1963,13 @@ async function agendar() {
         ) {
 
             mostrarPopup(
+
                 "error",
+
                 "Horário indisponível",
+
                 "Esse horário acabou de ser reservado por outra pessoa. Escolha outro."
+
             );
 
 
@@ -2000,16 +1981,20 @@ async function agendar() {
         else {
 
             mostrarPopup(
+
                 "error",
+
                 "Não foi possível agendar",
+
                 resultado.message ||
                 "Ocorreu um erro ao realizar o agendamento."
+
             );
 
         }
 
-    }
 
+    }
 
     catch(error) {
 
@@ -2017,24 +2002,31 @@ async function agendar() {
 
 
         mostrarPopup(
+
             "error",
+
             "Erro de conexão",
+
             "Não foi possível conectar ao servidor. Tente novamente."
+
         );
 
     }
 
 
-    botao.disabled = false;
+    botao.disabled =
+        false;
 
-    status.textContent = "";
+
+    status.textContent =
+        "";
 
 }
 
 
-/* =====================================================
-   INICIALIZAÇÃO
-===================================================== */
+// =====================================================
+// INICIALIZAÇÃO
+// =====================================================
 
 configurarData();
 
