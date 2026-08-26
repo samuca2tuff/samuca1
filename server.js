@@ -1,5 +1,6 @@
 const express = require("express");
 const { Pool } = require("pg");
+const session = require("express-session");
 
 const app = express();
 
@@ -7,15 +8,33 @@ const PORT = process.env.PORT || 3000;
 
 
 // =====================================================
+// CONFIGURAÇÕES
+// =====================================================
+
+const ADMIN_USER =
+    process.env.ADMIN_USER;
+
+const ADMIN_PASSWORD =
+    process.env.ADMIN_PASSWORD;
+
+const SESSION_SECRET =
+    process.env.SESSION_SECRET ||
+    "samuca-temporary-session-secret";
+
+
+// =====================================================
 // POSTGRESQL
 // =====================================================
 
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+
+    connectionString:
+        process.env.DATABASE_URL,
 
     ssl: {
         rejectUnauthorized: false
     }
+
 });
 
 
@@ -31,11 +50,42 @@ app.use(
     })
 );
 
-app.use(express.static(__dirname));
+
+// =====================================================
+// SESSÃO
+// =====================================================
+
+app.use(
+    session({
+
+        secret: SESSION_SECRET,
+
+        resave: false,
+
+        saveUninitialized: false,
+
+        cookie: {
+
+            httpOnly: true,
+
+            secure: process.env.NODE_ENV === "production",
+
+            sameSite: "lax",
+
+            maxAge:
+                1000 *
+                60 *
+                60 *
+                12
+
+        }
+
+    })
+);
 
 
 // =====================================================
-// PREÇOS
+// PREÇOS OFICIAIS
 // =====================================================
 
 const PRECOS = {
@@ -91,8 +141,6 @@ const STATUS_VALIDOS = [
 
     "Confirmado",
 
-    "Em andamento",
-
     "Cancelado",
 
     "Finalizado"
@@ -101,14 +149,354 @@ const STATUS_VALIDOS = [
 
 
 // =====================================================
-// PREPARAR BANCO
+// MIDDLEWARE DE AUTENTICAÇÃO
+// =====================================================
+
+function exigirLogin(req, res, next) {
+
+    if (
+        req.session &&
+        req.session.logado === true
+    ) {
+
+        return next();
+
+    }
+
+    return res.status(401).json({
+
+        success: false,
+
+        message:
+            "Você precisa estar logado."
+
+    });
+
+}
+
+
+// =====================================================
+// PROTEGER DASHBOARD
+// =====================================================
+
+app.get(
+    "/dashboard.html",
+    (req, res, next) => {
+
+        if (
+            req.session &&
+            req.session.logado === true
+        ) {
+
+            return res.sendFile(
+                __dirname +
+                "/dashboard.html"
+            );
+
+        }
+
+
+        return res.redirect(
+            "/login.html"
+        );
+
+    }
+);
+
+
+// =====================================================
+// PÁGINAS PÚBLICAS
+// =====================================================
+
+app.get(
+    "/",
+    (req, res) => {
+
+        res.sendFile(
+            __dirname +
+            "/form.html"
+        );
+
+    }
+);
+
+
+app.get(
+    "/form.html",
+    (req, res) => {
+
+        res.sendFile(
+            __dirname +
+            "/form.html"
+        );
+
+    }
+);
+
+
+app.get(
+    "/login.html",
+    (req, res) => {
+
+        if (
+            req.session &&
+            req.session.logado === true
+        ) {
+
+            return res.redirect(
+                "/dashboard.html"
+            );
+
+        }
+
+        res.sendFile(
+            __dirname +
+            "/login.html"
+        );
+
+    }
+);
+
+
+// =====================================================
+// ARQUIVOS ESTÁTICOS
+// =====================================================
+//
+// IMPORTANTE:
+// dashboard.html NÃO fica público porque a rota acima
+// intercepta antes do express.static.
+//
+
+app.use(
+    express.static(__dirname)
+);
+
+
+// =====================================================
+// LOGIN
+// =====================================================
+
+app.post(
+    "/api/login",
+    async (req, res) => {
+
+        try {
+
+            const {
+                usuario,
+                senha
+            } = req.body;
+
+
+            if (
+                !usuario ||
+                !senha
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Digite usuário e senha."
+
+                });
+
+            }
+
+
+            if (
+                !ADMIN_USER ||
+                !ADMIN_PASSWORD
+            ) {
+
+                console.error(
+                    "❌ ADMIN_USER ou ADMIN_PASSWORD não configurado no Render."
+                );
+
+
+                return res.status(500).json({
+
+                    success: false,
+
+                    message:
+                        "Login não configurado no servidor."
+
+                });
+
+            }
+
+
+            const usuarioCorreto =
+                usuario === ADMIN_USER;
+
+
+            const senhaCorreta =
+                senha === ADMIN_PASSWORD;
+
+
+            if (
+                !usuarioCorreto ||
+                !senhaCorreta
+            ) {
+
+                return res.status(401).json({
+
+                    success: false,
+
+                    message:
+                        "Usuário ou senha incorretos."
+
+                });
+
+            }
+
+
+            req.session.logado =
+                true;
+
+
+            req.session.usuario =
+                ADMIN_USER;
+
+
+            req.session.loginEm =
+                new Date();
+
+
+            return res.json({
+
+                success: true,
+
+                message:
+                    "Login realizado com sucesso."
+
+            });
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "❌ ERRO LOGIN:",
+                error
+            );
+
+
+            return res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Erro ao realizar login."
+
+            });
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// VERIFICAR LOGIN
+// =====================================================
+
+app.get(
+    "/api/me",
+    (req, res) => {
+
+        if (
+            req.session &&
+            req.session.logado === true
+        ) {
+
+            return res.json({
+
+                success: true,
+
+                logado: true,
+
+                usuario:
+                    req.session.usuario
+
+            });
+
+        }
+
+
+        return res.status(401).json({
+
+            success: false,
+
+            logado: false
+
+        });
+
+    }
+);
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+app.post(
+    "/api/logout",
+    (req, res) => {
+
+        req.session.destroy(
+            error => {
+
+                if (error) {
+
+                    console.error(
+                        "❌ ERRO LOGOUT:",
+                        error
+                    );
+
+
+                    return res.status(500).json({
+
+                        success: false,
+
+                        message:
+                            "Erro ao sair."
+
+                    });
+
+                }
+
+
+                res.clearCookie(
+                    "connect.sid"
+                );
+
+
+                return res.json({
+
+                    success: true
+
+                });
+
+            }
+        );
+
+    }
+);
+
+
+// =====================================================
+// CRIAR / ATUALIZAR BANCO
 // =====================================================
 
 async function prepararBanco() {
 
     try {
 
-        console.log("🔄 Preparando banco SAMUCA...");
+        console.log(
+            "🔄 Preparando banco..."
+        );
 
 
         await pool.query(`
@@ -150,8 +538,8 @@ async function prepararBanco() {
 
             ALTER TABLE appointments
 
-            ADD COLUMN IF NOT EXISTS pago
-            BOOLEAN DEFAULT FALSE
+            ADD COLUMN IF NOT EXISTS
+            pago BOOLEAN DEFAULT FALSE
 
         `);
 
@@ -160,8 +548,8 @@ async function prepararBanco() {
 
             ALTER TABLE appointments
 
-            ADD COLUMN IF NOT EXISTS preco
-            NUMERIC(10,2) DEFAULT 0
+            ADD COLUMN IF NOT EXISTS
+            preco NUMERIC(10,2) DEFAULT 0
 
         `);
 
@@ -170,52 +558,11 @@ async function prepararBanco() {
 
             ALTER TABLE appointments
 
-            ADD COLUMN IF NOT EXISTS status
-            TEXT DEFAULT 'Pendente'
+            ADD COLUMN IF NOT EXISTS
+            status TEXT DEFAULT 'Pendente'
 
         `);
 
-
-        await pool.query(`
-
-            ALTER TABLE appointments
-
-            ADD COLUMN IF NOT EXISTS observacoes
-            TEXT
-
-        `);
-
-
-        // ---------------------------------------------
-        // Corrigir preços antigos que estejam zerados
-        // ---------------------------------------------
-
-        for (const [servico, preco] of Object.entries(PRECOS)) {
-
-            await pool.query(
-
-                `
-
-                UPDATE appointments
-
-                SET preco = $1
-
-                WHERE servico = $2
-
-                AND (preco IS NULL OR preco = 0)
-
-                `,
-
-                [preco, servico]
-
-            );
-
-        }
-
-
-        // ---------------------------------------------
-        // Índice que bloqueia horários ativos
-        // ---------------------------------------------
 
         await pool.query(`
 
@@ -238,7 +585,9 @@ async function prepararBanco() {
         `);
 
 
-        console.log("✅ Banco SAMUCA preparado.");
+        console.log(
+            "✅ Banco preparado."
+        );
 
     }
 
@@ -310,7 +659,8 @@ app.get(
 
             const ocupados =
                 resultado.rows.map(
-                    item => item.horario
+                    item =>
+                        item.horario
                 );
 
 
@@ -360,36 +710,24 @@ app.post(
             const {
 
                 nome,
-
                 telefone,
-
                 email,
-
                 data,
-
                 horario,
-
                 servico,
-
                 tipo,
-
                 observacoes
 
-            } = req.body || {};
+            } = req.body;
 
 
             if (
 
                 !nome ||
-
                 !telefone ||
-
                 !data ||
-
                 !horario ||
-
                 !servico ||
-
                 !tipo
 
             ) {
@@ -426,7 +764,9 @@ app.post(
 
 
             if (
-                !HORARIOS.includes(horario)
+                !HORARIOS.includes(
+                    horario
+                )
             ) {
 
                 return res.status(400).json({
@@ -444,10 +784,6 @@ app.post(
             const preco =
                 PRECOS[servico];
 
-
-            // -----------------------------------------
-            // VERIFICAR HORÁRIO
-            // -----------------------------------------
 
             const existente =
                 await pool.query(
@@ -493,10 +829,6 @@ app.post(
             }
 
 
-            // -----------------------------------------
-            // SALVAR
-            // -----------------------------------------
-
             const resultado =
                 await pool.query(
 
@@ -507,25 +839,15 @@ app.post(
                     (
 
                         nome,
-
                         telefone,
-
                         email,
-
                         data,
-
                         horario,
-
                         servico,
-
                         tipo,
-
                         observacoes,
-
                         status,
-
                         pago,
-
                         preco
 
                     )
@@ -535,25 +857,15 @@ app.post(
                     (
 
                         $1,
-
                         $2,
-
                         $3,
-
                         $4,
-
                         $5,
-
                         $6,
-
                         $7,
-
                         $8,
-
                         'Pendente',
-
                         FALSE,
-
                         $9
 
                     )
@@ -565,21 +877,13 @@ app.post(
                     [
 
                         nome,
-
                         telefone,
-
                         email || "",
-
                         data,
-
                         horario,
-
                         servico,
-
                         tipo,
-
                         observacoes || "",
-
                         preco
 
                     ]
@@ -651,9 +955,13 @@ app.post(
 // =====================================================
 // LISTAR AGENDAMENTOS
 // =====================================================
+//
+// PROTEGIDO
+//
 
 app.get(
     "/api/submissions",
+    exigirLogin,
     async (req, res) => {
 
         try {
@@ -664,29 +972,17 @@ app.get(
                     SELECT
 
                         id,
-
                         nome,
-
                         telefone,
-
                         email,
-
                         data,
-
                         horario,
-
                         servico,
-
                         tipo,
-
                         observacoes,
-
                         status,
-
                         pago,
-
                         preco,
-
                         enviado_em AS "enviadoEm"
 
                     FROM appointments
@@ -728,9 +1024,13 @@ app.get(
 // =====================================================
 // ALTERAR STATUS
 // =====================================================
+//
+// PROTEGIDO
+//
 
 app.post(
     "/api/status",
+    exigirLogin,
     async (req, res) => {
 
         try {
@@ -738,12 +1038,14 @@ app.post(
             const {
                 id,
                 status
-            } = req.body || {};
+            } = req.body;
 
 
             if (
                 !id ||
-                !STATUS_VALIDOS.includes(status)
+                !STATUS_VALIDOS.includes(
+                    status
+                )
             ) {
 
                 return res.status(400).json({
@@ -758,43 +1060,24 @@ app.post(
             }
 
 
-            const resultado =
-                await pool.query(
+            await pool.query(
 
-                    `
+                `
 
-                    UPDATE appointments
+                UPDATE appointments
 
-                    SET status = $1
+                SET status = $1
 
-                    WHERE id = $2
+                WHERE id = $2
 
-                    RETURNING *
+                `,
 
-                    `,
+                [
+                    status,
+                    id
+                ]
 
-                    [
-                        status,
-                        id
-                    ]
-
-                );
-
-
-            if (
-                resultado.rowCount === 0
-            ) {
-
-                return res.status(404).json({
-
-                    success: false,
-
-                    message:
-                        "Agendamento não encontrado."
-
-                });
-
-            }
+            );
 
 
             console.log(
@@ -804,10 +1087,7 @@ app.post(
 
             res.json({
 
-                success: true,
-
-                appointment:
-                    resultado.rows[0]
+                success: true
 
             });
 
@@ -823,10 +1103,7 @@ app.post(
 
             res.status(500).json({
 
-                success: false,
-
-                message:
-                    "Erro ao alterar status."
+                success: false
 
             });
 
@@ -839,9 +1116,13 @@ app.post(
 // =====================================================
 // PAGAMENTO
 // =====================================================
+//
+// PROTEGIDO
+//
 
 app.post(
     "/api/payment",
+    exigirLogin,
     async (req, res) => {
 
         try {
@@ -849,78 +1130,49 @@ app.post(
             const {
                 id,
                 pago
-            } = req.body || {};
+            } = req.body;
 
 
             if (!id) {
 
                 return res.status(400).json({
 
-                    success: false,
-
-                    message:
-                        "ID não informado."
+                    success: false
 
                 });
 
             }
 
 
-            const valorPago =
-                pago === true;
+            await pool.query(
 
+                `
 
-            const resultado =
-                await pool.query(
+                UPDATE appointments
 
-                    `
+                SET pago = $1
 
-                    UPDATE appointments
+                WHERE id = $2
 
-                    SET pago = $1
+                `,
 
-                    WHERE id = $2
+                [
+                    Boolean(pago),
+                    id
+                ]
 
-                    RETURNING *
-
-                    `,
-
-                    [
-                        valorPago,
-                        id
-                    ]
-
-                );
-
-
-            if (
-                resultado.rowCount === 0
-            ) {
-
-                return res.status(404).json({
-
-                    success: false,
-
-                    message:
-                        "Agendamento não encontrado."
-
-                });
-
-            }
+            );
 
 
             console.log(
                 `💰 Pagamento ${id}:`,
-                valorPago
+                pago
             );
 
 
             res.json({
 
-                success: true,
-
-                appointment:
-                    resultado.rows[0]
+                success: true
 
             });
 
@@ -936,10 +1188,7 @@ app.post(
 
             res.status(500).json({
 
-                success: false,
-
-                message:
-                    "Erro ao atualizar pagamento."
+                success: false
 
             });
 
@@ -952,16 +1201,20 @@ app.post(
 // =====================================================
 // APAGAR AGENDAMENTO
 // =====================================================
+//
+// PROTEGIDO
+//
 
 app.post(
     "/api/delete",
+    exigirLogin,
     async (req, res) => {
 
         try {
 
             const {
                 id
-            } = req.body || {};
+            } = req.body;
 
 
             if (!id) {
@@ -1050,6 +1303,9 @@ app.post(
 // =====================================================
 // HEALTH CHECK
 // =====================================================
+//
+// Público para o Render.
+//
 
 app.get(
     "/api/health",
@@ -1079,6 +1335,10 @@ app.listen(
 
         console.log(
             `🚀 SAMUCA ONLINE NA PORTA ${PORT}`
+        );
+
+        console.log(
+            "🔐 Sistema de login ativado."
         );
 
     }
