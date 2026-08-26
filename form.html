@@ -4,7 +4,9 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>SAMUCA • Agendamento</title>
 
@@ -16,59 +18,77 @@
 }
 
 body {
+
     margin: 0;
+
     min-height: 100vh;
+
     background: #080808;
+
     color: white;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     padding: 30px;
 }
 
 .form {
+
     width: 500px;
 
     background: #111;
 
     border: 1px solid #292929;
+
     border-radius: 18px;
 
     padding: 35px;
-
-    box-shadow: 0 0 40px rgba(0, 100, 255, .12);
 }
 
 .logo {
+
     text-align: center;
+
     margin-bottom: 30px;
 }
 
 .logo h1 {
-    font-size: 36px;
-    letter-spacing: 5px;
+
     margin: 0;
+
+    font-size: 36px;
+
+    letter-spacing: 5px;
 }
 
 .logo span {
+
     color: #348cff;
 }
 
 .logo p {
+
     color: #777;
+
     font-size: 12px;
+
     letter-spacing: 2px;
 }
 
 label {
+
     display: block;
 
     margin-top: 18px;
+
     margin-bottom: 7px;
 
     color: #aaa;
+
     font-size: 13px;
 }
 
@@ -89,22 +109,13 @@ textarea {
     color: white;
 
     outline: none;
-
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: #348cff;
 }
 
 textarea {
-    height: 100px;
-    resize: vertical;
-}
 
-input[type="file"] {
-    padding: 11px;
+    height: 100px;
+
+    resize: vertical;
 }
 
 button {
@@ -126,15 +137,12 @@ button {
     font-weight: bold;
 
     cursor: pointer;
-
-}
-
-button:hover {
-    background: #1268ed;
 }
 
 button:disabled {
+
     opacity: .5;
+
     cursor: not-allowed;
 }
 
@@ -144,8 +152,7 @@ button:disabled {
 
     margin-top: 15px;
 
-    color: #888;
-
+    color: #aaa;
 }
 
 </style>
@@ -157,191 +164,187 @@ button:disabled {
 
 <div class="form">
 
-    <div class="logo">
 
-        <h1>
-            SAM<span>UCA</span>
-        </h1>
+<div class="logo">
 
-        <p>
-            BARBERSHOP • AGENDAMENTO
-        </p>
+<h1>
+SAM<span>UCA</span>
+</h1>
 
-    </div>
+<p>
+BARBERSHOP • AGENDAMENTO
+</p>
 
-
-    <label>
-        Nome completo *
-    </label>
-
-    <input
-        id="nome"
-        type="text"
-        placeholder="Digite seu nome"
-    >
+</div>
 
 
-    <label>
-        Telefone *
-    </label>
+<label>
+Nome completo *
+</label>
 
-    <input
-        id="telefone"
-        type="tel"
-        placeholder="(00) 00000-0000"
-    >
-
-
-    <label>
-        E-mail
-    </label>
-
-    <input
-        id="email"
-        type="email"
-        placeholder="seuemail@email.com"
-    >
+<input
+id="nome"
+type="text"
+placeholder="Digite seu nome"
+>
 
 
-    <label>
-        Data do corte *
-    </label>
+<label>
+Telefone *
+</label>
 
-    <input
-        id="data"
-        type="date"
-    >
-
-
-    <label>
-        Horário *
-    </label>
-
-    <select id="horario">
-
-        <option value="">
-            Selecione um horário
-        </option>
-
-        <option>09:00</option>
-        <option>09:30</option>
-
-        <option>10:00</option>
-        <option>10:30</option>
-
-        <option>11:00</option>
-        <option>11:30</option>
-
-        <option>13:00</option>
-        <option>13:30</option>
-
-        <option>14:00</option>
-        <option>14:30</option>
-
-        <option>15:00</option>
-        <option>15:30</option>
-
-        <option>16:00</option>
-        <option>16:30</option>
-
-        <option>17:00</option>
-        <option>17:30</option>
-
-        <option>18:00</option>
-        <option>18:30</option>
-
-    </select>
+<input
+id="telefone"
+type="tel"
+placeholder="(00) 00000-0000"
+>
 
 
-    <label>
-        Serviço *
-    </label>
+<label>
+E-mail
+</label>
 
-    <select id="servico">
-
-        <option value="">
-            Selecione o serviço
-        </option>
-
-        <option>
-            Corte masculino
-        </option>
-
-        <option>
-            Corte + barba
-        </option>
-
-        <option>
-            Barba
-        </option>
-
-        <option>
-            Corte infantil
-        </option>
-
-        <option>
-            Outro
-        </option>
-
-    </select>
+<input
+id="email"
+type="email"
+placeholder="seuemail@email.com"
+>
 
 
-    <label>
-        Tipo de corte *
-    </label>
+<label>
+Data do corte *
+</label>
 
-    <select id="tipo">
-
-        <option value="">
-            Selecione o corte
-        </option>
-
-        <option>
-            Degradê / Fade
-        </option>
-
-        <option>
-            Taper Fade
-        </option>
-
-        <option>
-            Social
-        </option>
-
-        <option>
-            Buzz Cut
-        </option>
-
-        <option>
-            Undercut
-        </option>
-
-        <option>
-            Outro
-        </option>
-
-    </select>
+<input
+id="data"
+type="date"
+>
 
 
-    <label>
-        📝 Observações
-    </label>
+<label>
+Horário *
+</label>
 
-    <textarea
-        id="observacoes"
-        placeholder="Ex: Não subir muito o degradê..."
-    ></textarea>
+<select id="horario">
+
+<option value="">
+Selecione um horário
+</option>
+
+<option>09:00</option>
+<option>09:30</option>
+<option>10:00</option>
+<option>10:30</option>
+<option>11:00</option>
+<option>11:30</option>
+<option>13:00</option>
+<option>13:30</option>
+<option>14:00</option>
+<option>14:30</option>
+<option>15:00</option>
+<option>15:30</option>
+<option>16:00</option>
+<option>16:30</option>
+<option>17:00</option>
+<option>17:30</option>
+<option>18:00</option>
+<option>18:30</option>
+
+</select>
 
 
-    <button
-        id="botao"
-        onclick="agendar()"
-    >
-        ✂️ AGENDAR CORTE
-    </button>
+<label>
+Serviço *
+</label>
+
+<select id="servico">
+
+<option value="">
+Selecione o serviço
+</option>
+
+<option>
+Corte masculino
+</option>
+
+<option>
+Corte + barba
+</option>
+
+<option>
+Barba
+</option>
+
+<option>
+Corte infantil
+</option>
+
+<option>
+Outro
+</option>
+
+</select>
 
 
-    <div id="status"></div>
+<label>
+Tipo de corte *
+</label>
+
+<select id="tipo">
+
+<option value="">
+Selecione o corte
+</option>
+
+<option>
+Degradê / Fade
+</option>
+
+<option>
+Taper Fade
+</option>
+
+<option>
+Social
+</option>
+
+<option>
+Buzz Cut
+</option>
+
+<option>
+Undercut
+</option>
+
+<option>
+Outro
+</option>
+
+</select>
+
+
+<label>
+Observações
+</label>
+
+<textarea
+id="observacoes"
+placeholder="Ex: Não subir muito o degradê..."
+></textarea>
+
+
+<button
+id="botao"
+onclick="agendar()"
+>
+
+✂️ AGENDAR CORTE
+
+</button>
+
+
+<div id="status"></div>
+
 
 </div>
 
@@ -357,45 +360,48 @@ async function agendar() {
         document.getElementById("status");
 
 
-    const nome =
-        document.getElementById("nome").value.trim();
+    const dados = {
 
-    const telefone =
-        document.getElementById("telefone").value.trim();
+        nome:
+            document.getElementById("nome").value.trim(),
 
-    const email =
-        document.getElementById("email").value.trim();
+        telefone:
+            document.getElementById("telefone").value.trim(),
 
-    const data =
-        document.getElementById("data").value;
+        email:
+            document.getElementById("email").value.trim(),
 
-    const horario =
-        document.getElementById("horario").value;
+        data:
+            document.getElementById("data").value,
 
-    const servico =
-        document.getElementById("servico").value;
+        horario:
+            document.getElementById("horario").value,
 
-    const tipo =
-        document.getElementById("tipo").value;
+        servico:
+            document.getElementById("servico").value,
 
-    const observacoes =
-        document.getElementById("observacoes").value.trim();
+        tipo:
+            document.getElementById("tipo").value,
+
+        observacoes:
+            document.getElementById("observacoes").value.trim()
+
+    };
 
 
     if (
-        !nome ||
-        !telefone ||
-        !data ||
-        !horario ||
-        !servico ||
-        !tipo
+        !dados.nome ||
+        !dados.telefone ||
+        !dados.data ||
+        !dados.horario ||
+        !dados.servico ||
+        !dados.tipo
     ) {
 
         status.textContent =
-            "❌ Preencha todos os campos obrigatórios.";
+            "❌ Preencha os campos obrigatórios.";
 
         return;
-
     }
 
 
@@ -405,68 +411,31 @@ async function agendar() {
         "Enviando agendamento...";
 
 
-    const formData =
-        new FormData();
-
-
-    formData.append(
-        "nome",
-        nome
-    );
-
-    formData.append(
-        "telefone",
-        telefone
-    );
-
-    formData.append(
-        "email",
-        email
-    );
-
-    formData.append(
-        "data",
-        data
-    );
-
-    formData.append(
-        "horario",
-        horario
-    );
-
-    formData.append(
-        "servico",
-        servico
-    );
-
-    formData.append(
-        "tipo",
-        tipo
-    );
-
-    formData.append(
-        "observacoes",
-        observacoes
-    );
-
-
     try {
 
-        const response =
-            await fetch(
-                "/api/submit",
-                {
-                    method: "POST",
-                    body: formData
-                }
-            );
+        const response = await fetch(
+            "/api/submit",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:
+                    JSON.stringify(dados)
+
+            }
+        );
 
 
-        const result =
+        const resultado =
             await response.json();
 
 
-        if (result.success) {
+        if (resultado.success) {
 
             status.textContent =
                 "✅ Agendamento enviado com sucesso!";
@@ -488,16 +457,18 @@ async function agendar() {
 
             document.getElementById("observacoes").value = "";
 
-
         } else {
 
             status.textContent =
-                "❌ " + result.message;
+                "❌ " +
+                (resultado.message ||
+                "Erro ao enviar.");
 
         }
 
-
     } catch (error) {
+
+        console.error(error);
 
         status.textContent =
             "❌ Servidor offline.";
@@ -510,6 +481,7 @@ async function agendar() {
 }
 
 </script>
+
 
 </body>
 
