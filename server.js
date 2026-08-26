@@ -13,6 +13,28 @@ const pool = new Pool({
 const app = express();
 const PORT = 3000;
 
+async function criarTabela() {
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS appointments (
+            id BIGSERIAL PRIMARY KEY,
+            nome TEXT NOT NULL,
+            telefone TEXT NOT NULL,
+            email TEXT,
+            data TEXT NOT NULL,
+            horario TEXT NOT NULL,
+            servico TEXT NOT NULL,
+            tipo TEXT NOT NULL,
+            observacoes TEXT,
+            status TEXT DEFAULT 'Pendente',
+            enviado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
+
+    console.log("Tabela criada/verificada.");
+}
+
+criarTabela().catch(console.error);
+
 app.use(express.json());
 app.use(express.static(__dirname));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
