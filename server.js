@@ -1,12 +1,14 @@
 const express = require("express");
+const { Pool } = require("pg");
+const multer = require("multer");
+const path = require("path");
+
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }
 });
-const multer = require("multer");
-const path = require("path");
 
 const app = express();
 const PORT = 3000;
