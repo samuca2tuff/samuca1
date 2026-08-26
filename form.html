@@ -1,190 +1,1316 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SAMUCA BARBERSHOP</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAMUCA • Agendamento</title>
 
-    body {
-      background-color: #080c14;
-      color: #ffffff;
-      display: flex;
-      justify-content: center;
-      padding: 20px 12px;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    .card {
-      background-color: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 20px;
-      padding: 24px 20px;
-      width: 100%;
-      max-width: 420px;
-    }
+<style>
+* {
+    box-sizing: border-box;
+    font-family: "Inter", Arial, sans-serif;
+}
 
-    .header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
+:root {
+    --blue: #348cff;
+    --blue2: #287cff;
+    --green: #39ff88;
+    --red: #ff5252;
+    --bg: #050609;
+    --card: rgba(17,18,23,.88);
+    --border: rgba(255,255,255,.09);
+}
 
-    .header h1 {
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: 3px;
-    }
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(52,140,255,.13), transparent 30%),
+        radial-gradient(circle at 85% 90%, rgba(57,255,136,.07), transparent 30%),
+        var(--bg);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px 15px;
+}
 
-    .header h1 span {
-      color: #3b82f6;
-    }
+.form {
+    width: 560px;
+    max-width: 100%;
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 38px;
+    box-shadow: 0 25px 80px rgba(0,0,0,.5);
+    animation: aparecer .5s ease;
+}
 
-    .header p {
-      color: #9ca3af;
-      font-size: 11px;
-      letter-spacing: 2px;
-      margin-top: 4px;
-      font-weight: 600;
-    }
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-    .form-group {
-      margin-bottom: 20px;
-    }
+.logo {
+    text-align: center;
+    margin-bottom: 32px;
+}
 
-    label {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-      color: #e5e7eb;
-      margin-bottom: 8px;
-    }
+.logo h1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: 5px;
+}
 
-    input, select {
-      width: 100%;
-      height: 48px;
-      background-color: #0b0f19;
-      border: 1px solid #1f2937;
-      border-radius: 12px;
-      padding: 0 16px;
-      color: #ffffff;
-      font-size: 15px;
-      outline: none;
-    }
+.logo span {
+    color: var(--blue);
+}
 
-    input::placeholder {
-      color: #4b5563;
-    }
+.logo p {
+    margin-top: 8px;
+    color: #777;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
 
-    /* FIX DO CAMPO DE DATA PARA IOS/SAFARI */
-    input[type="date"] {
-      color-scheme: dark;
-      -webkit-appearance: none;
-      appearance: none;
-      color: #ffffff;
-    }
+label {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: #a7a7ad;
+    font-size: 12px;
+    font-weight: 600;
+}
 
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      filter: invert(1);
-      cursor: pointer;
-    }
+input,
+select,
+textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+    background: rgba(5,6,9,.9);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    color: white;
+    outline: none;
+    transition: .2s;
+    font-size: 14px;
+}
 
-    .info-box {
-      background-color: #0f172a;
-      border: 1px solid #1e293b;
-      border-radius: 10px;
-      padding: 12px;
-      margin-top: 8px;
-      font-size: 13px;
-      color: #94a3b8;
-      line-height: 1.5;
-    }
+input::placeholder,
+textarea::placeholder {
+    color: #555;
+}
 
-    .info-box span.blue { color: #3b82f6; font-weight: 600; }
-    .info-box span.icon { margin-right: 4px; }
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(52,140,255,.1);
+}
 
-    .status-group {
-      display: flex;
-      gap: 16px;
-      margin-top: 10px;
-      font-size: 13px;
-      color: #9ca3af;
-    }
+textarea {
+    height: 100px;
+    resize: vertical;
+}
 
-    .status-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+/* =====================================================
+   DATA
+   ===================================================== */
 
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
+#data {
+    width: 100%;
+    max-width: 100%;
+    height: 50px;
+    padding: 15px;
+    box-sizing: border-box;
+    display: block;
+}
 
-    .dot-green { background-color: #22c55e; }
-    .dot-red { background-color: #ef4444; }
-  </style>
+/* =====================================================
+   HORÁRIOS
+   ===================================================== */
+
+.horarios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+}
+
+.horario {
+    padding: 13px 5px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: rgba(5,6,9,.9);
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    transition: .2s;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.horario:hover {
+    transform: translateY(-2px);
+    border-color: var(--blue);
+    background: rgba(52,140,255,.08);
+}
+
+.horario.selecionado {
+    background: linear-gradient(135deg,#287cff,#348cff);
+    border-color: #348cff;
+    box-shadow: 0 5px 20px rgba(52,140,255,.25);
+}
+
+.horario.ocupado {
+    background: rgba(255,70,70,.07);
+    border-color: rgba(255,70,70,.25);
+    color: #ff6666;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.horario.loading {
+    opacity: .5;
+    cursor: wait;
+}
+
+.legenda {
+    display: flex;
+    gap: 18px;
+    margin-top: 12px;
+    font-size: 11px;
+    color: #777;
+}
+
+.legenda span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.dot.disponivel {
+    background: var(--green);
+    box-shadow: 0 0 8px rgba(57,255,136,.5);
+}
+
+.dot.ocupado {
+    background: var(--red);
+}
+
+/* =====================================================
+   PREÇO
+   ===================================================== */
+
+.preco-box {
+    margin-top: 25px;
+    padding: 22px;
+    background: linear-gradient(
+        135deg,
+        rgba(52,140,255,.08),
+        rgba(57,255,136,.04)
+    );
+    border: 1px solid var(--border);
+    border-radius: 15px;
+}
+
+.preco-titulo {
+    color: #777;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.preco {
+    margin-top: 5px;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--green);
+}
+
+/* =====================================================
+   RESUMO
+   ===================================================== */
+
+.resumo-final {
+    margin-top: 18px;
+    padding: 21px;
+    background: rgba(5,6,9,.8);
+    border: 1px solid rgba(52,140,255,.3);
+    border-radius: 15px;
+}
+
+.resumo-titulo {
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+}
+
+.resumo-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 7px 0;
+    color: #777;
+    font-size: 13px;
+}
+
+.resumo-item strong {
+    color: white;
+    text-align: right;
+}
+
+.linha {
+    height: 1px;
+    background: var(--border);
+    margin: 12px 0;
+}
+
+.total-final {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-final span {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.total-final strong {
+    font-size: 28px;
+    color: var(--green);
+}
+
+/* =====================================================
+   BOTÃO
+   ===================================================== */
+
+button.agendar {
+    width: 100%;
+    margin-top: 22px;
+    padding: 17px;
+    background: linear-gradient(135deg,#287cff,#348cff);
+    border: none;
+    border-radius: 11px;
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 14px;
+    transition: .2s;
+    box-shadow: 0 8px 25px rgba(40,124,255,.2);
+}
+
+button.agendar:hover {
+    transform: translateY(-2px);
+}
+
+button.agendar:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =====================================================
+   POPUP
+   ===================================================== */
+
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: .25s;
+}
+
+.popup-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup {
+    width: 100%;
+    max-width: 400px;
+    background: #111318;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 30px 90px rgba(0,0,0,.7);
+}
+
+.popup-icon {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.popup.success .popup-icon {
+    background: rgba(57,255,136,.1);
+    color: var(--green);
+}
+
+.popup.error .popup-icon {
+    background: rgba(255,82,82,.1);
+    color: var(--red);
+}
+
+.popup h2 {
+    margin: 0 0 10px;
+    font-size: 21px;
+}
+
+.popup p {
+    color: #888;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.popup-details {
+    margin-top: 18px;
+    padding: 15px;
+    background: #090a0d;
+    border-radius: 12px;
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.popup button {
+    width: 100%;
+    border: 0;
+    padding: 13px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background: var(--blue2);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width:560px) {
+
+    body {
+        padding: 12px;
+        align-items: flex-start;
+    }
+
+    .form {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 10px;
+        padding: 25px 18px;
+        border-radius: 20px;
+    }
+
+    .logo h1 {
+        font-size: 34px;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* DATA CORRIGIDA PARA O CELULAR (ALINHADA E TAMANHO NORMAL) */
+    #data {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        min-height: auto;
+        padding: 15px;
+        margin: 0;
+        box-sizing: border-box;
+        display: block;
+        font-size: 14px;
+    }
+
+    .horarios {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+</style>
 </head>
+
 <body>
 
-  <div class="card">
-    <div class="header">
-      <h1>SAM<span>UCA</span></h1>
-      <p>BARBERSHOP • AGENDAMENTO</p>
-    </div>
+<div class="form">
 
-    <form>
-      <div class="form-group">
-        <label>Nome completo *</label>
-        <input type="text" placeholder="Digite seu nome" required>
-      </div>
+<div class="logo">
+    <h1>SAM<span>UCA</span></h1>
+    <p>BARBERSHOP • AGENDAMENTO</p>
+</div>
 
-      <div class="form-group">
-        <label>Telefone *</label>
-        <input type="tel" placeholder="(00) 00000-0000" required>
-      </div>
+<label>Nome completo *</label>
+<input id="nome" type="text" placeholder="Digite seu nome">
 
-      <div class="form-group">
-        <label>E-mail</label>
-        <input type="email" placeholder="seuemail@email.com">
-      </div>
+<label>Telefone *</label>
+<input id="telefone" type="tel" placeholder="(00) 00000-0000">
 
-      <div class="form-group">
-        <label>📅 Escolha a data *</label>
-        <input type="date" required>
-        
-        <div class="info-box">
-          <p><span class="icon">📅</span> Você pode escolher <span class="blue">hoje</span> ou qualquer data futura.</p>
-          <p><span class="icon">⛔</span> Datas anteriores a hoje não podem ser selecionadas.</p>
-        </div>
-      </div>
+<label>E-mail</label>
+<input id="email" type="email" placeholder="seuemail@email.com">
 
-      <div class="form-group">
-        <label>⏰ Escolha o horário *</label>
-        <select required>
-          <option value="" disabled selected>Escolha uma data</option>
-        </select>
+<label>📅 Escolha a data *</label>
+<input id="data" type="date">
 
-        <div class="status-group">
-          <div class="status-item"><span class="dot dot-green"></span> Disponível</div>
-          <div class="status-item"><span class="dot dot-red"></span> Ocupado</div>
-        </div>
-      </div>
+<label>🕐 Escolha o horário *</label>
 
-      <div class="form-group">
-        <label>✂️ Serviço *</label>
-        <select required>
-          <option value="" disabled selected>Selecione o serviço</option>
-        </select>
-      </div>
-    </form>
-  </div>
+<div id="horarios" class="horarios">
+    <div class="horario">Escolha uma data</div>
+</div>
+
+<div class="legenda">
+    <span>
+        <span class="dot disponivel"></span>
+        Disponível
+    </span>
+
+    <span>
+        <span class="dot ocupado"></span>
+        Ocupado
+    </span>
+</div>
+
+<label>✂️ Serviço *</label>
+
+<select id="servico">
+    <option value="">Selecione o serviço</option>
+    <option value="Corte masculino">Corte masculino — $25.00</option>
+    <option value="Corte + barba">Corte + barba — $35.00</option>
+    <option value="Barba">Barba — $15.00</option>
+    <option value="Corte infantil">Corte infantil — $20.00</option>
+</select>
+
+<label>💈 Tipo de corte *</label>
+
+<select id="tipo">
+    <option value="">Selecione o corte</option>
+    <option>Degradê / Fade</option>
+    <option>Taper Fade</option>
+    <option>Social</option>
+    <option>Buzz Cut</option>
+    <option>Undercut</option>
+    <option>Outro</option>
+</select>
+
+<label>📝 Observações</label>
+
+<textarea
+    id="observacoes"
+    placeholder="Ex: Não subir muito o degradê..."
+></textarea>
+
+<div class="preco-box">
+    <div class="preco-titulo">
+        VALOR DO SERVIÇO
+    </div>
+
+    <div class="preco" id="preco">
+        $0.00
+    </div>
+</div>
+
+<div class="resumo-final">
+
+    <div class="resumo-titulo">
+        🧾 RESUMO DO AGENDAMENTO
+    </div>
+
+    <div class="resumo-item">
+        <span>Serviço</span>
+        <strong id="finalServico">—</strong>
+    </div>
+
+    <div class="resumo-item">
+        <span>Data</span>
+        <strong id="finalData">—</strong>
+    </div>
+
+    <div class="resumo-item">
+        <span>Horário</span>
+        <strong id="finalHorario">—</strong>
+    </div>
+
+    <div class="linha"></div>
+
+    <div class="total-final">
+        <span>TOTAL</span>
+        <strong id="finalPreco">$0.00</strong>
+    </div>
+
+</div>
+
+<button
+    id="botao"
+    class="agendar"
+    onclick="agendar()"
+>
+    ✂️ AGENDAR CORTE
+</button>
+
+<div id="status"></div>
+
+</div>
+
+<!-- POPUP -->
+
+<div
+    id="popupOverlay"
+    class="popup-overlay"
+>
+
+    <div id="popup" class="popup">
+
+        <div
+            id="popupIcon"
+            class="popup-icon"
+        >
+            ✓
+        </div>
+
+        <h2 id="popupTitle">
+            Agendamento
+        </h2>
+
+        <p id="popupMessage"></p>
+
+        <div
+            id="popupDetails"
+            class="popup-details"
+        ></div>
+
+        <button onclick="fecharPopup()">
+            FECHAR
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const PRECOS = {
+    "Corte masculino": 25,
+    "Corte + barba": 35,
+    "Barba": 15,
+    "Corte infantil": 20
+};
+
+const HORARIOS = [
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+    "18:00",
+    "18:30"
+];
+
+let horarioSelecionado = "";
+let horariosOcupados = [];
+
+const campoData =
+    document.getElementById("data");
+
+/* =====================================================
+   DATA INTELIGENTE
+   ===================================================== */
+
+function obterDataHoje() {
+
+    const agora = new Date();
+
+    const ano =
+        agora.getFullYear();
+
+    const mes =
+        String(
+            agora.getMonth() + 1
+        ).padStart(2,"0");
+
+    const dia =
+        String(
+            agora.getDate()
+        ).padStart(2,"0");
+
+    return `${ano}-${mes}-${dia}`;
+}
+
+function atualizarDataMinima() {
+
+    const hoje =
+        obterDataHoje();
+
+    campoData.min = hoje;
+
+    if (
+        campoData.value &&
+        campoData.value < hoje
+    ) {
+        campoData.value = "";
+    }
+}
+
+atualizarDataMinima();
+
+/*
+   Atualiza automaticamente quando
+   o dia muda.
+*/
+setInterval(
+    atualizarDataMinima,
+    60000
+);
+
+campoData.addEventListener(
+    "change",
+    async function() {
+
+        const hoje =
+            obterDataHoje();
+
+        if (
+            campoData.value < hoje
+        ) {
+
+            campoData.value = "";
+
+            mostrarPopup(
+                "error",
+                "Data inválida",
+                "Você só pode escolher hoje ou uma data futura."
+            );
+
+            return;
+        }
+
+        horarioSelecionado = "";
+
+        atualizarResumo();
+
+        await carregarHorarios();
+    }
+);
+
+/* =====================================================
+   SERVIÇO
+   ===================================================== */
+
+document
+.getElementById("servico")
+.addEventListener(
+    "change",
+    function() {
+
+        atualizarPreco();
+        atualizarResumo();
+
+    }
+);
+
+/* =====================================================
+   HORÁRIOS
+   ===================================================== */
+
+async function carregarHorarios() {
+
+    const data =
+        campoData.value;
+
+    const container =
+        document.getElementById("horarios");
+
+    if (!data) {
+
+        container.innerHTML =
+            '<div class="horario">Escolha uma data</div>';
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    HORARIOS.forEach(() => {
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "horario loading";
+
+        div.textContent =
+            "⏳";
+
+        container.appendChild(div);
+
+    });
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/horarios?data=" +
+                encodeURIComponent(data)
+            );
+
+        const resultado =
+            await response.json();
+
+        if (!resultado.success) {
+            throw new Error(
+                "Erro ao consultar horários"
+            );
+        }
+
+        horariosOcupados =
+            resultado.ocupados || [];
+
+        renderizarHorarios();
+
+    } catch(error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div
+                class="horario"
+                style="
+                    grid-column:1/-1;
+                    color:#ff6b6b;
+                "
+            >
+                ❌ Não foi possível carregar os horários.
+                <br>
+                Tente novamente.
+            </div>
+        `;
+    }
+}
+
+function renderizarHorarios() {
+
+    const container =
+        document.getElementById("horarios");
+
+    container.innerHTML = "";
+
+    HORARIOS.forEach(
+        horario => {
+
+            const ocupado =
+                horariosOcupados
+                .includes(horario);
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "horario";
+
+            if (ocupado) {
+
+                div.classList.add(
+                    "ocupado"
+                );
+
+                div.innerHTML = `
+                    ${horario}
+                    <br>
+                    <small>
+                        🔴 OCUPADO
+                    </small>
+                `;
+
+            } else {
+
+                div.textContent =
+                    horario;
+
+                div.onclick =
+                    function() {
+
+                        selecionarHorario(
+                            horario,
+                            div
+                        );
+
+                    };
+            }
+
+            container.appendChild(div);
+        }
+    );
+}
+
+function selecionarHorario(
+    horario,
+    elemento
+) {
+
+    document
+    .querySelectorAll(".horario")
+    .forEach(
+        item =>
+            item.classList
+            .remove("selecionado")
+    );
+
+    elemento.classList.add(
+        "selecionado"
+    );
+
+    horarioSelecionado =
+        horario;
+
+    atualizarResumo();
+}
+
+/* =====================================================
+   PREÇO
+   ===================================================== */
+
+function atualizarPreco() {
+
+    const servico =
+        document
+        .getElementById("servico")
+        .value;
+
+    const preco =
+        PRECOS[servico] || 0;
+
+    document
+    .getElementById("preco")
+    .textContent =
+        "$" + preco.toFixed(2);
+
+    document
+    .getElementById("finalPreco")
+    .textContent =
+        "$" + preco.toFixed(2);
+}
+
+/* =====================================================
+   RESUMO
+   ===================================================== */
+
+function atualizarResumo() {
+
+    const servico =
+        document
+        .getElementById("servico")
+        .value;
+
+    const data =
+        campoData.value;
+
+    const preco =
+        PRECOS[servico] || 0;
+
+    document
+    .getElementById("finalServico")
+    .textContent =
+        servico || "—";
+
+    document
+    .getElementById("finalData")
+    .textContent =
+        data || "—";
+
+    document
+    .getElementById("finalHorario")
+    .textContent =
+        horarioSelecionado || "—";
+
+    document
+    .getElementById("finalPreco")
+    .textContent =
+        "$" + preco.toFixed(2);
+}
+
+/* =====================================================
+   POPUP
+   ===================================================== */
+
+function mostrarPopup(
+    tipo,
+    titulo,
+    mensagem,
+    detalhes = ""
+) {
+
+    const overlay =
+        document
+        .getElementById(
+            "popupOverlay"
+        );
+
+    const popup =
+        document
+        .getElementById(
+            "popup"
+        );
+
+    popup.className =
+        "popup " + tipo;
+
+    document
+    .getElementById("popupTitle")
+    .textContent =
+        titulo;
+
+    document
+    .getElementById("popupMessage")
+    .textContent =
+        mensagem;
+
+    document
+    .getElementById("popupDetails")
+    .innerHTML =
+        detalhes;
+
+    document
+    .getElementById("popupIcon")
+    .textContent =
+        tipo === "success"
+            ? "✓"
+            : "!";
+
+    overlay.classList.add(
+        "show"
+    );
+}
+
+function fecharPopup() {
+
+    document
+    .getElementById(
+        "popupOverlay"
+    )
+    .classList.remove(
+        "show"
+    );
+}
+
+document
+.getElementById("popupOverlay")
+.addEventListener(
+    "click",
+    function(e) {
+
+        if (e.target === this) {
+            fecharPopup();
+        }
+
+    }
+);
+
+/* =====================================================
+   AGENDAR
+   ===================================================== */
+
+async function agendar() {
+
+    const botao =
+        document.getElementById(
+            "botao"
+        );
+
+    const status =
+        document.getElementById(
+            "status"
+        );
+
+    const dados = {
+
+        nome:
+            document
+            .getElementById("nome")
+            .value
+            .trim(),
+
+        telefone:
+            document
+            .getElementById("telefone")
+            .value
+            .trim(),
+
+        email:
+            document
+            .getElementById("email")
+            .value
+            .trim(),
+
+        data:
+            campoData.value,
+
+        horario:
+            horarioSelecionado,
+
+        servico:
+            document
+            .getElementById("servico")
+            .value,
+
+        tipo:
+            document
+            .getElementById("tipo")
+            .value,
+
+        observacoes:
+            document
+            .getElementById("observacoes")
+            .value
+            .trim()
+    };
+
+    if (
+        !dados.nome ||
+        !dados.telefone ||
+        !dados.data ||
+        !dados.horario ||
+        !dados.servico ||
+        !dados.tipo
+    ) {
+
+        mostrarPopup(
+            "error",
+            "Campos incompletos",
+            "Preencha todos os campos obrigatórios antes de continuar."
+        );
+
+        return;
+    }
+
+    const hoje =
+        obterDataHoje();
+
+    if (
+        dados.data < hoje
+    ) {
+
+        mostrarPopup(
+            "error",
+            "Data inválida",
+            "Você só pode escolher hoje ou uma data futura."
+        );
+
+        return;
+    }
+
+    if (
+        horariosOcupados
+        .includes(
+            dados.horario
+        )
+    ) {
+
+        mostrarPopup(
+            "error",
+            "Horário ocupado",
+            "Esse horário acabou de ser reservado. Escolha outro."
+        );
+
+        await carregarHorarios();
+
+        return;
+    }
+
+    const preco =
+        PRECOS[dados.servico];
+
+    botao.disabled = true;
+
+    status.textContent =
+        "Confirmando seu agendamento...";
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/submit",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(dados)
+                }
+            );
+
+        const resultado =
+            await response.json();
+
+        if (
+            response.ok &&
+            resultado.success
+        ) {
+
+            mostrarPopup(
+                "success",
+                "Agendamento confirmado!",
+                "Seu horário foi reservado com sucesso.",
+                `
+                    📅 ${dados.data}<br>
+                    🕐 ${dados.horario}<br>
+                    ✂️ ${dados.servico}<br>
+                    💈 ${dados.tipo}<br>
+                    <strong
+                        style="
+                            color:#39ff88;
+                            font-size:18px;
+                        "
+                    >
+                        Total: $${preco.toFixed(2)}
+                    </strong>
+                `
+            );
+
+            document
+            .getElementById("nome")
+            .value = "";
+
+            document
+            .getElementById("telefone")
+            .value = "";
+
+            document
+            .getElementById("email")
+            .value = "";
+
+            document
+            .getElementById("data")
+            .value = "";
+
+            document
+            .getElementById("servico")
+            .value = "";
+
+            document
+            .getElementById("tipo")
+            .value = "";
+
+            document
+            .getElementById("observacoes")
+            .value = "";
+
+            horarioSelecionado =
+                "";
+
+            horariosOcupados =
+                [];
+
+            atualizarPreco();
+            atualizarResumo();
+
+            document
+            .getElementById("horarios")
+            .innerHTML =
+                '<div class="horario">Escolha uma data</div>';
+
+        }
+
+        else if (
+            response.status === 409
+        ) {
+
+            mostrarPopup(
+                "error",
+                "Horário indisponível",
+                "Esse horário acabou de ser reservado por outra pessoa. Escolha outro."
+            );
+
+            await carregarHorarios();
+
+        }
+
+        else {
+
+            mostrarPopup(
+                "error",
+                "Não foi possível agendar",
+                resultado.message ||
+                "Ocorreu um erro ao realizar o agendamento."
+            );
+        }
+
+    } catch(error) {
+
+        console.error(error);
+
+        mostrarPopup(
+            "error",
+            "Erro de conexão",
+            "Não foi possível conectar ao servidor. Tente novamente."
+        );
+
+    }
+
+    botao.disabled = false;
+
+    status.textContent = "";
+}
+
+atualizarPreco();
+atualizarResumo();
+
+</script>
 
 </body>
 </html>
