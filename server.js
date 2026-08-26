@@ -35,7 +35,7 @@ app.use(express.static(__dirname));
 
 
 // =====================================================
-// PREÇOS OFICIAIS
+// PREÇOS
 // =====================================================
 
 const PRECOS = {
@@ -52,7 +52,7 @@ const PRECOS = {
 
 
 // =====================================================
-// HORÁRIOS DA BARBEARIA
+// HORÁRIOS
 // =====================================================
 
 const HORARIOS = [
@@ -82,7 +82,7 @@ const HORARIOS = [
 
 
 // =====================================================
-// STATUS PERMITIDOS
+// STATUS
 // =====================================================
 
 const STATUS_VALIDOS = [
@@ -90,6 +90,8 @@ const STATUS_VALIDOS = [
     "Pendente",
 
     "Confirmado",
+
+    "Em andamento",
 
     "Cancelado",
 
@@ -99,19 +101,15 @@ const STATUS_VALIDOS = [
 
 
 // =====================================================
-// CRIAR / ATUALIZAR BANCO
+// PREPARAR BANCO
 // =====================================================
 
 async function prepararBanco() {
 
     try {
 
-        console.log("🔄 Preparando banco...");
+        console.log("🔄 Preparando banco SAMUCA...");
 
-
-        // ---------------------------------------------
-        // TABELA
-        // ---------------------------------------------
 
         await pool.query(`
 
@@ -148,10 +146,6 @@ async function prepararBanco() {
         `);
 
 
-        // ---------------------------------------------
-        // GARANTIR COLUNAS
-        // ---------------------------------------------
-
         await pool.query(`
 
             ALTER TABLE appointments
@@ -182,8 +176,45 @@ async function prepararBanco() {
         `);
 
 
+        await pool.query(`
+
+            ALTER TABLE appointments
+
+            ADD COLUMN IF NOT EXISTS observacoes
+            TEXT
+
+        `);
+
+
         // ---------------------------------------------
-        // REMOVER ÍNDICE ANTIGO
+        // Corrigir preços antigos que estejam zerados
+        // ---------------------------------------------
+
+        for (const [servico, preco] of Object.entries(PRECOS)) {
+
+            await pool.query(
+
+                `
+
+                UPDATE appointments
+
+                SET preco = $1
+
+                WHERE servico = $2
+
+                AND (preco IS NULL OR preco = 0)
+
+                `,
+
+                [preco, servico]
+
+            );
+
+        }
+
+
+        // ---------------------------------------------
+        // Índice que bloqueia horários ativos
         // ---------------------------------------------
 
         await pool.query(`
@@ -193,15 +224,6 @@ async function prepararBanco() {
 
         `);
 
-
-        // ---------------------------------------------
-        // NOVO ÍNDICE
-        //
-        // Somente Pendente e Confirmado/Pago
-        // bloqueiam o horário.
-        //
-        // Finalizado e Cancelado liberam.
-        // ---------------------------------------------
 
         await pool.query(`
 
@@ -216,7 +238,7 @@ async function prepararBanco() {
         `);
 
 
-        console.log("✅ Banco preparado.");
+        console.log("✅ Banco SAMUCA preparado.");
 
     }
 
@@ -236,7 +258,7 @@ prepararBanco();
 
 
 // =====================================================
-// VER HORÁRIOS OCUPADOS
+// HORÁRIOS OCUPADOS
 // =====================================================
 
 app.get(
@@ -353,12 +375,8 @@ app.post(
 
                 observacoes
 
-            } = req.body;
+            } = req.body || {};
 
-
-            // -----------------------------------------
-            // CAMPOS OBRIGATÓRIOS
-            // -----------------------------------------
 
             if (
 
@@ -388,10 +406,6 @@ app.post(
             }
 
 
-            // -----------------------------------------
-            // SERVIÇO VÁLIDO
-            // -----------------------------------------
-
             if (
                 !Object.prototype.hasOwnProperty.call(
                     PRECOS,
@@ -410,10 +424,6 @@ app.post(
 
             }
 
-
-            // -----------------------------------------
-            // HORÁRIO VÁLIDO
-            // -----------------------------------------
 
             if (
                 !HORARIOS.includes(horario)
@@ -601,10 +611,6 @@ app.post(
 
         catch (error) {
 
-            // -----------------------------------------
-            // HORÁRIO DUPLICADO
-            // -----------------------------------------
-
             if (
                 error.code === "23505"
             ) {
@@ -732,14 +738,12 @@ app.post(
             const {
                 id,
                 status
-            } = req.body;
+            } = req.body || {};
 
 
             if (
                 !id ||
-                !STATUS_VALIDOS.includes(
-                    status
-                )
+                !STATUS_VALIDOS.includes(status)
             ) {
 
                 return res.status(400).json({
@@ -754,24 +758,43 @@ app.post(
             }
 
 
-            await pool.query(
+            const resultado =
+                await pool.query(
 
-                `
+                    `
 
-                UPDATE appointments
+                    UPDATE appointments
 
-                SET status = $1
+                    SET status = $1
 
-                WHERE id = $2
+                    WHERE id = $2
 
-                `,
+                    RETURNING *
 
-                [
-                    status,
-                    id
-                ]
+                    `,
 
-            );
+                    [
+                        status,
+                        id
+                    ]
+
+                );
+
+
+            if (
+                resultado.rowCount === 0
+            ) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Agendamento não encontrado."
+
+                });
+
+            }
 
 
             console.log(
@@ -781,7 +804,10 @@ app.post(
 
             res.json({
 
-                success: true
+                success: true,
+
+                appointment:
+                    resultado.rows[0]
 
             });
 
@@ -797,7 +823,10 @@ app.post(
 
             res.status(500).json({
 
-                success: false
+                success: false,
+
+                message:
+                    "Erro ao alterar status."
 
             });
 
@@ -820,49 +849,78 @@ app.post(
             const {
                 id,
                 pago
-            } = req.body;
+            } = req.body || {};
 
 
             if (!id) {
 
                 return res.status(400).json({
 
-                    success: false
+                    success: false,
+
+                    message:
+                        "ID não informado."
 
                 });
 
             }
 
 
-            await pool.query(
+            const valorPago =
+                pago === true;
 
-                `
 
-                UPDATE appointments
+            const resultado =
+                await pool.query(
 
-                SET pago = $1
+                    `
 
-                WHERE id = $2
+                    UPDATE appointments
 
-                `,
+                    SET pago = $1
 
-                [
-                    Boolean(pago),
-                    id
-                ]
+                    WHERE id = $2
 
-            );
+                    RETURNING *
+
+                    `,
+
+                    [
+                        valorPago,
+                        id
+                    ]
+
+                );
+
+
+            if (
+                resultado.rowCount === 0
+            ) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Agendamento não encontrado."
+
+                });
+
+            }
 
 
             console.log(
                 `💰 Pagamento ${id}:`,
-                pago
+                valorPago
             );
 
 
             res.json({
 
-                success: true
+                success: true,
+
+                appointment:
+                    resultado.rows[0]
 
             });
 
@@ -878,7 +936,10 @@ app.post(
 
             res.status(500).json({
 
-                success: false
+                success: false,
+
+                message:
+                    "Erro ao atualizar pagamento."
 
             });
 
@@ -900,7 +961,7 @@ app.post(
 
             const {
                 id
-            } = req.body;
+            } = req.body || {};
 
 
             if (!id) {
@@ -987,7 +1048,7 @@ app.post(
 
 
 // =====================================================
-// TESTE DO SERVIDOR
+// HEALTH CHECK
 // =====================================================
 
 app.get(
