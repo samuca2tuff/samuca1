@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 
 <head>
@@ -13,43 +12,67 @@
 
 <title>SAMUCA • Dashboard</title>
 
-
 <style>
 
 * {
-
     box-sizing: border-box;
-
-    font-family:
-        Arial,
-        sans-serif;
-
 }
 
+:root {
+    --bg: #070707;
+    --card: #111111;
+    --card2: #0c0c0c;
+    --border: #292929;
+    --blue: #348cff;
+    --blue2: #287cff;
+    --green: #39ff88;
+    --yellow: #ffd83d;
+    --red: #ff6b6b;
+    --orange: #ff9f43;
+    --text: #ffffff;
+    --muted: #888888;
+}
 
 body {
 
     margin: 0;
 
-    background: #070707;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(52,140,255,.08),
+            transparent 30%
+        ),
+        #070707;
 
     color: white;
+
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+    min-height: 100vh;
 
 }
 
 
-/* =========================================
+/* =====================================================
    HEADER
-========================================= */
+===================================================== */
 
 header {
 
-    height: 75px;
+    height: 76px;
 
-    background: #111;
+    background:
+        rgba(17,17,17,.92);
+
+    backdrop-filter:
+        blur(15px);
 
     border-bottom:
-        1px solid #292929;
+        1px solid var(--border);
 
     display: flex;
 
@@ -61,14 +84,20 @@ header {
     padding:
         0 35px;
 
+    position: sticky;
+
+    top: 0;
+
+    z-index: 20;
+
 }
 
 
 .logo {
 
-    font-size: 24px;
+    font-size: 23px;
 
-    font-weight: bold;
+    font-weight: 900;
 
     letter-spacing: 3px;
 
@@ -77,38 +106,40 @@ header {
 
 .logo span {
 
-    color: #348cff;
+    color: var(--blue);
 
 }
 
 
 .online {
 
-    color: #39ff88;
+    color: var(--green);
 
-    font-size: 13px;
+    font-size: 12px;
+
+    font-weight: bold;
 
 }
 
 
-/* =========================================
+/* =====================================================
    CONTAINER
-========================================= */
+===================================================== */
 
 .container {
 
-    padding: 35px;
-
-    max-width: 1500px;
+    max-width: 1550px;
 
     margin: auto;
+
+    padding: 35px;
 
 }
 
 
-/* =========================================
-   TÍTULO
-========================================= */
+/* =====================================================
+   TITLE
+===================================================== */
 
 .title {
 
@@ -119,6 +150,8 @@ header {
 
     align-items: center;
 
+    gap: 20px;
+
     margin-bottom: 25px;
 
 }
@@ -128,32 +161,64 @@ header {
 
     margin: 0;
 
+    font-size: 30px;
+
+}
+
+
+.subtitle {
+
+    color: var(--muted);
+
+    margin-top: 7px;
+
+    font-size: 13px;
+
 }
 
 
 .refresh {
 
-    padding:
-        12px 20px;
-
     border: 0;
 
-    border-radius: 8px;
-
-    background: #287cff;
+    background:
+        linear-gradient(
+            135deg,
+            #287cff,
+            #348cff
+        );
 
     color: white;
 
-    cursor: pointer;
+    padding:
+        13px 20px;
+
+    border-radius: 10px;
 
     font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .2s;
 
 }
 
 
-/* =========================================
-   ESTATÍSTICAS
-========================================= */
+.refresh:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 25px
+        rgba(40,124,255,.25);
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
 
 .stats {
 
@@ -162,37 +227,59 @@ header {
     grid-template-columns:
         repeat(
             auto-fit,
-            minmax(190px, 1fr)
+            minmax(180px,1fr)
         );
 
-    gap: 15px;
+    gap: 14px;
 
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 
 }
 
 
 .stat {
 
-    background: #111;
+    background:
+        linear-gradient(
+            145deg,
+            #121212,
+            #0d0d0d
+        );
 
     border:
-        1px solid #292929;
+        1px solid var(--border);
 
-    border-radius: 12px;
+    border-radius: 15px;
 
     padding: 20px;
+
+    transition: .2s;
+
+}
+
+
+.stat:hover {
+
+    border-color:
+        #3b3b3b;
+
+    transform:
+        translateY(-2px);
 
 }
 
 
 .stat p {
 
-    color: #777;
-
     margin: 0;
 
-    font-size: 12px;
+    color: var(--muted);
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
 
 }
 
@@ -202,14 +289,64 @@ header {
     margin:
         10px 0 0;
 
-    color: #348cff;
+    font-size: 27px;
+
+    color: var(--blue);
 
 }
 
 
-/* =========================================
-   ABAS
-========================================= */
+/* =====================================================
+   TOOLS
+===================================================== */
+
+.tools {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 190px;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+
+}
+
+
+.search,
+.date-filter {
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: #0d0d0d;
+
+    color: white;
+
+    outline: none;
+
+}
+
+
+.search:focus,
+.date-filter:focus {
+
+    border-color:
+        var(--blue);
+
+}
+
+
+/* =====================================================
+   TABS
+===================================================== */
 
 .tabs {
 
@@ -228,23 +365,25 @@ header {
 
 .tab {
 
-    white-space: nowrap;
-
-    padding:
-        11px 18px;
+    border:
+        1px solid var(--border);
 
     background: #111;
 
-    border:
-        1px solid #292929;
+    color: #999;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
-    color: #aaa;
+    padding:
+        11px 16px;
+
+    white-space: nowrap;
 
     cursor: pointer;
 
     font-weight: bold;
+
+    transition: .2s;
 
 }
 
@@ -253,23 +392,32 @@ header {
 
     color: white;
 
+    border-color:
+        #444;
+
 }
 
 
 .tab.active {
 
-    background: #287cff;
+    background:
+        linear-gradient(
+            135deg,
+            #287cff,
+            #348cff
+        );
 
-    border-color: #287cff;
+    border-color:
+        var(--blue);
 
     color: white;
 
 }
 
 
-/* =========================================
-   AGENDAMENTOS
-========================================= */
+/* =====================================================
+   APPOINTMENTS
+===================================================== */
 
 #appointments {
 
@@ -278,43 +426,72 @@ header {
     grid-template-columns:
         repeat(
             auto-fill,
-            minmax(350px, 1fr)
+            minmax(350px,1fr)
         );
 
-    gap: 20px;
+    gap: 18px;
 
 }
 
 
-/* =========================================
+/* =====================================================
    CARD
-========================================= */
+===================================================== */
 
 .appointment {
 
-    background: #111;
+    background:
+        linear-gradient(
+            145deg,
+            #121212,
+            #0d0d0d
+        );
 
     border:
-        1px solid #292929;
+        1px solid var(--border);
 
-    border-radius: 15px;
+    border-radius: 17px;
 
-    padding: 22px;
+    padding: 21px;
 
-    transition:
-        transform .15s,
-        border .15s;
+    transition: .2s;
+
+    animation:
+        aparecer .25s ease;
+
+}
+
+
+@keyframes aparecer {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(8px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
 
 }
 
 
 .appointment:hover {
 
+    border-color:
+        #3d3d3d;
+
     transform:
         translateY(-2px);
-
-    border-color:
-        #3a3a3a;
 
 }
 
@@ -330,7 +507,7 @@ header {
 
     gap: 10px;
 
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 
 }
 
@@ -351,7 +528,7 @@ header {
 
     border-radius: 20px;
 
-    font-size: 11px;
+    font-size: 10px;
 
     font-weight: bold;
 
@@ -366,7 +543,7 @@ header {
 
     background: #332b00;
 
-    color: #ffd83d;
+    color: var(--yellow);
 
 }
 
@@ -375,7 +552,16 @@ header {
 
     background: #073d25;
 
-    color: #39ff88;
+    color: var(--green);
+
+}
+
+
+.status-andamento {
+
+    background: #3d2508;
+
+    color: var(--orange);
 
 }
 
@@ -384,7 +570,7 @@ header {
 
     background: #451818;
 
-    color: #ff6b6b;
+    color: var(--red);
 
 }
 
@@ -398,18 +584,20 @@ header {
 }
 
 
-/* =========================================
+/* =====================================================
    INFO
-========================================= */
+===================================================== */
 
 .info {
 
+    color: #999;
+
+    font-size: 13px;
+
     margin:
-        10px 0;
+        9px 0;
 
-    color: #aaa;
-
-    line-height: 1.4;
+    line-height: 1.45;
 
 }
 
@@ -421,19 +609,11 @@ header {
 }
 
 
+/* =====================================================
+   PRICE
+===================================================== */
+
 .price {
-
-    margin-top: 18px;
-
-    padding:
-        15px;
-
-    background: #090909;
-
-    border:
-        1px solid #292929;
-
-    border-radius: 10px;
 
     display: flex;
 
@@ -442,23 +622,34 @@ header {
 
     align-items: center;
 
+    margin-top: 17px;
+
+    padding: 15px;
+
+    background: #090909;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 11px;
+
 }
 
 
-.price span:last-child {
+.price-value {
 
-    color: #39ff88;
+    color: var(--green);
 
-    font-size: 20px;
+    font-size: 21px;
 
-    font-weight: bold;
+    font-weight: 900;
 
 }
 
 
 .paid {
 
-    color: #39ff88;
+    color: var(--green);
 
     font-weight: bold;
 
@@ -467,44 +658,57 @@ header {
 
 .unpaid {
 
-    color: #ffd83d;
+    color: var(--yellow);
 
     font-weight: bold;
 
 }
 
 
-/* =========================================
-   AÇÕES
-========================================= */
+/* =====================================================
+   ACTIONS
+===================================================== */
 
 .actions {
 
     display: grid;
 
     grid-template-columns:
-        repeat(2, 1fr);
+        repeat(2,1fr);
 
     gap: 8px;
 
-    margin-top: 20px;
+    margin-top: 18px;
 
 }
 
 
 .actions button {
 
-    padding: 11px;
-
     border: 0;
 
-    border-radius: 7px;
+    border-radius: 8px;
 
-    cursor: pointer;
+    padding: 11px 8px;
 
     color: white;
 
     font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .15s;
+
+}
+
+
+.actions button:hover {
+
+    transform:
+        translateY(-1px);
+
+    filter:
+        brightness(1.12);
 
 }
 
@@ -519,6 +723,13 @@ header {
 .pending {
 
     background: #806d00;
+
+}
+
+
+.start {
+
+    background: #bd6d15;
 
 }
 
@@ -551,42 +762,267 @@ header {
 }
 
 
-.actions button:hover {
-
-    opacity: .85;
-
-}
-
-
-/* =========================================
-   VAZIO
-========================================= */
+/* =====================================================
+   EMPTY
+===================================================== */
 
 .empty {
 
-    grid-column: 1 / -1;
-
-    color: #666;
+    grid-column:
+        1 / -1;
 
     text-align: center;
 
-    padding: 70px 20px;
+    padding: 80px 20px;
 
     background: #111;
 
     border:
-        1px solid #292929;
+        1px solid var(--border);
 
-    border-radius: 15px;
+    border-radius: 17px;
+
+    color: #666;
 
 }
 
 
-/* =========================================
-   MOBILE
-========================================= */
+/* =====================================================
+   POPUP
+===================================================== */
 
-@media(max-width: 600px) {
+.popup-backdrop {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(0,0,0,.72);
+
+    backdrop-filter:
+        blur(8px);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 100;
+
+}
+
+
+.popup-backdrop.show {
+
+    display: flex;
+
+}
+
+
+.popup {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #181818,
+            #0d0d0d
+        );
+
+    border:
+        1px solid #333;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 30px 80px
+        rgba(0,0,0,.55);
+
+    animation:
+        popupIn .2s ease;
+
+}
+
+
+@keyframes popupIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(.95)
+            translateY(10px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+
+    }
+
+}
+
+
+.popup-icon {
+
+    font-size: 35px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.popup h2 {
+
+    margin:
+        0 0 8px;
+
+}
+
+
+.popup p {
+
+    color: #999;
+
+    line-height: 1.5;
+
+    font-size: 14px;
+
+}
+
+
+.popup-buttons {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 22px;
+
+}
+
+
+.popup-buttons button {
+
+    flex: 1;
+
+    padding: 12px;
+
+    border: 0;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+}
+
+
+.popup-cancel {
+
+    background: #222;
+
+    color: white;
+
+}
+
+
+.popup-confirm {
+
+    background: var(--blue2);
+
+    color: white;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast {
+
+    position: fixed;
+
+    right: 20px;
+
+    bottom: 20px;
+
+    max-width: 350px;
+
+    padding:
+        14px 18px;
+
+    background: #151515;
+
+    border:
+        1px solid #333;
+
+    border-radius: 11px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.4);
+
+    transform:
+        translateY(100px);
+
+    opacity: 0;
+
+    transition: .25s;
+
+    z-index: 200;
+
+}
+
+
+.toast.show {
+
+    transform:
+        translateY(0);
+
+    opacity: 1;
+
+}
+
+
+.toast.success {
+
+    border-color:
+        #176b52;
+
+}
+
+
+.toast.error {
+
+    border-color:
+        #8b2424;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width: 700px) {
 
     header {
 
@@ -598,7 +1034,7 @@ header {
 
     .logo {
 
-        font-size: 17px;
+        font-size: 16px;
 
     }
 
@@ -606,7 +1042,7 @@ header {
     .container {
 
         padding:
-            20px 15px;
+            22px 15px;
 
     }
 
@@ -616,30 +1052,36 @@ header {
         align-items:
             flex-start;
 
-        gap: 15px;
+        flex-direction:
+            column;
 
     }
 
 
-    .title h1 {
+    .refresh {
 
-        font-size: 24px;
+        width: 100%;
+
+    }
+
+
+    .tools {
+
+        grid-template-columns: 1fr;
 
     }
 
 
     #appointments {
 
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
 
     }
 
 
     .actions {
 
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
 
     }
 
@@ -676,9 +1118,17 @@ header {
 
     <div class="title">
 
-        <h1>
-            Agendamentos
-        </h1>
+        <div>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <div class="subtitle">
+                Gerenciamento de agendamentos
+            </div>
+
+        </div>
 
 
         <button
@@ -693,9 +1143,9 @@ header {
     </div>
 
 
-    <!-- =====================================
+    <!-- =================================================
          ESTATÍSTICAS
-    ====================================== -->
+    ================================================== -->
 
     <div class="stats">
 
@@ -742,10 +1192,10 @@ header {
         <div class="stat">
 
             <p>
-                PAGOS
+                EM ANDAMENTO
             </p>
 
-            <h2 id="pagos">
+            <h2 id="andamento">
                 0
             </h2>
 
@@ -768,6 +1218,19 @@ header {
         <div class="stat">
 
             <p>
+                PAGOS
+            </p>
+
+            <h2 id="pagos">
+                0
+            </h2>
+
+        </div>
+
+
+        <div class="stat">
+
+            <p>
                 TOTAL RECEBIDO
             </p>
 
@@ -781,16 +1244,40 @@ header {
     </div>
 
 
-    <!-- =====================================
+    <!-- =================================================
+         BUSCA
+    ================================================== -->
+
+    <div class="tools">
+
+        <input
+            id="busca"
+            class="search"
+            type="text"
+            placeholder="🔎 Buscar por nome ou telefone..."
+            oninput="renderizar()"
+        >
+
+
+        <input
+            id="filtroData"
+            class="date-filter"
+            type="date"
+            onchange="renderizar()"
+        >
+
+    </div>
+
+
+    <!-- =================================================
          ABAS
-    ====================================== -->
+    ================================================== -->
 
     <div class="tabs">
 
 
         <button
             class="tab active"
-            data-filter="todos"
             onclick="mudarAba('todos', this)"
         >
             📋 Todos
@@ -799,7 +1286,6 @@ header {
 
         <button
             class="tab"
-            data-filter="Pendente"
             onclick="mudarAba('Pendente', this)"
         >
             ⏳ Pendentes
@@ -808,7 +1294,6 @@ header {
 
         <button
             class="tab"
-            data-filter="Confirmado"
             onclick="mudarAba('Confirmado', this)"
         >
             ✅ Confirmados
@@ -817,7 +1302,22 @@ header {
 
         <button
             class="tab"
-            data-filter="pago"
+            onclick="mudarAba('Em andamento', this)"
+        >
+            ✂️ Em andamento
+        </button>
+
+
+        <button
+            class="tab"
+            onclick="mudarAba('Finalizado', this)"
+        >
+            🏁 Finalizados
+        </button>
+
+
+        <button
+            class="tab"
             onclick="mudarAba('pago', this)"
         >
             💰 Pagos
@@ -826,16 +1326,6 @@ header {
 
         <button
             class="tab"
-            data-filter="Finalizado"
-            onclick="mudarAba('Finalizado', this)"
-        >
-            ✂️ Finalizados
-        </button>
-
-
-        <button
-            class="tab"
-            data-filter="Cancelado"
             onclick="mudarAba('Cancelado', this)"
         >
             ❌ Cancelados
@@ -845,9 +1335,9 @@ header {
     </div>
 
 
-    <!-- =====================================
+    <!-- =================================================
          CARDS
-    ====================================== -->
+    ================================================== -->
 
     <div id="appointments"></div>
 
@@ -855,18 +1345,82 @@ header {
 </div>
 
 
-<script>
+<!-- =====================================================
+     POPUP
+====================================================== -->
 
+<div
+    id="popupBackdrop"
+    class="popup-backdrop"
+>
+
+    <div class="popup">
+
+        <div
+            id="popupIcon"
+            class="popup-icon"
+        >
+            ⚠️
+        </div>
+
+
+        <h2 id="popupTitle">
+            Confirmar ação
+        </h2>
+
+
+        <p id="popupMessage">
+            Tem certeza?
+        </p>
+
+
+        <div class="popup-buttons">
+
+            <button
+                class="popup-cancel"
+                onclick="fecharPopup()"
+            >
+                Voltar
+            </button>
+
+
+            <button
+                id="popupConfirm"
+                class="popup-confirm"
+            >
+                Confirmar
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TOAST
+====================================================== -->
+
+<div
+    id="toast"
+    class="toast"
+>
+</div>
+
+
+<script>
 
 let dados = [];
 
-let filtroAtual =
-    "todos";
+let filtroAtual = "todos";
+
+let popupCallback = null;
 
 
-// =================================================
+// =====================================================
 // CARREGAR
-// =================================================
+// =====================================================
 
 async function carregar() {
 
@@ -874,7 +1428,10 @@ async function carregar() {
 
         const response =
             await fetch(
-                "/api/submissions"
+                "/api/submissions",
+                {
+                    cache: "no-store"
+                }
             );
 
 
@@ -895,7 +1452,6 @@ async function carregar() {
 
         renderizar();
 
-
     }
 
     catch (error) {
@@ -909,11 +1465,12 @@ async function carregar() {
 
             <div class="empty">
 
-                ❌ Servidor offline.
+                ❌ Não foi possível carregar
+                os agendamentos.
 
                 <br><br>
 
-                Verifique se o Render está online.
+                Verifique o servidor.
 
             </div>
 
@@ -924,12 +1481,11 @@ async function carregar() {
 }
 
 
-// =================================================
+// =====================================================
 // ESTATÍSTICAS
-// =================================================
+// =====================================================
 
 function atualizarEstatisticas() {
-
 
     document.getElementById(
         "total"
@@ -943,8 +1499,7 @@ function atualizarEstatisticas() {
 
         dados.filter(
             x =>
-                x.status ===
-                "Pendente"
+                x.status === "Pendente"
         ).length;
 
 
@@ -954,8 +1509,27 @@ function atualizarEstatisticas() {
 
         dados.filter(
             x =>
-                x.status ===
-                "Confirmado"
+                x.status === "Confirmado"
+        ).length;
+
+
+    document.getElementById(
+        "andamento"
+    ).textContent =
+
+        dados.filter(
+            x =>
+                x.status === "Em andamento"
+        ).length;
+
+
+    document.getElementById(
+        "finalizados"
+    ).textContent =
+
+        dados.filter(
+            x =>
+                x.status === "Finalizado"
         ).length;
 
 
@@ -969,18 +1543,7 @@ function atualizarEstatisticas() {
         ).length;
 
 
-    document.getElementById(
-        "finalizados"
-    ).textContent =
-
-        dados.filter(
-            x =>
-                x.status ===
-                "Finalizado"
-        ).length;
-
-
-    const totalRecebido =
+    const recebido =
 
         dados
 
@@ -1007,17 +1570,14 @@ function atualizarEstatisticas() {
     document.getElementById(
         "recebido"
     ).textContent =
-
-        formatarPreco(
-            totalRecebido
-        );
+        formatarPreco(recebido);
 
 }
 
 
-// =================================================
-// ABAS
-// =================================================
+// =====================================================
+// ABA
+// =====================================================
 
 function mudarAba(
     filtro,
@@ -1051,12 +1611,11 @@ function mudarAba(
 }
 
 
-// =================================================
+// =====================================================
 // RENDERIZAR
-// =================================================
+// =====================================================
 
 function renderizar() {
-
 
     const container =
         document.getElementById(
@@ -1064,22 +1623,34 @@ function renderizar() {
         );
 
 
+    const busca =
+        document.getElementById(
+            "busca"
+        ).value
+        .trim()
+        .toLowerCase();
+
+
+    const dataFiltro =
+        document.getElementById(
+            "filtroData"
+        ).value;
+
+
     let lista =
         dados.slice();
 
 
     // ---------------------------------------------
-    // FILTRO
+    // FILTRO ABA
     // ---------------------------------------------
 
     if (
-        filtroAtual !==
-        "todos"
+        filtroAtual !== "todos"
     ) {
 
         if (
-            filtroAtual ===
-            "pago"
+            filtroAtual === "pago"
         ) {
 
             lista =
@@ -1105,6 +1676,64 @@ function renderizar() {
 
 
     // ---------------------------------------------
+    // BUSCA
+    // ---------------------------------------------
+
+    if (busca) {
+
+        lista =
+            lista.filter(
+                item => {
+
+                    const nome =
+                        String(
+                            item.nome || ""
+                        ).toLowerCase();
+
+
+                    const telefone =
+                        String(
+                            item.telefone || ""
+                        ).toLowerCase();
+
+
+                    return (
+
+                        nome.includes(
+                            busca
+                        )
+
+                        ||
+
+                        telefone.includes(
+                            busca
+                        )
+
+                    );
+
+                }
+            );
+
+    }
+
+
+    // ---------------------------------------------
+    // DATA
+    // ---------------------------------------------
+
+    if (dataFiltro) {
+
+        lista =
+            lista.filter(
+                item =>
+                    item.data ===
+                    dataFiltro
+            );
+
+    }
+
+
+    // ---------------------------------------------
     // VAZIO
     // ---------------------------------------------
 
@@ -1116,8 +1745,12 @@ function renderizar() {
 
             <div class="empty">
 
+                📭
+
+                <br><br>
+
                 Nenhum agendamento
-                nesta categoria.
+                encontrado.
 
             </div>
 
@@ -1132,7 +1765,7 @@ function renderizar() {
 
 
     // ---------------------------------------------
-    // CARDS
+    // MAIS RECENTES PRIMEIRO
     // ---------------------------------------------
 
     lista.forEach(
@@ -1148,36 +1781,20 @@ function renderizar() {
                 "appointment";
 
 
-            const statusClass =
-                getStatusClass(
-                    item.status
-                );
-
-
             const preco =
                 Number(
                     item.preco || 0
                 );
 
 
-            const pagoTexto =
-                item.pago
-
-                    ?
-                    "✓ PAGO"
-
-                    :
-                    "Não pago";
+            const statusClass =
+                getStatusClass(
+                    item.status
+                );
 
 
-            const pagoClass =
-                item.pago
-
-                    ?
-                    "paid"
-
-                    :
-                    "unpaid";
+            const pago =
+                item.pago === true;
 
 
             card.innerHTML = `
@@ -1207,9 +1824,7 @@ function renderizar() {
                 <div class="info">
 
                     📞
-                    <strong>
-                        Telefone:
-                    </strong>
+                    <strong>Telefone:</strong>
 
                     ${escapeHTML(
                         item.telefone
@@ -1221,9 +1836,7 @@ function renderizar() {
                 <div class="info">
 
                     📧
-                    <strong>
-                        E-mail:
-                    </strong>
+                    <strong>E-mail:</strong>
 
                     ${escapeHTML(
                         item.email ||
@@ -1236,9 +1849,7 @@ function renderizar() {
                 <div class="info">
 
                     📅
-                    <strong>
-                        Data:
-                    </strong>
+                    <strong>Data:</strong>
 
                     ${escapeHTML(
                         item.data
@@ -1250,9 +1861,7 @@ function renderizar() {
                 <div class="info">
 
                     🕐
-                    <strong>
-                        Horário:
-                    </strong>
+                    <strong>Horário:</strong>
 
                     ${escapeHTML(
                         item.horario
@@ -1264,9 +1873,7 @@ function renderizar() {
                 <div class="info">
 
                     ✂️
-                    <strong>
-                        Serviço:
-                    </strong>
+                    <strong>Serviço:</strong>
 
                     ${escapeHTML(
                         item.servico
@@ -1278,9 +1885,7 @@ function renderizar() {
                 <div class="info">
 
                     💈
-                    <strong>
-                        Corte:
-                    </strong>
+                    <strong>Corte:</strong>
 
                     ${escapeHTML(
                         item.tipo
@@ -1292,9 +1897,7 @@ function renderizar() {
                 <div class="info">
 
                     📝
-                    <strong>
-                        Observações:
-                    </strong>
+                    <strong>Observações:</strong>
 
                     ${escapeHTML(
                         item.observacoes ||
@@ -1310,10 +1913,12 @@ function renderizar() {
                         💵 Valor
                     </span>
 
-                    <span>
+                    <span class="price-value">
+
                         ${formatarPreco(
                             preco
                         )}
+
                     </span>
 
                 </div>
@@ -1321,14 +1926,22 @@ function renderizar() {
 
                 <div class="info">
 
-                    💰
-                    <strong>
-                        Pagamento:
-                    </strong>
+                    💳
+                    <strong>Pagamento:</strong>
 
-                    <span class="${pagoClass}">
+                    <span
+                        class="${
+                            pago
+                            ? "paid"
+                            : "unpaid"
+                        }"
+                    >
 
-                        ${pagoTexto}
+                        ${
+                            pago
+                            ? "✓ PAGO"
+                            : "⏳ NÃO PAGO"
+                        }
 
                     </span>
 
@@ -1353,13 +1966,8 @@ function renderizar() {
 
 
                     ${
-                        item.status !==
-                        "Confirmado"
-
-                        &&
-
-                        item.status !==
-                        "Finalizado"
+                        item.status ===
+                        "Pendente"
 
                         ?
 
@@ -1367,10 +1975,12 @@ function renderizar() {
 
                         <button
                             class="confirm"
-                            onclick="mudarStatus(
-                                ${item.id},
-                                'Confirmado'
-                            )"
+                            onclick="
+                                mudarStatus(
+                                    ${item.id},
+                                    'Confirmado'
+                                )
+                            "
                         >
 
                             ✓ Confirmar
@@ -1387,27 +1997,23 @@ function renderizar() {
 
 
                     ${
-                        item.status !==
-                        "Pendente"
-
-                        &&
-
-                        item.status !==
-                        "Finalizado"
+                        item.status ===
+                        "Confirmado"
 
                         ?
 
                         `
 
                         <button
-                            class="pending"
-                            onclick="mudarStatus(
-                                ${item.id},
-                                'Pendente'
-                            )"
+                            class="start"
+                            onclick="
+                                iniciarCorte(
+                                    ${item.id}
+                                )
+                            "
                         >
 
-                            ⏳ Pendente
+                            ✂️ Iniciar corte
 
                         </button>
 
@@ -1421,13 +2027,50 @@ function renderizar() {
 
 
                     ${
-                        item.status !==
-                        "Cancelado"
+                        item.status ===
+                        "Em andamento"
 
-                        &&
+                        ?
 
-                        item.status !==
-                        "Finalizado"
+                        `
+
+                        <button
+                            class="finish"
+                            onclick="
+                                finalizar(
+                                    ${item.id}
+                                )
+                            "
+                        >
+
+                            ✓ Finalizar corte
+
+                        </button>
+
+                        `
+
+                        :
+
+                        ""
+
+                    }
+
+
+                    ${
+                        (
+                            item.status ===
+                            "Pendente"
+
+                            ||
+
+                            item.status ===
+                            "Confirmado"
+
+                            ||
+
+                            item.status ===
+                            "Em andamento"
+                        )
 
                         ?
 
@@ -1435,10 +2078,11 @@ function renderizar() {
 
                         <button
                             class="cancel"
-                            onclick="mudarStatus(
-                                ${item.id},
-                                'Cancelado'
-                            )"
+                            onclick="
+                                cancelar(
+                                    ${item.id}
+                                )
+                            "
                         >
 
                             ❌ Cancelar
@@ -1455,7 +2099,7 @@ function renderizar() {
 
 
                     ${
-                        !item.pago
+                        !pago
 
                         ?
 
@@ -1463,13 +2107,15 @@ function renderizar() {
 
                         <button
                             class="payment"
-                            onclick="mudarPagamento(
-                                ${item.id},
-                                true
-                            )"
+                            onclick="
+                                mudarPagamento(
+                                    ${item.id},
+                                    true
+                                )
+                            "
                         >
 
-                            💰 Marcar Pago
+                            💰 Marcar pago
 
                         </button>
 
@@ -1481,54 +2127,30 @@ function renderizar() {
 
                         <button
                             class="pending"
-                            onclick="mudarPagamento(
-                                ${item.id},
-                                false
-                            )"
+                            onclick="
+                                mudarPagamento(
+                                    ${item.id},
+                                    false
+                                )
+                            "
                         >
 
-                            ↩️ Desmarcar Pago
+                            ↩️ Desmarcar pago
 
                         </button>
 
                         `
-
-                    }
-
-
-                    ${
-                        item.status !==
-                        "Finalizado"
-
-                        ?
-
-                        `
-
-                        <button
-                            class="finish"
-                            onclick="finalizar(
-                                ${item.id}
-                            )"
-                        >
-
-                            ✂️ Finalizar Corte
-
-                        </button>
-
-                        `
-
-                        :
-
-                        ""
 
                     }
 
 
                     <button
                         class="delete"
-                        onclick="apagar(
-                            ${item.id}
-                        )"
+                        onclick="
+                            apagar(
+                                ${item.id}
+                            )
+                        "
                     >
 
                         🗑️ Apagar
@@ -1551,35 +2173,98 @@ function renderizar() {
 }
 
 
-// =================================================
+// =====================================================
+// INICIAR CORTE
+// =====================================================
+
+function iniciarCorte(id) {
+
+    abrirPopup(
+
+        "✂️",
+
+        "Iniciar corte?",
+
+        "O agendamento será movido para 'Em andamento'.",
+
+        async () => {
+
+            await mudarStatus(
+                id,
+                "Em andamento"
+            );
+
+        }
+
+    );
+
+}
+
+
+// =====================================================
+// FINALIZAR
+// =====================================================
+
+function finalizar(id) {
+
+    abrirPopup(
+
+        "🏁",
+
+        "Finalizar corte?",
+
+        "O corte será marcado como finalizado e o horário ficará disponível novamente para outro cliente.",
+
+        async () => {
+
+            await mudarStatus(
+                id,
+                "Finalizado"
+            );
+
+        }
+
+    );
+
+}
+
+
+// =====================================================
+// CANCELAR
+// =====================================================
+
+function cancelar(id) {
+
+    abrirPopup(
+
+        "❌",
+
+        "Cancelar agendamento?",
+
+        "O horário será liberado para outro cliente.",
+
+        async () => {
+
+            await mudarStatus(
+                id,
+                "Cancelado"
+            );
+
+        }
+
+    );
+
+}
+
+
+// =====================================================
 // STATUS
-// =================================================
+// =====================================================
 
 async function mudarStatus(
     id,
     status
 ) {
-
-
-    if (
-        status ===
-        "Cancelado"
-    ) {
-
-        const confirmar =
-            confirm(
-                "Tem certeza que deseja cancelar este agendamento?"
-            );
-
-
-        if (!confirmar) {
-
-            return;
-
-        }
-
-    }
-
 
     try {
 
@@ -1616,20 +2301,34 @@ async function mudarStatus(
 
 
         if (
+            !response.ok ||
             !resultado.success
         ) {
 
-            alert(
+            mostrarToast(
+
                 resultado.message ||
-                "Erro ao atualizar."
+                "Erro ao alterar status.",
+
+                "error"
+
             );
 
-            return;
+            return false;
 
         }
 
 
+        mostrarToast(
+            "✓ Status atualizado.",
+            "success"
+        );
+
+
         await carregar();
+
+
+        return true;
 
     }
 
@@ -1637,60 +2336,28 @@ async function mudarStatus(
 
         console.error(error);
 
-        alert(
-            "Erro de conexão."
+
+        mostrarToast(
+            "Erro de conexão.",
+            "error"
         );
+
+
+        return false;
 
     }
 
 }
 
 
-// =================================================
-// FINALIZAR
-// =================================================
-
-async function finalizar(
-    id
-) {
-
-
-    const confirmar =
-        confirm(
-
-            "Finalizar este corte?\n\n" +
-
-            "O horário será liberado " +
-
-            "para outro cliente."
-
-        );
-
-
-    if (!confirmar) {
-
-        return;
-
-    }
-
-
-    await mudarStatus(
-        id,
-        "Finalizado"
-    );
-
-}
-
-
-// =================================================
+// =====================================================
 // PAGAMENTO
-// =================================================
+// =====================================================
 
 async function mudarPagamento(
     id,
     pago
 ) {
-
 
     try {
 
@@ -1727,16 +2394,29 @@ async function mudarPagamento(
 
 
         if (
+            !response.ok ||
             !resultado.success
         ) {
 
-            alert(
-                "Erro ao atualizar pagamento."
+            mostrarToast(
+                "Erro ao atualizar pagamento.",
+                "error"
             );
 
             return;
 
         }
+
+
+        mostrarToast(
+
+            pago
+            ? "💰 Pagamento marcado como pago."
+            : "Pagamento desmarcado.",
+
+            "success"
+
+        );
 
 
         await carregar();
@@ -1747,8 +2427,10 @@ async function mudarPagamento(
 
         console.error(error);
 
-        alert(
-            "Erro de conexão."
+
+        mostrarToast(
+            "Erro de conexão.",
+            "error"
         );
 
     }
@@ -1756,107 +2438,260 @@ async function mudarPagamento(
 }
 
 
-// =================================================
+// =====================================================
 // APAGAR
-// =================================================
+// =====================================================
 
-async function apagar(
-    id
-) {
+function apagar(id) {
+
+    abrirPopup(
+
+        "🗑️",
+
+        "Apagar agendamento?",
+
+        "Essa ação é permanente e não poderá ser desfeita.",
+
+        async () => {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/delete",
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    id
+
+                                })
+
+                        }
+                    );
 
 
-    const confirmar =
-        confirm(
-
-            "⚠️ APAGAR AGENDAMENTO?\n\n" +
-
-            "Essa ação não pode ser desfeita."
-
-        );
+                const resultado =
+                    await response.json();
 
 
-    if (!confirmar) {
+                if (
+                    !response.ok ||
+                    !resultado.success
+                ) {
 
-        return;
+                    mostrarToast(
 
-    }
+                        resultado.message ||
+                        "Erro ao apagar.",
 
+                        "error"
 
-    try {
+                    );
 
-        const response =
-            await fetch(
-                "/api/delete",
-                {
-
-                    method:
-                        "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            id
-
-                        })
+                    return;
 
                 }
-            );
 
 
-        const resultado =
-            await response.json();
+                mostrarToast(
+                    "🗑️ Agendamento apagado.",
+                    "success"
+                );
 
 
-        if (
-            !resultado.success
-        ) {
+                await carregar();
 
-            alert(
-                resultado.message ||
-                "Erro ao apagar."
-            );
+            }
 
-            return;
+            catch (error) {
+
+                console.error(error);
+
+
+                mostrarToast(
+                    "Erro de conexão.",
+                    "error"
+                );
+
+            }
 
         }
 
-
-        await carregar();
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        alert(
-            "Erro de conexão."
-        );
-
-    }
+    );
 
 }
 
 
-// =================================================
-// CLASSE DO STATUS
-// =================================================
+// =====================================================
+// POPUP
+// =====================================================
+
+function abrirPopup(
+    icone,
+    titulo,
+    mensagem,
+    callback
+) {
+
+    document.getElementById(
+        "popupIcon"
+    ).textContent =
+        icone;
+
+
+    document.getElementById(
+        "popupTitle"
+    ).textContent =
+        titulo;
+
+
+    document.getElementById(
+        "popupMessage"
+    ).textContent =
+        mensagem;
+
+
+    popupCallback =
+        callback;
+
+
+    document
+        .getElementById(
+            "popupBackdrop"
+        )
+        .classList.add(
+            "show"
+        );
+
+}
+
+
+function fecharPopup() {
+
+    document
+        .getElementById(
+            "popupBackdrop"
+        )
+        .classList.remove(
+            "show"
+        );
+
+
+    popupCallback =
+        null;
+
+}
+
+
+document.getElementById(
+    "popupConfirm"
+).addEventListener(
+    "click",
+    async function() {
+
+        const callback =
+            popupCallback;
+
+
+        fecharPopup();
+
+
+        if (callback) {
+
+            await callback();
+
+        }
+
+    }
+);
+
+
+document.getElementById(
+    "popupBackdrop"
+).addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target === this
+        ) {
+
+            fecharPopup();
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// TOAST
+// =====================================================
+
+let toastTimer;
+
+
+function mostrarToast(
+    mensagem,
+    tipo = "success"
+) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        mensagem;
+
+
+    toast.className =
+        `toast ${tipo} show`;
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            3000
+        );
+
+}
+
+
+// =====================================================
+// STATUS CLASS
+// =====================================================
 
 function getStatusClass(
     status
 ) {
 
-
     if (
-        status ===
-        "Pendente"
+        status === "Pendente"
     ) {
 
         return "status-pendente";
@@ -1865,8 +2700,7 @@ function getStatusClass(
 
 
     if (
-        status ===
-        "Confirmado"
+        status === "Confirmado"
     ) {
 
         return "status-confirmado";
@@ -1875,8 +2709,16 @@ function getStatusClass(
 
 
     if (
-        status ===
-        "Cancelado"
+        status === "Em andamento"
+    ) {
+
+        return "status-andamento";
+
+    }
+
+
+    if (
+        status === "Cancelado"
     ) {
 
         return "status-cancelado";
@@ -1885,8 +2727,7 @@ function getStatusClass(
 
 
     if (
-        status ===
-        "Finalizado"
+        status === "Finalizado"
     ) {
 
         return "status-finalizado";
@@ -1899,14 +2740,13 @@ function getStatusClass(
 }
 
 
-// =================================================
+// =====================================================
 // ESCAPAR HTML
-// =================================================
+// =====================================================
 
 function escapeHTML(
     texto
 ) {
-
 
     const div =
         document.createElement(
@@ -1923,16 +2763,15 @@ function escapeHTML(
 }
 
 
-// =================================================
+// =====================================================
 // PREÇO
-// =================================================
+// =====================================================
 
 function formatarPreco(
     valor
 ) {
 
     return "$" +
-
         Number(
             valor || 0
         ).toFixed(2);
@@ -1940,14 +2779,13 @@ function formatarPreco(
 }
 
 
-// =================================================
+// =====================================================
 // DATA
-// =================================================
+// =====================================================
 
 function formatarData(
     valor
 ) {
-
 
     if (!valor) {
 
@@ -1975,15 +2813,12 @@ function formatarData(
 }
 
 
-// =================================================
-// INICIAR
-// =================================================
+// =====================================================
+// ATUALIZAÇÃO AUTOMÁTICA
+// =====================================================
 
 carregar();
 
-
-// Atualiza automaticamente
-// a cada 5 segundos
 
 setInterval(
     carregar,
