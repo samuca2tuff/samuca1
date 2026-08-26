@@ -281,15 +281,10 @@ header {
     color: #6fb4ff;
 }
 
-.status-pago {
-    background: #073d25;
-    color: #39ff88;
-}
-
 .info {
     margin: 10px 0;
     color: #aaa;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 .info strong {
@@ -436,7 +431,6 @@ header {
 }
 
 </style>
-
 </head>
 
 <body>
@@ -516,9 +510,7 @@ header {
 
     <div class="report">
 
-        <h2>
-            📊 Relatório de ganhos
-        </h2>
+        <h2>📊 Relatório de ganhos</h2>
 
         <div class="report-grid">
 
@@ -605,33 +597,13 @@ header {
 <script>
 
 let dados = [];
+
 let filtroAtual = "todos";
 
-function obterHoje() {
 
-    const hoje = new Date();
-
-    return hoje.getFullYear() + "-" +
-        String(hoje.getMonth() + 1).padStart(2, "0") + "-" +
-        String(hoje.getDate()).padStart(2, "0");
-
-}
-
-function configurarData() {
-
-    const campo =
-        document.getElementById("filtroData");
-
-    const hoje =
-        obterHoje();
-
-    campo.min = hoje;
-
-    if (!campo.value) {
-        campo.value = hoje;
-    }
-
-}
+// =====================================================
+// LOGIN
+// =====================================================
 
 async function verificarLogin() {
 
@@ -653,7 +625,9 @@ async function verificarLogin() {
 
     }
 
-    catch {
+    catch(error) {
+
+        console.error(error);
 
         window.location.href =
             "/login.html";
@@ -664,14 +638,19 @@ async function verificarLogin() {
 
 }
 
+
+// =====================================================
+// CARREGAR AGENDAMENTOS
+// =====================================================
+
 async function carregar() {
 
     try {
 
-        configurarData();
-
         const response =
-            await fetch("/api/submissions");
+            await fetch("/api/submissions", {
+                cache: "no-store"
+            });
 
         if (response.status === 401) {
 
@@ -683,20 +662,63 @@ async function carregar() {
         }
 
         if (!response.ok) {
-            throw new Error("Erro no servidor");
+
+            throw new Error(
+                "Erro no servidor"
+            );
+
         }
 
-        dados = await response.json();
+        const resultado =
+            await response.json();
+
+
+        // GARANTE QUE DADOS SEJA UM ARRAY
+
+        if (Array.isArray(resultado)) {
+
+            dados = resultado;
+
+        }
+
+        else if (
+            resultado &&
+            Array.isArray(resultado.appointments)
+        ) {
+
+            dados =
+                resultado.appointments;
+
+        }
+
+        else {
+
+            dados = [];
+
+        }
+
+
+        console.log(
+            "AGENDAMENTOS RECEBIDOS:",
+            dados
+        );
+
 
         atualizarEstatisticas();
+
         atualizarRelatorio();
+
         renderizar();
 
     }
 
-    catch (error) {
+    catch(error) {
 
-        console.error(error);
+        console.error(
+            "Erro carregando agendamentos:",
+            error
+        );
+
 
         document.getElementById(
             "appointments"
@@ -704,11 +726,11 @@ async function carregar() {
 
             <div class="empty">
 
-                ❌ Servidor offline.
+                ❌ Não foi possível carregar os agendamentos.
 
                 <br><br>
 
-                Verifique sua conexão.
+                Tente clicar em Atualizar.
 
             </div>
 
@@ -718,63 +740,114 @@ async function carregar() {
 
 }
 
+
+// =====================================================
+// ESTATÍSTICAS
+// =====================================================
+
 function atualizarEstatisticas() {
 
     document.getElementById("total").textContent =
         dados.length;
 
+
     document.getElementById("pendentes").textContent =
-        dados.filter(x => x.status === "Pendente").length;
+        dados.filter(
+            item =>
+                String(item.status || "").trim() === "Pendente"
+        ).length;
+
 
     document.getElementById("confirmados").textContent =
-        dados.filter(x => x.status === "Confirmado").length;
+        dados.filter(
+            item =>
+                String(item.status || "").trim() === "Confirmado"
+        ).length;
+
 
     document.getElementById("andamento").textContent =
-        dados.filter(x => x.status === "Em andamento").length;
+        dados.filter(
+            item =>
+                String(item.status || "").trim() === "Em andamento"
+        ).length;
+
 
     document.getElementById("pagos").textContent =
-        dados.filter(x => x.pago === true).length;
+        dados.filter(
+            item =>
+                item.pago === true ||
+                item.pago === "true"
+        ).length;
+
 
     document.getElementById("finalizados").textContent =
-        dados.filter(x => x.status === "Finalizado").length;
+        dados.filter(
+            item =>
+                String(item.status || "").trim() === "Finalizado"
+        ).length;
+
 
     const totalRecebido =
         dados
-            .filter(x => x.pago === true)
+            .filter(
+                item =>
+                    item.pago === true ||
+                    item.pago === "true"
+            )
             .reduce(
                 (total, item) =>
-                    total + Number(item.preco || 0),
+                    total +
+                    Number(item.preco || 0),
                 0
             );
+
 
     document.getElementById("recebido").textContent =
         formatarPreco(totalRecebido);
 
 }
 
+
+// =====================================================
+// RELATÓRIO
+// =====================================================
+
 function atualizarRelatorio() {
 
-    const hoje = new Date();
+    const hoje =
+        new Date();
+
 
     const hojeTexto =
         formatarDataISO(hoje);
 
+
     const inicioSemana =
         new Date(hoje);
 
+
     const diaSemana =
         hoje.getDay();
+
 
     const diferenca =
         diaSemana === 0
             ? 6
             : diaSemana - 1;
 
+
     inicioSemana.setDate(
         hoje.getDate() - diferenca
     );
 
-    inicioSemana.setHours(0, 0, 0, 0);
+
+    inicioSemana.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
 
     const inicioMes =
         new Date(
@@ -783,78 +856,151 @@ function atualizarRelatorio() {
             1
         );
 
+
     let ganhoHoje = 0;
+
     let ganhoSemana = 0;
+
     let ganhoMes = 0;
+
 
     dados.forEach(item => {
 
-        if (!item.pago) {
+        if (
+            !(
+                item.pago === true ||
+                item.pago === "true"
+            )
+        ) {
+
             return;
+
         }
+
 
         const valor =
             Number(item.preco || 0);
 
+
         const dataItem =
             criarDataLocal(item.data);
 
-        if (item.data === hojeTexto) {
+
+        if (
+            item.data === hojeTexto
+        ) {
+
             ganhoHoje += valor;
+
         }
 
-        if (dataItem >= inicioSemana) {
+
+        if (
+            dataItem >= inicioSemana
+        ) {
+
             ganhoSemana += valor;
+
         }
 
-        if (dataItem >= inicioMes) {
+
+        if (
+            dataItem >= inicioMes
+        ) {
+
             ganhoMes += valor;
+
         }
 
     });
 
-    document.getElementById("ganhoHoje").textContent =
+
+    document.getElementById(
+        "ganhoHoje"
+    ).textContent =
         formatarPreco(ganhoHoje);
 
-    document.getElementById("ganhoSemana").textContent =
+
+    document.getElementById(
+        "ganhoSemana"
+    ).textContent =
         formatarPreco(ganhoSemana);
 
-    document.getElementById("ganhoMes").textContent =
+
+    document.getElementById(
+        "ganhoMes"
+    ).textContent =
         formatarPreco(ganhoMes);
 
 }
 
-function mudarAba(filtro, botao) {
 
-    filtroAtual = filtro;
+// =====================================================
+// ABAS
+// =====================================================
+
+function mudarAba(
+    filtro,
+    botao
+) {
+
+    filtroAtual =
+        filtro;
+
 
     document
         .querySelectorAll(".tab")
-        .forEach(item => {
-            item.classList.remove("active");
+        .forEach(tab => {
+
+            tab.classList.remove(
+                "active"
+            );
+
         });
 
-    botao.classList.add("active");
+
+    botao.classList.add(
+        "active"
+    );
+
 
     renderizar();
 
 }
+
+
+// =====================================================
+// LIMPAR FILTROS
+// =====================================================
 
 function limparFiltros() {
 
-    document.getElementById("busca").value = "";
+    document.getElementById(
+        "busca"
+    ).value = "";
 
-    document.getElementById("filtroData").value =
-        obterHoje();
+
+    document.getElementById(
+        "filtroData"
+    ).value = "";
+
 
     renderizar();
 
 }
+
+
+// =====================================================
+// RENDERIZAR
+// =====================================================
 
 function renderizar() {
 
     const container =
-        document.getElementById("appointments");
+        document.getElementById(
+            "appointments"
+        );
+
 
     const busca =
         document
@@ -863,35 +1009,47 @@ function renderizar() {
             .trim()
             .toLowerCase();
 
+
     const dataFiltro =
-        document.getElementById("filtroData").value;
+        document.getElementById(
+            "filtroData"
+        ).value;
 
-    let lista = dados.slice();
+
+    let lista =
+        dados.slice();
+
 
     // =================================================
-    // FILTRO DAS ABAS
+    // FILTRO DA ABA
     // =================================================
 
-    if (filtroAtual !== "todos") {
+    if (
+        filtroAtual !== "todos"
+    ) {
 
-        if (filtroAtual === "pago") {
+        if (
+            filtroAtual === "pago"
+        ) {
 
             lista =
                 lista.filter(
-                    item => item.pago === true
+                    item =>
+                        item.pago === true ||
+                        item.pago === "true"
                 );
 
         }
 
-        else if (filtroAtual === "historico") {
-
-            // CORRIGIDO:
-            // TODO agendamento pago aparece aqui,
-            // independente do status.
+        else if (
+            filtroAtual === "historico"
+        ) {
 
             lista =
                 lista.filter(
-                    item => item.pago === true
+                    item =>
+                        item.pago === true ||
+                        item.pago === "true"
                 );
 
         }
@@ -901,12 +1059,16 @@ function renderizar() {
             lista =
                 lista.filter(
                     item =>
-                        item.status === filtroAtual
+                        String(
+                            item.status || ""
+                        ).trim() ===
+                        filtroAtual
                 );
 
         }
 
     }
+
 
     // =================================================
     // BUSCA
@@ -914,81 +1076,107 @@ function renderizar() {
 
     if (busca) {
 
+        const buscaNormalizada =
+            normalizar(busca);
+
+
         lista =
             lista.filter(item => {
 
-                const nome =
-                    normalizar(item.nome);
-
-                const telefone =
-                    normalizar(item.telefone);
-
-                const email =
-                    normalizar(item.email);
-
-                const servico =
-                    normalizar(item.servico);
-
-                const horario =
-                    normalizar(item.horario);
-
                 return (
-                    nome.includes(busca) ||
-                    telefone.includes(busca) ||
-                    email.includes(busca) ||
-                    servico.includes(busca) ||
-                    horario.includes(busca)
+
+                    normalizar(
+                        item.nome
+                    ).includes(
+                        buscaNormalizada
+                    )
+
+                    ||
+
+                    normalizar(
+                        item.telefone
+                    ).includes(
+                        buscaNormalizada
+                    )
+
+                    ||
+
+                    normalizar(
+                        item.email
+                    ).includes(
+                        buscaNormalizada
+                    )
+
+                    ||
+
+                    normalizar(
+                        item.servico
+                    ).includes(
+                        buscaNormalizada
+                    )
+
+                    ||
+
+                    normalizar(
+                        item.horario
+                    ).includes(
+                        buscaNormalizada
+                    )
+
+                    ||
+
+                    normalizar(
+                        item.tipo
+                    ).includes(
+                        buscaNormalizada
+                    )
+
                 );
 
             });
 
     }
 
+
     // =================================================
-    // DATA
+    // FILTRO DE DATA
     // =================================================
 
-    /*
-       IMPORTANTE:
+    // SOMENTE FILTRA SE O USUÁRIO ESCOLHER UMA DATA.
 
-       Na aba Histórico pago não aplicamos
-       automaticamente o filtro de hoje.
-
-       Assim você consegue visualizar
-       TODOS os cortes pagos.
-    */
-
-    if (dataFiltro && filtroAtual !== "historico") {
+    if (dataFiltro) {
 
         lista =
             lista.filter(
                 item =>
-                    item.data === dataFiltro
+                    String(item.data || "")
+                    .trim() === dataFiltro
             );
 
     }
 
+
     // =================================================
-    // VAZIO
+    // NENHUM RESULTADO
     // =================================================
 
-    if (lista.length === 0) {
-
-        let mensagem =
-            "Nenhum agendamento encontrado.";
-
-        if (filtroAtual === "historico") {
-
-            mensagem =
-                "📚 Nenhum corte pago no histórico.";
-
-        }
+    if (
+        lista.length === 0
+    ) {
 
         container.innerHTML = `
 
             <div class="empty">
 
-                ${mensagem}
+                📭 Nenhum agendamento encontrado.
+
+                <br><br>
+
+                ${
+                    dados.length > 0
+                        ? "Tente remover os filtros."
+                        : "Ainda não existem agendamentos."
+                }
 
             </div>
 
@@ -998,36 +1186,9 @@ function renderizar() {
 
     }
 
+
     container.innerHTML = "";
 
-    // =================================================
-    // AVISO HISTÓRICO
-    // =================================================
-
-    if (filtroAtual === "historico") {
-
-        const aviso =
-            document.createElement("div");
-
-        aviso.className =
-            "history-info";
-
-        aviso.style.gridColumn =
-            "1 / -1";
-
-        aviso.innerHTML = `
-
-            💰 <strong>Histórico de cortes pagos</strong>
-
-            <br>
-
-            Aqui aparecem todos os cortes que já foram pagos.
-
-        `;
-
-        container.appendChild(aviso);
-
-    }
 
     // =================================================
     // CARDS
@@ -1036,82 +1197,175 @@ function renderizar() {
     lista.forEach(item => {
 
         const card =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         card.className =
             "appointment";
 
+
         const statusClass =
-            getStatusClass(item.status);
+            getStatusClass(
+                item.status
+            );
+
 
         const preco =
-            Number(item.preco || 0);
+            Number(
+                item.preco || 0
+            );
+
+
+        const estaPago =
+            item.pago === true ||
+            item.pago === "true";
+
 
         const pagoTexto =
-            item.pago
+            estaPago
                 ? "✓ PAGO"
                 : "Não pago";
 
+
         const pagoClass =
-            item.pago
+            estaPago
                 ? "paid"
                 : "unpaid";
+
 
         card.innerHTML = `
 
             <div class="appointment-header">
 
                 <h2>
-                    ${escapeHTML(item.nome)}
+                    ${escapeHTML(
+                        item.nome ||
+                        "Sem nome"
+                    )}
                 </h2>
 
                 <span class="status ${statusClass}">
-                    ${escapeHTML(item.status)}
+                    ${escapeHTML(
+                        item.status ||
+                        "Pendente"
+                    )}
                 </span>
 
             </div>
 
+
             <div class="info">
+
                 📞
-                <strong>Telefone:</strong>
-                ${escapeHTML(item.telefone)}
+
+                <strong>
+                    Telefone:
+                </strong>
+
+                ${escapeHTML(
+                    item.telefone ||
+                    "Não informado"
+                )}
+
             </div>
 
+
             <div class="info">
+
                 📧
-                <strong>E-mail:</strong>
-                ${escapeHTML(item.email || "Não informado")}
+
+                <strong>
+                    E-mail:
+                </strong>
+
+                ${escapeHTML(
+                    item.email ||
+                    "Não informado"
+                )}
+
             </div>
 
+
             <div class="info">
+
                 📅
-                <strong>Data:</strong>
-                ${formatarData(item.data)}
+
+                <strong>
+                    Data:
+                </strong>
+
+                ${formatarData(
+                    item.data
+                )}
+
             </div>
 
+
             <div class="info">
+
                 🕐
-                <strong>Horário:</strong>
-                ${escapeHTML(item.horario)}
+
+                <strong>
+                    Horário:
+                </strong>
+
+                ${escapeHTML(
+                    item.horario ||
+                    "Não informado"
+                )}
+
             </div>
 
+
             <div class="info">
+
                 ✂️
-                <strong>Serviço:</strong>
-                ${escapeHTML(item.servico)}
+
+                <strong>
+                    Serviço:
+                </strong>
+
+                ${escapeHTML(
+                    item.servico ||
+                    "Não informado"
+                )}
+
             </div>
 
+
             <div class="info">
+
                 💈
-                <strong>Corte:</strong>
-                ${escapeHTML(item.tipo)}
+
+                <strong>
+                    Corte:
+                </strong>
+
+                ${escapeHTML(
+                    item.tipo ||
+                    "Não informado"
+                )}
+
             </div>
 
+
             <div class="info">
+
                 📝
-                <strong>Observações:</strong>
-                ${escapeHTML(item.observacoes || "Nenhuma")}
+
+                <strong>
+                    Observações:
+                </strong>
+
+                ${escapeHTML(
+                    item.observacoes ||
+                    "Nenhuma"
+                )}
+
             </div>
+
 
             <div class="price">
 
@@ -1120,15 +1374,21 @@ function renderizar() {
                 </span>
 
                 <span>
-                    ${formatarPreco(preco)}
+                    ${formatarPreco(
+                        preco
+                    )}
                 </span>
 
             </div>
 
+
             <div class="info">
 
                 💰
-                <strong>Pagamento:</strong>
+
+                <strong>
+                    Pagamento:
+                </strong>
 
                 <span class="${pagoClass}">
                     ${pagoTexto}
@@ -1136,7 +1396,9 @@ function renderizar() {
 
             </div>
 
+
             <div class="actions">
+
 
                 ${
                     item.status !== "Confirmado" &&
@@ -1146,18 +1408,27 @@ function renderizar() {
                     ?
 
                     `
+
                     <button
                         class="confirm"
-                        onclick="mudarStatus(${item.id}, 'Confirmado')"
+                        onclick="mudarStatus(
+                            ${Number(item.id)},
+                            'Confirmado'
+                        )"
                     >
+
                         ✓ Confirmar
+
                     </button>
+
                     `
 
                     :
 
                     ""
+
                 }
+
 
                 ${
                     item.status === "Confirmado"
@@ -1165,18 +1436,27 @@ function renderizar() {
                     ?
 
                     `
+
                     <button
                         class="progress"
-                        onclick="mudarStatus(${item.id}, 'Em andamento')"
+                        onclick="mudarStatus(
+                            ${Number(item.id)},
+                            'Em andamento'
+                        )"
                     >
+
                         💈 Iniciar Corte
+
                     </button>
+
                     `
 
                     :
 
                     ""
+
                 }
+
 
                 ${
                     item.status !== "Pendente" &&
@@ -1186,18 +1466,27 @@ function renderizar() {
                     ?
 
                     `
+
                     <button
                         class="pending"
-                        onclick="mudarStatus(${item.id}, 'Pendente')"
+                        onclick="mudarStatus(
+                            ${Number(item.id)},
+                            'Pendente'
+                        )"
                     >
+
                         ⏳ Pendente
+
                     </button>
+
                     `
 
                     :
 
                     ""
+
                 }
+
 
                 ${
                     item.status !== "Cancelado" &&
@@ -1206,44 +1495,69 @@ function renderizar() {
                     ?
 
                     `
+
                     <button
                         class="cancel"
-                        onclick="mudarStatus(${item.id}, 'Cancelado')"
+                        onclick="mudarStatus(
+                            ${Number(item.id)},
+                            'Cancelado'
+                        )"
                     >
+
                         ❌ Cancelar
+
                     </button>
+
                     `
 
                     :
 
                     ""
+
                 }
 
+
                 ${
-                    !item.pago
+                    !estaPago
 
                     ?
 
                     `
+
                     <button
                         class="payment"
-                        onclick="mudarPagamento(${item.id}, true)"
+                        onclick="mudarPagamento(
+                            ${Number(item.id)},
+                            true
+                        )"
                     >
+
                         💰 Marcar Pago
+
                     </button>
+
                     `
 
                     :
 
                     `
+
                     <button
                         class="pending"
-                        onclick="mudarPagamento(${item.id}, false)"
+                        onclick="mudarPagamento(
+                            ${Number(item.id)},
+                            false
+                        )"
                     >
+
                         ↩️ Desmarcar Pago
+
                     </button>
+
                     `
+
                 }
+
 
                 ${
                     item.status !== "Finalizado" &&
@@ -1252,54 +1566,94 @@ function renderizar() {
                     ?
 
                     `
+
                     <button
                         class="finish"
-                        onclick="finalizar(${item.id})"
+                        onclick="finalizar(
+                            ${Number(item.id)}
+                        )"
                     >
+
                         ✂️ Finalizar Corte
+
                     </button>
+
                     `
 
                     :
 
                     ""
+
                 }
+
 
                 <button
                     class="delete"
-                    onclick="apagar(${item.id})"
+                    onclick="apagar(
+                        ${Number(item.id)}
+                    )"
                 >
+
                     🗑️ Apagar
+
                 </button>
+
 
             </div>
 
         `;
 
-        container.appendChild(card);
+
+        container.appendChild(
+            card
+        );
 
     });
 
 }
 
+
+// =====================================================
+// NORMALIZAR
+// =====================================================
+
 function normalizar(valor) {
 
-    return String(valor || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]/g, "");
+    return String(
+        valor || ""
+    )
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(
+        /[\u0300-\u036f]/g,
+        ""
+    )
+    .replace(
+        /[^a-z0-9]/g,
+        ""
+    );
 
 }
 
-async function mudarStatus(id, status) {
 
-    if (status === "Cancelado") {
+// =====================================================
+// STATUS
+// =====================================================
+
+async function mudarStatus(
+    id,
+    status
+) {
+
+    if (
+        status === "Cancelado"
+    ) {
 
         const confirmar =
             confirm(
                 "Tem certeza que deseja cancelar este agendamento?"
             );
+
 
         if (!confirmar) {
             return;
@@ -1307,17 +1661,22 @@ async function mudarStatus(id, status) {
 
     }
 
+
     try {
 
         const response =
             await fetch(
                 "/api/status",
                 {
-                    method: "POST",
+
+                    method:
+                        "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
+
                     },
 
                     body:
@@ -1325,10 +1684,14 @@ async function mudarStatus(id, status) {
                             id,
                             status
                         })
+
                 }
             );
 
-        if (response.status === 401) {
+
+        if (
+            response.status === 401
+        ) {
 
             window.location.href =
                 "/login.html";
@@ -1337,10 +1700,14 @@ async function mudarStatus(id, status) {
 
         }
 
+
         const resultado =
             await response.json();
 
-        if (!resultado.success) {
+
+        if (
+            !resultado.success
+        ) {
 
             alert(
                 resultado.message ||
@@ -1351,19 +1718,27 @@ async function mudarStatus(id, status) {
 
         }
 
+
         await carregar();
 
     }
 
-    catch (error) {
+    catch(error) {
 
         console.error(error);
 
-        alert("Erro de conexão.");
+        alert(
+            "Erro de conexão."
+        );
 
     }
 
 }
+
+
+// =====================================================
+// FINALIZAR
+// =====================================================
 
 async function finalizar(id) {
 
@@ -1373,9 +1748,11 @@ async function finalizar(id) {
             "O horário será liberado para outro cliente."
         );
 
+
     if (!confirmar) {
         return;
     }
+
 
     await mudarStatus(
         id,
@@ -1384,7 +1761,15 @@ async function finalizar(id) {
 
 }
 
-async function mudarPagamento(id, pago) {
+
+// =====================================================
+// PAGAMENTO
+// =====================================================
+
+async function mudarPagamento(
+    id,
+    pago
+) {
 
     try {
 
@@ -1392,11 +1777,15 @@ async function mudarPagamento(id, pago) {
             await fetch(
                 "/api/payment",
                 {
-                    method: "POST",
+
+                    method:
+                        "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
+
                     },
 
                     body:
@@ -1404,10 +1793,14 @@ async function mudarPagamento(id, pago) {
                             id,
                             pago
                         })
+
                 }
             );
 
-        if (response.status === 401) {
+
+        if (
+            response.status === 401
+        ) {
 
             window.location.href =
                 "/login.html";
@@ -1416,10 +1809,14 @@ async function mudarPagamento(id, pago) {
 
         }
 
+
         const resultado =
             await response.json();
 
-        if (!resultado.success) {
+
+        if (
+            !resultado.success
+        ) {
 
             alert(
                 resultado.message ||
@@ -1430,45 +1827,27 @@ async function mudarPagamento(id, pago) {
 
         }
 
+
         await carregar();
-
-        /*
-           Se marcou como pago,
-           abre automaticamente o histórico.
-        */
-
-        if (pago === true) {
-
-            const botaoHistorico =
-                document.querySelectorAll(".tab")[5];
-
-            filtroAtual = "historico";
-
-            document
-                .querySelectorAll(".tab")
-                .forEach(tab =>
-                    tab.classList.remove("active")
-                );
-
-            if (botaoHistorico) {
-                botaoHistorico.classList.add("active");
-            }
-
-            renderizar();
-
-        }
 
     }
 
-    catch (error) {
+    catch(error) {
 
         console.error(error);
 
-        alert("Erro de conexão.");
+        alert(
+            "Erro de conexão."
+        );
 
     }
 
 }
+
+
+// =====================================================
+// APAGAR
+// =====================================================
 
 async function apagar(id) {
 
@@ -1478,9 +1857,11 @@ async function apagar(id) {
             "Essa ação não pode ser desfeita."
         );
 
+
     if (!confirmar) {
         return;
     }
+
 
     try {
 
@@ -1488,21 +1869,29 @@ async function apagar(id) {
             await fetch(
                 "/api/delete",
                 {
-                    method: "POST",
+
+                    method:
+                        "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
+
                     },
 
                     body:
                         JSON.stringify({
                             id
                         })
+
                 }
             );
 
-        if (response.status === 401) {
+
+        if (
+            response.status === 401
+        ) {
 
             window.location.href =
                 "/login.html";
@@ -1511,10 +1900,14 @@ async function apagar(id) {
 
         }
 
+
         const resultado =
             await response.json();
 
-        if (!resultado.success) {
+
+        if (
+            !resultado.success
+        ) {
 
             alert(
                 resultado.message ||
@@ -1525,19 +1918,27 @@ async function apagar(id) {
 
         }
 
+
         await carregar();
 
     }
 
-    catch (error) {
+    catch(error) {
 
         console.error(error);
 
-        alert("Erro de conexão.");
+        alert(
+            "Erro de conexão."
+        );
 
     }
 
 }
+
+
+// =====================================================
+// SAIR
+// =====================================================
 
 async function sair() {
 
@@ -1546,9 +1947,11 @@ async function sair() {
             "Deseja realmente sair do dashboard?"
         );
 
+
     if (!confirmar) {
         return;
     }
+
 
     try {
 
@@ -1556,14 +1959,19 @@ async function sair() {
             await fetch(
                 "/api/logout",
                 {
-                    method: "POST"
+                    method:
+                        "POST"
                 }
             );
+
 
         const resultado =
             await response.json();
 
-        if (resultado.success) {
+
+        if (
+            resultado.success
+        ) {
 
             window.location.href =
                 "/login.html";
@@ -1580,64 +1988,130 @@ async function sair() {
 
     }
 
-    catch (error) {
+    catch(error) {
 
         console.error(error);
 
-        alert("Erro de conexão.");
+        alert(
+            "Erro de conexão."
+        );
 
     }
 
 }
 
+
+// =====================================================
+// CLASSE DO STATUS
+// =====================================================
+
 function getStatusClass(status) {
 
-    if (status === "Pendente")
+    status =
+        String(
+            status || ""
+        ).trim();
+
+
+    if (
+        status === "Pendente"
+    )
         return "status-pendente";
 
-    if (status === "Confirmado")
+
+    if (
+        status === "Confirmado"
+    )
         return "status-confirmado";
 
-    if (status === "Em andamento")
+
+    if (
+        status === "Em andamento"
+    )
         return "status-andamento";
 
-    if (status === "Cancelado")
+
+    if (
+        status === "Cancelado"
+    )
         return "status-cancelado";
 
-    if (status === "Finalizado")
+
+    if (
+        status === "Finalizado"
+    )
         return "status-finalizado";
+
 
     return "";
 
 }
 
+
+// =====================================================
+// SEGURANÇA HTML
+// =====================================================
+
 function escapeHTML(texto) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     div.textContent =
         texto ?? "";
+
 
     return div.innerHTML;
 
 }
 
+
+// =====================================================
+// PREÇO
+// =====================================================
+
 function formatarPreco(valor) {
 
     return "$" +
-        Number(valor || 0).toFixed(2);
+        Number(
+            valor || 0
+        ).toFixed(2);
 
 }
+
+
+// =====================================================
+// DATA
+// =====================================================
 
 function criarDataLocal(data) {
 
     if (!data) {
-        return new Date("invalid");
+
+        return new Date(
+            "invalid"
+        );
+
     }
 
+
     const partes =
-        data.split("-");
+        String(data).split("-");
+
+
+    if (
+        partes.length !== 3
+    ) {
+
+        return new Date(
+            "invalid"
+        );
+
+    }
+
 
     return new Date(
         Number(partes[0]),
@@ -1647,20 +2121,30 @@ function criarDataLocal(data) {
 
 }
 
+
 function formatarDataISO(data) {
 
     const ano =
         data.getFullYear();
 
+
     const mes =
         String(
             data.getMonth() + 1
-        ).padStart(2, "0");
+        ).padStart(
+            2,
+            "0"
+        );
+
 
     const dia =
         String(
             data.getDate()
-        ).padStart(2, "0");
+        ).padStart(
+            2,
+            "0"
+        );
+
 
     return (
         ano +
@@ -1672,18 +2156,30 @@ function formatarDataISO(data) {
 
 }
 
+
 function formatarData(data) {
 
     if (!data) {
-        return "";
+
+        return "Não informada";
+
     }
+
 
     const partes =
-        data.split("-");
+        String(data).split("-");
 
-    if (partes.length !== 3) {
-        return data;
+
+    if (
+        partes.length !== 3
+    ) {
+
+        return escapeHTML(
+            data
+        );
+
     }
+
 
     return (
         partes[2] +
@@ -1695,16 +2191,29 @@ function formatarData(data) {
 
 }
 
-(async function iniciar() {
 
-    configurarData();
+// =====================================================
+// INICIAR
+// =====================================================
+
+(async function iniciar() {
 
     const logado =
         await verificarLogin();
 
+
     if (logado) {
 
-        carregar();
+        // IMPORTANTE:
+        // NÃO coloca data de hoje automaticamente.
+
+        document.getElementById(
+            "filtroData"
+        ).value = "";
+
+
+        await carregar();
+
 
         setInterval(
             carregar,
