@@ -1,0 +1,416 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>SAMUCA • Login</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    font-family: Inter, Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at top,
+            #111d35 0%,
+            #080808 45%,
+            #050505 100%
+        );
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 420px;
+
+    background: rgba(17,17,17,.92);
+
+    border: 1px solid #292929;
+
+    border-radius: 24px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.55);
+
+    backdrop-filter: blur(15px);
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.logo h1 {
+    margin: 0;
+
+    font-size: 38px;
+
+    letter-spacing: 6px;
+}
+
+.logo span {
+    color: #348cff;
+}
+
+.logo p {
+    margin-top: 10px;
+
+    color: #777;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+}
+
+.icon {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background: #0d0d0d;
+
+    border: 1px solid #292929;
+
+    font-size: 30px;
+}
+
+label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #aaa;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+
+    padding: 15px 16px;
+
+    margin-bottom: 20px;
+
+    background: #090909;
+
+    color: white;
+
+    border: 1px solid #292929;
+
+    border-radius: 11px;
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition: .2s;
+}
+
+input:focus {
+    border-color: #348cff;
+
+    box-shadow:
+        0 0 0 3px rgba(52,140,255,.10);
+}
+
+button {
+    width: 100%;
+
+    padding: 16px;
+
+    border: 0;
+
+    border-radius: 11px;
+
+    background: linear-gradient(
+        135deg,
+        #287cff,
+        #1764dd
+    );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 25px rgba(40,124,255,.25);
+}
+
+button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#status {
+    min-height: 22px;
+
+    margin-top: 18px;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+.error {
+    color: #ff6b6b;
+}
+
+.success {
+    color: #39ff88;
+}
+
+.footer {
+    margin-top: 30px;
+
+    text-align: center;
+
+    color: #555;
+
+    font-size: 11px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <div class="logo">
+
+        <div class="icon">
+            ✂️
+        </div>
+
+        <h1>
+            SAM<span>UCA</span>
+        </h1>
+
+        <p>
+            ÁREA DO CABELEIREIRO
+        </p>
+
+    </div>
+
+
+    <form id="loginForm">
+
+        <label>
+            Usuário
+        </label>
+
+        <input
+            id="usuario"
+            type="text"
+            autocomplete="username"
+            placeholder="Digite seu usuário"
+            required
+        >
+
+
+        <label>
+            Senha
+        </label>
+
+        <input
+            id="senha"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Digite sua senha"
+            required
+        >
+
+
+        <button
+            id="botao"
+            type="submit"
+        >
+            🔐 ENTRAR NO DASHBOARD
+        </button>
+
+    </form>
+
+
+    <div id="status"></div>
+
+
+    <div class="footer">
+        SAMUCA BARBERSHOP • Área restrita
+    </div>
+
+</div>
+
+
+<script>
+
+const form =
+    document.getElementById("loginForm");
+
+const botao =
+    document.getElementById("botao");
+
+const status =
+    document.getElementById("status");
+
+
+form.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        botao.disabled = true;
+
+        status.className = "";
+
+        status.textContent =
+            "⏳ Verificando acesso...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/login",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        credentials: "same-origin",
+
+                        body:
+                            JSON.stringify({
+
+                                usuario:
+                                    document
+                                        .getElementById(
+                                            "usuario"
+                                        )
+                                        .value
+                                        .trim(),
+
+                                senha:
+                                    document
+                                        .getElementById(
+                                            "senha"
+                                        )
+                                        .value
+
+                            })
+                    }
+                );
+
+
+            const resultado =
+                await response.json();
+
+
+            if (
+                response.ok &&
+                resultado.success
+            ) {
+
+                status.className =
+                    "success";
+
+                status.textContent =
+                    "✅ Login realizado!";
+
+
+                setTimeout(
+                    () => {
+
+                        window.location.href =
+                            "/dashboard.html";
+
+                    },
+                    400
+                );
+
+            }
+
+            else {
+
+                status.className =
+                    "error";
+
+                status.textContent =
+                    "❌ " +
+                    (
+                        resultado.message ||
+                        "Usuário ou senha incorretos."
+                    );
+
+                botao.disabled = false;
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            status.className =
+                "error";
+
+            status.textContent =
+                "❌ Não foi possível conectar ao servidor.";
+
+            botao.disabled = false;
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+```
