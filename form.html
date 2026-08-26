@@ -324,17 +324,6 @@ button:disabled {
 
 
     <label>
-        📷 Foto de referência
-    </label>
-
-    <input
-        id="foto"
-        type="file"
-        accept="image/*"
-    >
-
-
-    <label>
         📝 Observações
     </label>
 
@@ -391,9 +380,6 @@ async function agendar() {
 
     const observacoes =
         document.getElementById("observacoes").value.trim();
-
-    const foto =
-        document.getElementById("foto").files[0];
 
 
     if (
@@ -501,8 +487,6 @@ async function agendar() {
             document.getElementById("tipo").value = "";
 
             document.getElementById("observacoes").value = "";
-
-            document.getElementById("foto").value = "";
 
 
         } else {
